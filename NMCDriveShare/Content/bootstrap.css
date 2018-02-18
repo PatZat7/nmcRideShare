@@ -757,10 +757,11 @@ pre code {
 }
 
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+
 }
 
 .container:before,
@@ -769,19 +770,22 @@ pre code {
   content: " ";
 }
 
-.container:after {
-  clear: both;
-}
+    .container:after {
+        clear: both;
+        
+    }
 
-.container:before,
-.container:after {
-  display: table;
-  content: " ";
-}
+    .container:before,
+    .container:after {
+        display: table;
+        content: " ";
 
-.container:after {
-  clear: both;
-}
+    }
+
+    .container:after {
+        clear: both;
+
+    }
 
 .row {
   margin-right: -15px;
@@ -4171,6 +4175,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   position: fixed;
   right: 0;
   left: 0;
+  height: 150px;
   border-width: 0 0 1px;
 }
 
