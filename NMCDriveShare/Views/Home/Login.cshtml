@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="row">
+    <h2 class="headers">Log in or Register</h2>
+    @ViewBag.Message
+
+</div>
+
+<hr class="line" />
+
+<body class="user-info">
+
+    <h3 class="landingHeader">Log in</h3>
+    <br />
+
+    <div>
+
+        
+        @Html.LabelFor(m => m.NMCEmail, new { Class = "labelClass" })
+        <br />
+        @Html.TextBoxFor(m => m.NMCEmail, new { Class = "textBoxClass" })
+
+        <br />
+        @Html.LabelFor(m => m.Password, new { Class = "labelClass" })
+        <br />
+        @Html.PasswordFor(m => m.Password, new { Class = "textBoxClass" })
+
+        <br />
+        <br />
+        <input class="buttons" type="submit" value="Log In" />
+        <hr class="line" />
+
+    </div>
+
+    <div class="boxFormat">
+
+        <h3 class="landingHeader">Register</h3>
+        <br />
+
+        @model NMCDriveShare.Models.Register
+
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+
+
+            @Html.LabelFor(m => m.Name, new { Class = "labelClass" })
+            <br />
+            @Html.TextBoxFor(m => m.Name, new { Class = "textBoxClass" })
+
+            <br />
+
+            @Html.LabelFor(m => m.Phone, new { Class = "labelClass" })
+            <br />
+            @Html.TextBoxFor(m => m.Phone, new { Class = "textBoxClass" })
+
+            <br />
+            @Html.LabelFor(m => m.NMCEmail, new { Class = "labelClass" })
+            <br />
+            @Html.TextBoxFor(m => m.NMCEmail, new { Class = "textBoxClass" })
+
+            <br />
+            @Html.LabelFor(m => m.Password, new { Class = "labelClass" })
+            <br />
+            @Html.PasswordFor(m => m.Password, new { Class = "textBoxClass" })
+
+            <br />
+            @Html.Label("Male", new { Class = "labelClass" })
+            @Html.RadioButtonFor(m => m.Gender, "Male", new { Class = "radioClass" })
+            @Html.Label("Female", new { Class = "labelClass" })
+            @Html.RadioButtonFor(m => m.Gender, "Female", new { value = "Female", Class = "radioClass" })
+
+            <br />
+            <br />
+
+            <input class="buttons" type="submit" value="Register" />
+
+            <hr class="line" />
+
+        }
+    </div>
+
+
+
+
+
+</body>

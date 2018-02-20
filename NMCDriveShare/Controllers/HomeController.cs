@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NMCDriveShare.Models;
 
 namespace NMCDriveShare.Controllers
 {
@@ -13,11 +14,12 @@ namespace NMCDriveShare.Controllers
             return View();
         }
 
-        public ActionResult About()
+        //httppost throws routing error
+        public ActionResult Login(Register r)
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Create a new account or log in to an existing one.";
 
-            return View();
+            return View(r);
         }
 
         public ActionResult Contact()

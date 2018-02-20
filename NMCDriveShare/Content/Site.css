@@ -27,7 +27,7 @@ textarea {
     margin-top: 100px;
 }
 
-.navbar-fixed-top{
+.navbar-fixed-top {
     background-color: green;
 }
 
@@ -38,26 +38,92 @@ textarea {
 }
 
 .line {
-   border-color: black;
-   border-width:2px;
-   margin-left: 5px;
-   margin-right: 5px;
+    border-color: black;
+    border-width: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-.user-info{
+.buttons {
+    font-weight: bold;
+    color: white;
+    border-width: 7px;
+    font-family: Georgia;
+    background-color: gray;
+    padding: 15px 95px 15px 95px;
+    border-radius: 24px;
+    border-color: white;
+    border-style: solid;
+}
+
+    .buttons:hover {
+        background-color: forestgreen;
+        text-decoration: underline;
+    }
+
+    .buttons:active {
+        background-color: darkgreen;
+    }
+
+    .headers{
+        font-family:Georgia;
+        
+    }
+
+    .landingHeader{
+        font-family:Georgia;
+        text-decoration:underline;
+        font-size:30px;
+        margin-left:40%;
+    }
+
+.labelClass {
+    font-size: 28px;
+    font-family: Georgia;
+    color: white;
+    font-weight: bold;
+}
+
+.radioClass {
+    transform: scale(2.5);
+}
+
+.textBoxClass {
+    width: 250px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: forestgreen;
+    color: white;
+    font-weight: bold;
+    opacity: 0.55;
+    border-color: white;
+    border: solid;
+}
+
+    .textBoxClass:focus {
+        width: 250px;
+        height: 40px;
+        border-radius: 20px;
+        background-color: forestgreen;
+        color: white;
+        font-weight: bold;
+        opacity: 1.0;
+    }
+
+.user-info {
     margin: 5px 5px;
     /*border: 2px solid black;*/
     height: 150px;
-    background-color:lightgrey;
+    background-color: lightgrey;
 }
 
-#name{
+#name {
     font-weight: bold;
     color: black;
-    margin:0;
+    margin: 0;
 }
 
-#title-name{
+#title-name {
     color: black;
 }
 
@@ -75,14 +141,14 @@ textarea {
     margin: 5px;
 }
 
-.left-side{
+.left-side {
     /*border: 1px dotted red;*/
-    float:left;
+    float: left;
 }
 
 .right-side {
     /*border: 1px dotted green;*/
-    float:right;
+    float: right;
     height: 100px;
     width: 100px;
 }
