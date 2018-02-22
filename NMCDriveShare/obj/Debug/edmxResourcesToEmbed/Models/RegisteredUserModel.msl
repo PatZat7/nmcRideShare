@@ -1,24 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DriveShareModelStoreContainer" CdmEntityContainer="DriveShareEntities3">
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="DriveShareModel.Comment">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="commentText" ColumnName="commentText" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="commentID" ColumnName="commentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Geolocations">
+      <EntityTypeMapping TypeName="DriveShareModel.Geolocation">
+        <MappingFragment StoreEntitySet="Geolocation">
+          <ScalarProperty Name="coordinates" ColumnName="coordinates" />
+          <ScalarProperty Name="locationId" ColumnName="locationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RideBoards">
+      <EntityTypeMapping TypeName="DriveShareModel.RideBoard">
+        <MappingFragment StoreEntitySet="RideBoard">
+          <ScalarProperty Name="destinationId" ColumnName="destinationId" />
+          <ScalarProperty Name="driverId" ColumnName="driverId" />
+          <ScalarProperty Name="boardId" ColumnName="boardId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RideBoardUsers">
+      <EntityTypeMapping TypeName="DriveShareModel.RideBoardUser">
+        <MappingFragment StoreEntitySet="RideBoardUser">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userNum" ColumnName="userNum" />
+          <ScalarProperty Name="boardId" ColumnName="boardId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="DriveShareModel.User">
         <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="userID" ColumnName="userID" />
-          <ScalarProperty Name="lastName" ColumnName="lastName" />
-          <ScalarProperty Name="firstName" ColumnName="firstName" />
-          <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="streetName" ColumnName="streetName" />
-          <ScalarProperty Name="city" ColumnName="city" />
-          <ScalarProperty Name="state" ColumnName="state" />
-          <ScalarProperty Name="zip" ColumnName="zip" />
-          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
-          <ScalarProperty Name="isRider" ColumnName="isRider" />
-          <ScalarProperty Name="isDriver" ColumnName="isDriver" />
-          <ScalarProperty Name="rating" ColumnName="rating" />
-          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="locationId" ColumnName="locationId" />
           <ScalarProperty Name="nmcEmail" ColumnName="nmcEmail" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="isDriver" ColumnName="isDriver" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

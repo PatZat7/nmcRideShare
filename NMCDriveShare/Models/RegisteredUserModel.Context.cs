@@ -27,6 +27,10 @@ namespace NMCDriveShare.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Geolocation> Geolocations { get; set; }
+        public virtual DbSet<RideBoard> RideBoards { get; set; }
+        public virtual DbSet<RideBoardUser> RideBoardUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
         public virtual int AddNewUser(string lastName, string phoneNumber, string nmcEmail, string password, string gender)
