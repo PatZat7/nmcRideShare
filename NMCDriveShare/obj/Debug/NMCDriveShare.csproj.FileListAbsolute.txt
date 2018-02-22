@@ -170,3 +170,7 @@ C:\Users\Administrator\Desktop\DriveShare\NMCDriveShare\bin\EntityFramework.dll
 C:\Users\Administrator\Desktop\DriveShare\NMCDriveShare\bin\EntityFramework.SqlServer.dll
 C:\Users\Administrator\Desktop\DriveShare\NMCDriveShare\bin\EntityFramework.xml
 C:\Users\Administrator\Desktop\DriveShare\NMCDriveShare\bin\EntityFramework.SqlServer.xml
+C:\Users\Jacob\Desktop\DriveShare-master\NMCDriveShare\bin\EntityFramework.dll
+C:\Users\Jacob\Desktop\DriveShare-master\NMCDriveShare\bin\EntityFramework.SqlServer.dll
+C:\Users\Jacob\Desktop\DriveShare-master\NMCDriveShare\bin\EntityFramework.xml
+C:\Users\Jacob\Desktop\DriveShare-master\NMCDriveShare\bin\EntityFramework.SqlServer.xml

@@ -33,16 +33,9 @@ namespace NMCDriveShare.Controllers
         //httppost throws routing error
         public ActionResult Login(User r)
         {
+            int login = 0;
             ViewBag.Message = "Create a new account or log in to an existing one.";
-
             return View(r);
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }

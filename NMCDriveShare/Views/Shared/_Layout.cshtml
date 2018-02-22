@@ -23,12 +23,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
-                    @*cannot get back from User Data page without this button*@
-                    <li>@Html.ActionLink("Escape", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Drive Share", "Index", "Home", new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("About", "Login", "Home", new { @class = "navbar-brand" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Drive Share", "Index", "Home", null, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Login", "Login", "Home", null, new { @class = "navbar-brand" })</li>
                 </ul>
             </div>
         </div>
