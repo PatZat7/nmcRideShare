@@ -152,13 +152,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DriveShareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DriveShareEntities3" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="AddNewUser">
-            <Parameter Name="lastName" Mode="In" Type="String" />
-            <Parameter Name="phoneNumber" Mode="In" Type="String" />
-            <Parameter Name="nmcEmail" Mode="In" Type="String" />
-            <Parameter Name="password" Mode="In" Type="String" />
-            <Parameter Name="gender" Mode="In" Type="String" />
-          </FunctionImport>
           <EntitySet Name="Comments" EntityType="DriveShareModel.Comment" />
           <EntitySet Name="Geolocations" EntityType="DriveShareModel.Geolocation" />
           <EntitySet Name="RideBoards" EntityType="DriveShareModel.RideBoard" />
@@ -184,6 +177,13 @@
             <End Role="User" EntitySet="Users" />
             <End Role="RideBoardUser" EntitySet="RideBoardUsers" />
           </AssociationSet>
+          <FunctionImport Name="AddNewUser">
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="String" />
+            <Parameter Name="nmcEmail" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="gender" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Comment">
           <Key>
@@ -309,7 +309,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DriveShareModelStoreContainer" CdmEntityContainer="DriveShareEntities3">
-          <FunctionImportMapping FunctionImportName="AddNewUser" FunctionName="DriveShareModel.Store.AddNewUser" />
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="DriveShareModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
@@ -362,6 +361,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddNewUser" FunctionName="DriveShareModel.Store.AddNewUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
