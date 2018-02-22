@@ -1,4 +1,6 @@
-﻿
+﻿@model NMCDriveShare.Models.User
+
+
 @{
     ViewBag.Title = "Login";
 }
@@ -18,15 +20,15 @@
 
     <div>
 
-        
-        @Html.LabelFor(m => m.NMCEmail, new { Class = "labelClass" })
+
+        @Html.LabelFor(m => m.nmcEmail, new { Class = "labelClass" })
         <br />
-        @Html.TextBoxFor(m => m.NMCEmail, new { Class = "textBoxClass" })
+        @Html.TextBoxFor(m => m.nmcEmail, new { Class = "textBoxClass" })
 
         <br />
-        @Html.LabelFor(m => m.Password, new { Class = "labelClass" })
+        @Html.LabelFor(m => m.password, new { Class = "labelClass" })
         <br />
-        @Html.PasswordFor(m => m.Password, new { Class = "textBoxClass" })
+        @Html.PasswordFor(m => m.password, new { Class = "textBoxClass" })
 
         <br />
         <br />
@@ -40,38 +42,38 @@
         <h3 class="landingHeader">Register</h3>
         <br />
 
-        @model NMCDriveShare.Models.Register
+
 
 
         @using (Html.BeginForm("Index", "Home", FormMethod.Post))
         {
 
 
-            @Html.LabelFor(m => m.Name, new { Class = "labelClass" })
+            @Html.LabelFor(m => m.lastName, new { Class = "labelClass" })
             <br />
-            @Html.TextBoxFor(m => m.Name, new { Class = "textBoxClass" })
+            @Html.TextBoxFor(m => m.lastName, new { Class = "textBoxClass" })
 
             <br />
 
-            @Html.LabelFor(m => m.Phone, new { Class = "labelClass" })
+            @Html.LabelFor(m => m.phoneNumber, new { Class = "labelClass" })
             <br />
-            @Html.TextBoxFor(m => m.Phone, new { Class = "textBoxClass" })
+            @Html.TextBoxFor(m => m.phoneNumber, new { Class = "textBoxClass" })
 
             <br />
-            @Html.LabelFor(m => m.NMCEmail, new { Class = "labelClass" })
+            @Html.LabelFor(m => m.nmcEmail, new { Class = "labelClass" })
             <br />
-            @Html.TextBoxFor(m => m.NMCEmail, new { Class = "textBoxClass" })
+            @Html.TextBoxFor(m => m.nmcEmail, new { Class = "textBoxClass" })
 
             <br />
-            @Html.LabelFor(m => m.Password, new { Class = "labelClass" })
+            @Html.LabelFor(m => m.password, new { Class = "labelClass" })
             <br />
-            @Html.PasswordFor(m => m.Password, new { Class = "textBoxClass" })
+            @Html.PasswordFor(m => m.password, new { Class = "textBoxClass" })
 
             <br />
             @Html.Label("Male", new { Class = "labelClass" })
-            @Html.RadioButtonFor(m => m.Gender, "Male", new { Class = "radioClass" })
+            @Html.RadioButtonFor(m => m.gender, "Male", new { Class = "radioClass" })
             @Html.Label("Female", new { Class = "labelClass" })
-            @Html.RadioButtonFor(m => m.Gender, "Female", new { value = "Female", Class = "radioClass" })
+            @Html.RadioButtonFor(m => m.gender, "Female", new { value = "Female", Class = "radioClass" })
 
             <br />
             <br />

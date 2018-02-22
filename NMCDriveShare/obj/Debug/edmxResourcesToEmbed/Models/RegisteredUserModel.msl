@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DriveShareModelStoreContainer" CdmEntityContainer="DriveShareEntities3">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DriveShareModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="streetName" ColumnName="streetName" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zip" ColumnName="zip" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="isRider" ColumnName="isRider" />
+          <ScalarProperty Name="isDriver" ColumnName="isDriver" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="nmcEmail" ColumnName="nmcEmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddNewUser" FunctionName="DriveShareModel.Store.AddNewUser" />
+  </EntityContainerMapping>
+</Mapping>

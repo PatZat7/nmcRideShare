@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DriveShareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="50" />
+    <Property Name="firstName" Type="varchar" MaxLength="50" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="100" />
+    <Property Name="streetName" Type="varchar" MaxLength="50" />
+    <Property Name="city" Type="varchar" MaxLength="50" />
+    <Property Name="state" Type="char" MaxLength="2" />
+    <Property Name="zip" Type="char" MaxLength="5" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="10" />
+    <Property Name="isRider" Type="bit" />
+    <Property Name="isDriver" Type="bit" />
+    <Property Name="rating" Type="float" />
+    <Property Name="gender" Type="varchar" MaxLength="6" />
+    <Property Name="nmcEmail" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Function Name="AddNewUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="lastName" Type="varchar" Mode="In" />
+    <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
+    <Parameter Name="nmcEmail" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
+    <Parameter Name="gender" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="DriveShareModelStoreContainer">
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
