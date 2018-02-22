@@ -155,6 +155,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Geolocation.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\RegisteredUserModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -170,6 +176,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RegisteredUserModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RideBoard.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RideBoardUser.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
