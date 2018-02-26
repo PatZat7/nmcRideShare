@@ -8,7 +8,7 @@ namespace NMCDriveShare.Controllers
 {
     public class PortalController : Controller
     {
-        // GET: Portal
+        // Users display portal
         public ActionResult Index()
         {
             return View();

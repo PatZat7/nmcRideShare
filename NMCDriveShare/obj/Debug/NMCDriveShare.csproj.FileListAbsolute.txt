@@ -220,3 +220,7 @@ C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare\obj\Debug\NMCD
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare\obj\Debug\NMCDriveShare.csproj.CoreCompileInputs.cache
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare\obj\Debug\NMCDriveShare.dll
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare\obj\Debug\NMCDriveShare.pdb
+C:\Users\Jacob\Desktop\DriveShare\NMCDriveShare\bin\EntityFramework.dll
+C:\Users\Jacob\Desktop\DriveShare\NMCDriveShare\bin\EntityFramework.SqlServer.dll
+C:\Users\Jacob\Desktop\DriveShare\NMCDriveShare\bin\EntityFramework.xml
+C:\Users\Jacob\Desktop\DriveShare\NMCDriveShare\bin\EntityFramework.SqlServer.xml

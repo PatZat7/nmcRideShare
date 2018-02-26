@@ -78,11 +78,24 @@ textarea {
     }
 
 .labelClass {
+    margin-bottom: 0px;
     font-size: 28px;
     font-family: Georgia;
     color: white;
     font-weight: bold;
+    margin-right: 20px;
+    margin-left: 20px;
 }
+
+.noteClass {
+    font-size: 14px;
+    font-family: Georgia;
+    color: darkgreen;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
 
 .radioClass {
     transform: scale(2.5);

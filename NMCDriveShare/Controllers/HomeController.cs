@@ -20,9 +20,10 @@ namespace NMCDriveShare.Controllers
         [HttpPost]
         public ActionResult Index(User user)
         {
+            //Adds submitted user data to database
             if (ModelState.IsValid)
             {
-                db.AddNewUser(user.lastName, user.phoneNumber, user.nmcEmail, user.password, user.gender);
+                db.AddNewUser(user.lastName, user.firstName, user.username, user.phoneNumber, /*user.isDriver ,*/ user.nmcEmail, user.password, user.gender);
                 db.SaveChanges();
 
                
@@ -30,10 +31,11 @@ namespace NMCDriveShare.Controllers
             return View("Success");
         }
 
-        //httppost throws routing error
+        //User Login and Registration Page
+        [HttpGet]
         public ActionResult Login(User r)
         {
-            int login = 0;
+            //int login = 0;
             ViewBag.Message = "Create a new account or log in to an existing one.";
             return View(r);
         }
