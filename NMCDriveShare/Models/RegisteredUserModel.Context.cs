@@ -33,7 +33,7 @@ namespace NMCDriveShare.Models
         public virtual DbSet<RideBoardUser> RideBoardUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
-        public virtual int AddNewUser(string lastName, string firstName, string username, string phoneNumber, /*bool isDriver,*/ string nmcEmail, string password, string gender)
+        public virtual int AddNewUser(string lastName, string firstName, string username, string phoneNumber, Nullable<bool> isDriver, string nmcEmail, string password, string gender)
         {
             var lastNameParameter = lastName != null ?
                 new ObjectParameter("lastName", lastName) :
@@ -51,9 +51,9 @@ namespace NMCDriveShare.Models
                 new ObjectParameter("phoneNumber", phoneNumber) :
                 new ObjectParameter("phoneNumber", typeof(string));
 
-            //var isDriverParameter = isDriver ?
-            //    new ObjectParameter("isDriver", isDriver) :
-            //    new ObjectParameter("isDriver", typeof(bool));
+            var isDriverParameter = isDriver != null ?
+                new ObjectParameter("isDriver", isDriver) :
+                new ObjectParameter("isDriver", typeof(Nullable<bool>));
 
             var nmcEmailParameter = nmcEmail != null ?
                 new ObjectParameter("nmcEmail", nmcEmail) :
@@ -67,7 +67,7 @@ namespace NMCDriveShare.Models
                 new ObjectParameter("gender", gender) :
                 new ObjectParameter("gender", typeof(string));
 
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNewUser", lastNameParameter, firstNameParameter, usernameParameter, phoneNumberParameter, /*isDriverParameter,*/ nmcEmailParameter, passwordParameter, genderParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNewUser", lastNameParameter, firstNameParameter, usernameParameter, phoneNumberParameter, isDriverParameter, nmcEmailParameter, passwordParameter, genderParameter);
         }
     }
 }
