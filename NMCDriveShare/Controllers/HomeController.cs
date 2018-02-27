@@ -23,7 +23,7 @@ namespace NMCDriveShare.Controllers
             //Adds submitted user data to database
             if (ModelState.IsValid)
             {
-                db.AddNewUser(user.lastName, user.firstName, user.username, user.phoneNumber, user.isDriver , user.nmcEmail, user.password, user.gender);
+                db.AddNewUser(user.lastName, user.firstName, user.username, user.phoneNumber, /*user.isDriver ,*/ user.nmcEmail, user.password, user.gender);
                 db.SaveChanges();
 
                

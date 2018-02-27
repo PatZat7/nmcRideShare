@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c1a77129725743e985af51871de36ab5" Name="Diagram1">
+        <EntityTypeShape EntityType="DriveShareModel.Comment" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="DriveShareModel.Geolocation" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="DriveShareModel.RideBoard" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="DriveShareModel.RideBoardUser" Width="1.5" PointX="7.5" PointY="2.125" />
+        <EntityTypeShape EntityType="DriveShareModel.User" Width="1.5" PointX="3" PointY="1.375" />
+        <AssociationConnector Association="DriveShareModel.FK__Comments__userID__36B12243" />
+        <AssociationConnector Association="DriveShareModel.FK__Users__locationI__656C112C" />
+        <AssociationConnector Association="DriveShareModel.FK__RideBoard__board__6754599E" />
+        <AssociationConnector Association="DriveShareModel.FK__RideBoard__drive__66603565" />
+        <AssociationConnector Association="DriveShareModel.FK__RideBoard__userI__68487DD7" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

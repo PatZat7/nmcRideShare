@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+    //Set user to "logged in" for the session
+    this.Session["loggedIn"]=true;
+}
+
+<br><br><br><br><br><br><br><br><br><br>
+<h2>Success</h2>
+<p>You have successfully registered. Click the button to go to the users page.</p>
+
+@Html.ActionLink("Go to users", "Index", "Portal")
+
+

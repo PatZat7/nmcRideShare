@@ -1,0 +1,121 @@
+﻿@model NMCDriveShare.Models.User
+
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="row">
+    <h2 class="headers">Log in or Register</h2>
+    @ViewBag.Message
+
+</div>
+
+<hr class="line" />
+
+<body class="user-info">
+
+
+    @*///
+        ///DIV FOR LOGIN FORM
+        ///*@
+    <div>
+        <h3 class="landingHeader">Log in</h3>
+        <br />
+
+        @Html.LabelFor(m => m.nmcEmail, "NMC Email", new { Class = "labelClass" })
+        <br />
+        @Html.TextBoxFor(m => m.nmcEmail, new { Class = "textBoxClass" })
+
+        <br />
+        @Html.LabelFor(m => m.password, "Password", new { Class = "labelClass" })
+        <br />
+        @Html.PasswordFor(m => m.password, new { Class = "textBoxClass" })
+
+        <br />
+        <br />
+        <input class="buttons" type="submit" value="Log In" />
+    </div>
+    @*///
+        ///END LOGIN FORM
+        ///*@
+
+
+    <hr class="line" />
+
+
+    @*///
+        ///DIV FOR REGISTRATION FORM
+        ///*@
+    <div class="boxFormat">
+
+        <h3 class="landingHeader">Register</h3>
+        <br />
+        @*Submits to POST Index action in Home controller*@
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+        {
+            @Html.LabelFor(m => m.username, "Username", new { Class = "labelClass" })
+            <br />
+            @Html.TextBoxFor(m => m.username, new { Class = "textBoxClass" })
+
+            <br />
+            @Html.LabelFor(m => m.firstName, "First Name", new { Class = "labelClass" })
+            <br />
+            @Html.TextBoxFor(m => m.firstName, new { Class = "textBoxClass" })
+
+            <br />
+            @Html.LabelFor(m => m.lastName, "Last Name", new { Class = "labelClass" })
+            <br />
+            @Html.TextBoxFor(m => m.lastName, new { Class = "textBoxClass" })
+
+            <br />
+
+            @Html.LabelFor(m => m.phoneNumber, "Phone Number", new { Class = "labelClass" })
+            <br />
+            @Html.TextBoxFor(m => m.phoneNumber, new { Class = "textBoxClass" })
+
+            <br />
+            @Html.LabelFor(m => m.nmcEmail, "NMC Email", new { Class = "labelClass" })
+            <br />
+            @Html.TextBoxFor(m => m.nmcEmail, new { Class = "textBoxClass" })
+
+            <br />
+            @Html.LabelFor(m => m.password, "Password", new { Class = "labelClass" })
+            <br />
+            @Html.PasswordFor(m => m.password, new { Class = "textBoxClass" })
+
+            <br />
+            @Html.Label("Sex", new { Class = "labelClass" })
+            <br />
+            @Html.Label("Male", new { Class = "labelClass" })
+            @Html.RadioButtonFor(m => m.gender, "Male", new { Class = "radioClass" })
+            @Html.Label("Female", new { Class = "labelClass" })
+            @Html.RadioButtonFor(m => m.gender, "Female", new { value = "Female", Class = "radioClass" })
+            <br />
+            <br />
+            @Html.Label("Driving or Riding", new { Class = "labelClass" })
+            <br />
+            @Html.Label("This can be changed later", new { Class = "noteClass" })
+            <br />
+            @Html.Label("Driving", new { Class = "labelClass" })
+            @Html.RadioButtonFor(m => m.isDriver, true, new { Class = "radioClass" })
+            @Html.Label("Riding", new { Class = "labelClass" })
+            @Html.RadioButtonFor(m => m.isDriver, false, new { value = "Female", Class = "radioClass" })
+            <br />
+
+
+
+            <br />
+
+            <input class="buttons" type="submit" value="Register" />
+
+            <hr class="line" />
+
+        }
+    </div>
+    @*///
+        ///END REGISTRATION FORM
+        ///*@
+
+
+</body>
