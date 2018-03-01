@@ -17,15 +17,16 @@ namespace NMCDriveShare.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RideBoard()
         {
-            this.RideBoardUsers = new HashSet<RideBoardUser>();
+            this.Users = new HashSet<User>();
         }
     
         public int boardId { get; set; }
         public int driverId { get; set; }
         public Nullable<int> destinationId { get; set; }
     
+        public virtual Geolocation Geolocation { get; set; }
+        public virtual User Driver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RideBoardUser> RideBoardUsers { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

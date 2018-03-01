@@ -45,12 +45,7 @@
 
                 // a sample list of JSON encoded data of places to visit in Tunisia
                 // you can either make up a JSON list server side, or call it from a controller using JSONResult
-                var data = [
-                    { "Id": 1, "PlaceName": "Zaghouan", "GeoLong": "44.765365", "GeoLat": "-85.58557" },
-                    { "Id": 2, "PlaceName": "Hammamet ", "GeoLong": "44.762057", "GeoLat": "-85.594570" },
-                    { "Id": 3, "PlaceName": "Sousse", "GeoLong": "44.765365", "GeoLat": "-85.5855692" },
-                    { "Id": 4, "PlaceName": "Sfax", "GeoLong": "44.765365", "GeoLat": "-85.5855693" }
-                ];
+                var data = @Html.Raw(ViewBag.markers);
 
                 // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
                 $.each(data, function (i, item) {

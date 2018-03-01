@@ -17,12 +17,16 @@ namespace NMCDriveShare.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Geolocation()
         {
+            this.RideBoards = new HashSet<RideBoard>();
             this.Users = new HashSet<User>();
         }
     
         public int locationId { get; set; }
-        public string coordinates { get; set; }
+        public Nullable<decimal> longitude { get; set; }
+        public Nullable<decimal> latitude { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RideBoard> RideBoards { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
     }

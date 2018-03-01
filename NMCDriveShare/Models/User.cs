@@ -19,7 +19,6 @@ namespace NMCDriveShare.Models
         {
             this.Comments = new HashSet<Comment>();
             this.RideBoards = new HashSet<RideBoard>();
-            this.RideBoardUsers = new HashSet<RideBoardUser>();
         }
     
         public int userID { get; set; }
@@ -39,7 +38,5 @@ namespace NMCDriveShare.Models
         public virtual Geolocation Geolocation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RideBoard> RideBoards { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RideBoardUser> RideBoardUsers { get; set; }
     }
 }
