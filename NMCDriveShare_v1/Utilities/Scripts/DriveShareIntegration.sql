@@ -6,8 +6,10 @@
 --		Adds models and database objects from the main project's
 --		schema and integrates them into the authentication model
 
-USE [aspnet-NMCDriveShare_v1-20180226063808.mdf]
-GO
+-- This script is for connecting to a file, not a database on a server
+-- DO NOT EXECUTE WITH THIS USING STATEMENT
+--USE [aspnet-NMCDriveShare_v1-20180226063808.mdf]
+--GO
 
 -- Create tables in order of dependency
 
