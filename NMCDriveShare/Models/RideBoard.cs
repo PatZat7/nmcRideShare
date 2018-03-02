@@ -24,7 +24,7 @@ namespace NMCDriveShare.Models
         public int driverId { get; set; }
         public Nullable<int> destinationId { get; set; }
     
-        public virtual Geolocation Geolocation { get; set; }
+        public virtual Geolocation Destination { get; set; }
         public virtual User Driver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }

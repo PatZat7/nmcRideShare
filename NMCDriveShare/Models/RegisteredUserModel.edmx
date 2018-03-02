@@ -232,8 +232,6 @@ warning 6013: The table/view 'AdventureWorks.dbo.vw_UserLocations' does not have
           <Property Name="locationId" Type="Int32" Nullable="false" />
           <Property Name="longitude" Type="Decimal" Precision="8" Scale="5" />
           <Property Name="latitude" Type="Decimal" Precision="8" Scale="5" />
-          <NavigationProperty Name="RideBoards" Relationship="DriveShareModel.FK__RideBoard__desti__14270015" FromRole="Geolocation" ToRole="RideBoard" />
-          <NavigationProperty Name="Users" Relationship="DriveShareModel.FK__Users__locationI__03F0984C" FromRole="Geolocation" ToRole="User" />
         </EntityType>
         <EntityType Name="RideBoard">
           <Key>
@@ -242,7 +240,7 @@ warning 6013: The table/view 'AdventureWorks.dbo.vw_UserLocations' does not have
           <Property Name="boardId" Type="Int32" Nullable="false" />
           <Property Name="driverId" Type="Int32" Nullable="false" />
           <Property Name="destinationId" Type="Int32" />
-          <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK__RideBoard__desti__14270015" FromRole="RideBoard" ToRole="Geolocation" />
+          <NavigationProperty Name="Destination" Relationship="DriveShareModel.FK__RideBoard__desti__14270015" FromRole="RideBoard" ToRole="Geolocation" />
           <NavigationProperty Name="Driver" Relationship="DriveShareModel.FK__RideBoard__drive__66603565" FromRole="RideBoard" ToRole="User" />
           <NavigationProperty Name="Users" Relationship="DriveShareModel.RideBoardSlot" FromRole="RideBoard" ToRole="User" />
         </EntityType>
