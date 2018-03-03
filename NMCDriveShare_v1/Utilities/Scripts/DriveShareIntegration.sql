@@ -39,7 +39,7 @@ CREATE TABLE dbo.[User] (
 --  nmcEmail    VARCHAR (100) NULL,
     locationId  INT           NULL,
     isActive    BIT           DEFAULT ((0)) NOT NULL,
-	authUserId  INT			  NOT NULL,
+	authUserId  NVARCHAR(128) NOT NULL,
     PRIMARY KEY CLUSTERED (userID ASC),
     FOREIGN KEY (locationId) REFERENCES dbo.Geolocation (locationId),
 	FOREIGN KEY (authUserId) REFERENCES dbo.AspNetUsers (Id)
@@ -92,15 +92,17 @@ DROP VIEW IF EXISTS vw_UserLocations;
 GO
 CREATE VIEW vw_UserLocations AS
 	SELECT
-		u.username,
+		au.UserName,
 		u.isDriver,
 		u.firstName,
 		u.lastName,
 		g.longitude,
 		g.latitude
-	FROM Users AS u
+	FROM [User] AS u
 		RIGHT JOIN Geolocation AS g
 		ON u.locationId = g.locationId
+		INNER JOIN AspNetUsers AS au
+		ON au.Id = u.authUserId
 		WHERE u.isActive = 1;
 GO
 
@@ -122,13 +124,12 @@ CREATE PROCEDURE dbo.AddNewUser
 AS
 BEGIN
 	-- create new user
-	INSERT INTO dbo.Users
+	INSERT INTO dbo.[User]
 		VALUES (@lastName, @firstName, @isDriver, @gender, NULL, 0, @authUserId);
 
 	-- update the authentication counterpart
 	UPDATE dbo.AspNetUsers SET
 		Email = @nmcEmail,
-		EmailConfirmed = @emailConfirmed,
 		PasswordHash = @passwordHash
 	WHERE Id = @authUserId;
 END
