@@ -120,7 +120,7 @@ CREATE PROCEDURE dbo.AddNewUser
 	@nmcEmail varchar(100),
 	@passwordHash nvarchar(MAX),
 	@gender varchar(10),
-	@authUserId nvarchar(128) NOT NULL
+	@authUserId nvarchar(128)
 AS
 BEGIN
 	-- create new user
