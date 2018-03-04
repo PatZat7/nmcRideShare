@@ -36,6 +36,7 @@ namespace NMCDriveShare_v1.Models
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<vw_UserLocations> vw_UserLocations { get; set; }
     
         public virtual int AddNewUser(string firstName, string lastName, string username, string phoneNumber, Nullable<bool> isDriver, string nmcEmail, string passwordHash, string gender, string authUserId)
         {
