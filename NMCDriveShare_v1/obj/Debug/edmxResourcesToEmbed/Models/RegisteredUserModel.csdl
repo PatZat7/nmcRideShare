@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DriveShareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DriveShareEntities3" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="AddNewUser">
+      <Parameter Name="firstName" Mode="In" Type="String" />
+      <Parameter Name="lastName" Mode="In" Type="String" />
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="phoneNumber" Mode="In" Type="String" />
+      <Parameter Name="isDriver" Mode="In" Type="Boolean" />
+      <Parameter Name="nmcEmail" Mode="In" Type="String" />
+      <Parameter Name="passwordHash" Mode="In" Type="String" />
+      <Parameter Name="gender" Mode="In" Type="String" />
+      <Parameter Name="authUserId" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Geolocations" EntityType="DriveShareModel.Geolocation" />
+    <EntitySet Name="RideBoards" EntityType="DriveShareModel.RideBoard" />
+    <AssociationSet Name="FK__RideBoard__desti__14270015" Association="DriveShareModel.FK__RideBoard__desti__14270015">
+      <End Role="Geolocation" EntitySet="Geolocations" />
+      <End Role="RideBoard" EntitySet="RideBoards" />
+    </AssociationSet>
+    <EntitySet Name="C__MigrationHistory" EntityType="DriveShareModel.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="DriveShareModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="DriveShareModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="DriveShareModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="DriveShareModel.AspNetUser" />
+    <EntitySet Name="Comments" EntityType="DriveShareModel.Comment" />
+    <EntitySet Name="Users" EntityType="DriveShareModel.User" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DriveShareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DriveShareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__authUserId__3B75D760" Association="DriveShareModel.FK__User__authUserId__3B75D760">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="User1" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__userID__3E52440B" Association="DriveShareModel.FK__Comment__userID__3E52440B">
+      <End Role="User1" EntitySet="Users" />
+      <End Role="Comment1" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__locationId__3A81B327" Association="DriveShareModel.FK__User__locationId__3A81B327">
+      <End Role="Geolocation" EntitySet="Geolocations" />
+      <End Role="User1" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RideBoard__drive__4222D4EF" Association="DriveShareModel.FK__RideBoard__drive__4222D4EF">
+      <End Role="User1" EntitySet="Users" />
+      <End Role="RideBoard" EntitySet="RideBoards" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="DriveShareModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="RideBoardSlot1" Association="DriveShareModel.RideBoardSlot1">
+      <End Role="RideBoard" EntitySet="RideBoards" />
+      <End Role="User1" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Geolocation">
+    <Key>
+      <PropertyRef Name="locationId" />
+    </Key>
+    <Property Name="locationId" Type="Int32" Nullable="false" />
+    <Property Name="longitude" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="latitude" Type="Decimal" Precision="8" Scale="5" />
+  </EntityType>
+  <EntityType Name="RideBoard">
+    <Key>
+      <PropertyRef Name="boardId" />
+    </Key>
+    <Property Name="boardId" Type="Int32" Nullable="false" />
+    <Property Name="driverId" Type="Int32" Nullable="false" />
+    <Property Name="destinationId" Type="Int32" />
+    <NavigationProperty Name="Destination" Relationship="DriveShareModel.FK__RideBoard__desti__14270015" FromRole="RideBoard" ToRole="Geolocation" />
+    <NavigationProperty Name="Driver" Relationship="DriveShareModel.FK__RideBoard__drive__4222D4EF" FromRole="RideBoard" ToRole="User1" />
+    <NavigationProperty Name="Riders" Relationship="DriveShareModel.RideBoardSlot1" FromRole="RideBoard" ToRole="User1" />
+  </EntityType>
+  <Association Name="FK__RideBoard__desti__14270015">
+    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="locationId" />
+      </Principal>
+      <Dependent Role="RideBoard">
+        <PropertyRef Name="destinationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="DriveShareModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="DriveShareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="DriveShareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="DriveShareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="DriveShareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="Users" Relationship="DriveShareModel.FK__User__authUserId__3B75D760" FromRole="AspNetUser" ToRole="User1" />
+    <NavigationProperty Name="AspNetRoles" Relationship="DriveShareModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="commentID" />
+    </Key>
+    <Property Name="commentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="commentText" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Subject" Relationship="DriveShareModel.FK__Comment__userID__3E52440B" FromRole="Comment1" ToRole="User1" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="isDriver" Type="Boolean" />
+    <Property Name="gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="locationId" Type="Int32" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="authUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="DriveShareModel.FK__User__authUserId__3B75D760" FromRole="User1" ToRole="AspNetUser" />
+    <NavigationProperty Name="Comments" Relationship="DriveShareModel.FK__Comment__userID__3E52440B" FromRole="User1" ToRole="Comment1" />
+    <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK__User__locationId__3A81B327" FromRole="User1" ToRole="Geolocation" />
+    <NavigationProperty Name="DriverBoards" Relationship="DriveShareModel.FK__RideBoard__drive__4222D4EF" FromRole="User1" ToRole="RideBoard" />
+    <NavigationProperty Name="RiderBoards" Relationship="DriveShareModel.RideBoardSlot1" FromRole="User1" ToRole="RideBoard" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DriveShareModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DriveShareModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__authUserId__3B75D760">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="DriveShareModel.User" Role="User1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User1">
+        <PropertyRef Name="authUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__userID__3E52440B">
+    <End Type="DriveShareModel.User" Role="User1" Multiplicity="1" />
+    <End Type="DriveShareModel.Comment" Role="Comment1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User1">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Comment1">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__locationId__3A81B327">
+    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+    <End Type="DriveShareModel.User" Role="User1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="locationId" />
+      </Principal>
+      <Dependent Role="User1">
+        <PropertyRef Name="locationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RideBoard__drive__4222D4EF">
+    <End Type="DriveShareModel.User" Role="User1" Multiplicity="1" />
+    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User1">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="RideBoard">
+        <PropertyRef Name="driverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="DriveShareModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <Association Name="RideBoardSlot1">
+    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
+    <End Type="DriveShareModel.User" Role="User1" Multiplicity="*" />
+  </Association>
+</Schema>

@@ -1,38 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DriveShareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="DriveShareEntities3" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="AddNewUser">
+      <Parameter Name="firstName" Mode="In" Type="String" />
+      <Parameter Name="lastName" Mode="In" Type="String" />
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="phoneNumber" Mode="In" Type="String" />
+      <Parameter Name="isDriver" Mode="In" Type="Boolean" />
+      <Parameter Name="nmcEmail" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="gender" Mode="In" Type="String" />
+    </FunctionImport>
     <EntitySet Name="Comments" EntityType="DriveShareModel.Comment" />
     <EntitySet Name="Geolocations" EntityType="DriveShareModel.Geolocation" />
     <EntitySet Name="RideBoards" EntityType="DriveShareModel.RideBoard" />
-    <EntitySet Name="RideBoardUsers" EntityType="DriveShareModel.RideBoardUser" />
     <EntitySet Name="Users" EntityType="DriveShareModel.User" />
     <AssociationSet Name="FK__Comments__userID__36B12243" Association="DriveShareModel.FK__Comments__userID__36B12243">
       <End Role="User" EntitySet="Users" />
       <End Role="Comment" EntitySet="Comments" />
     </AssociationSet>
-    <AssociationSet Name="FK__Users__locationI__656C112C" Association="DriveShareModel.FK__Users__locationI__656C112C">
+    <AssociationSet Name="FK__RideBoard__desti__14270015" Association="DriveShareModel.FK__RideBoard__desti__14270015">
+      <End Role="Geolocation" EntitySet="Geolocations" />
+      <End Role="RideBoard" EntitySet="RideBoards" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__locationI__03F0984C" Association="DriveShareModel.FK__Users__locationI__03F0984C">
       <End Role="Geolocation" EntitySet="Geolocations" />
       <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK__RideBoard__board__6754599E" Association="DriveShareModel.FK__RideBoard__board__6754599E">
-      <End Role="RideBoard" EntitySet="RideBoards" />
-      <End Role="RideBoardUser" EntitySet="RideBoardUsers" />
     </AssociationSet>
     <AssociationSet Name="FK__RideBoard__drive__66603565" Association="DriveShareModel.FK__RideBoard__drive__66603565">
       <End Role="User" EntitySet="Users" />
       <End Role="RideBoard" EntitySet="RideBoards" />
     </AssociationSet>
-    <AssociationSet Name="FK__RideBoard__userI__68487DD7" Association="DriveShareModel.FK__RideBoard__userI__68487DD7">
+    <AssociationSet Name="RideBoardSlot" Association="DriveShareModel.RideBoardSlot">
+      <End Role="RideBoard" EntitySet="RideBoards" />
       <End Role="User" EntitySet="Users" />
-      <End Role="RideBoardUser" EntitySet="RideBoardUsers" />
     </AssociationSet>
-    <FunctionImport Name="AddNewUser">
-      <Parameter Name="lastName" Mode="In" Type="String" />
-      <Parameter Name="phoneNumber" Mode="In" Type="String" />
-      <Parameter Name="nmcEmail" Mode="In" Type="String" />
-      <Parameter Name="password" Mode="In" Type="String" />
-      <Parameter Name="gender" Mode="In" Type="String" />
-    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Comment">
     <Key>
@@ -48,8 +50,10 @@
       <PropertyRef Name="locationId" />
     </Key>
     <Property Name="locationId" Type="Int32" Nullable="false" />
-    <Property Name="coordinates" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Users" Relationship="DriveShareModel.FK__Users__locationI__656C112C" FromRole="Geolocation" ToRole="User" />
+    <Property Name="longitude" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="latitude" Type="Decimal" Precision="8" Scale="5" />
+    <NavigationProperty Name="RideBoards" Relationship="DriveShareModel.FK__RideBoard__desti__14270015" FromRole="Geolocation" ToRole="RideBoard" />
+    <NavigationProperty Name="Users" Relationship="DriveShareModel.FK__Users__locationI__03F0984C" FromRole="Geolocation" ToRole="User" />
   </EntityType>
   <EntityType Name="RideBoard">
     <Key>
@@ -58,19 +62,9 @@
     <Property Name="boardId" Type="Int32" Nullable="false" />
     <Property Name="driverId" Type="Int32" Nullable="false" />
     <Property Name="destinationId" Type="Int32" />
-    <NavigationProperty Name="RideBoardUsers" Relationship="DriveShareModel.FK__RideBoard__board__6754599E" FromRole="RideBoard" ToRole="RideBoardUser" />
-    <NavigationProperty Name="User" Relationship="DriveShareModel.FK__RideBoard__drive__66603565" FromRole="RideBoard" ToRole="User" />
-  </EntityType>
-  <EntityType Name="RideBoardUser">
-    <Key>
-      <PropertyRef Name="boardId" />
-      <PropertyRef Name="userNum" />
-    </Key>
-    <Property Name="boardId" Type="Int32" Nullable="false" />
-    <Property Name="userNum" Type="Int32" Nullable="false" />
-    <Property Name="userId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="RideBoard" Relationship="DriveShareModel.FK__RideBoard__board__6754599E" FromRole="RideBoardUser" ToRole="RideBoard" />
-    <NavigationProperty Name="User" Relationship="DriveShareModel.FK__RideBoard__userI__68487DD7" FromRole="RideBoardUser" ToRole="User" />
+    <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK__RideBoard__desti__14270015" FromRole="RideBoard" ToRole="Geolocation" />
+    <NavigationProperty Name="Driver" Relationship="DriveShareModel.FK__RideBoard__drive__66603565" FromRole="RideBoard" ToRole="User" />
+    <NavigationProperty Name="Users" Relationship="DriveShareModel.RideBoardSlot" FromRole="RideBoard" ToRole="User" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -88,9 +82,8 @@
     <Property Name="locationId" Type="Int32" />
     <Property Name="isActive" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Comments" Relationship="DriveShareModel.FK__Comments__userID__36B12243" FromRole="User" ToRole="Comment" />
-    <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK__Users__locationI__656C112C" FromRole="User" ToRole="Geolocation" />
+    <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK__Users__locationI__03F0984C" FromRole="User" ToRole="Geolocation" />
     <NavigationProperty Name="RideBoards" Relationship="DriveShareModel.FK__RideBoard__drive__66603565" FromRole="User" ToRole="RideBoard" />
-    <NavigationProperty Name="RideBoardUsers" Relationship="DriveShareModel.FK__RideBoard__userI__68487DD7" FromRole="User" ToRole="RideBoardUser" />
   </EntityType>
   <Association Name="FK__Comments__userID__36B12243">
     <End Type="DriveShareModel.User" Role="User" Multiplicity="1" />
@@ -104,7 +97,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Users__locationI__656C112C">
+  <Association Name="FK__RideBoard__desti__14270015">
+    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="locationId" />
+      </Principal>
+      <Dependent Role="RideBoard">
+        <PropertyRef Name="destinationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__locationI__03F0984C">
     <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
     <End Type="DriveShareModel.User" Role="User" Multiplicity="*" />
     <ReferentialConstraint>
@@ -113,18 +118,6 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="locationId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__RideBoard__board__6754599E">
-    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="1" />
-    <End Type="DriveShareModel.RideBoardUser" Role="RideBoardUser" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="RideBoard">
-        <PropertyRef Name="boardId" />
-      </Principal>
-      <Dependent Role="RideBoardUser">
-        <PropertyRef Name="boardId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -140,16 +133,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__RideBoard__userI__68487DD7">
-    <End Type="DriveShareModel.User" Role="User" Multiplicity="1" />
-    <End Type="DriveShareModel.RideBoardUser" Role="RideBoardUser" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="userID" />
-      </Principal>
-      <Dependent Role="RideBoardUser">
-        <PropertyRef Name="userId" />
-      </Dependent>
-    </ReferentialConstraint>
+  <Association Name="RideBoardSlot">
+    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
+    <End Type="DriveShareModel.User" Role="User" Multiplicity="*" />
   </Association>
 </Schema>

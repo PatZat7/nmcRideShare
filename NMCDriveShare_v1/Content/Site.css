@@ -1,0 +1,185 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.row {
+	margin-top: 100px;
+}
+
+.navbar-fixed-top {
+	background-color: green;
+}
+
+.body-content {
+	background-color: darkgrey;
+	margin: 0;
+	width: auto;
+}
+
+.line {
+	border-color: black;
+	border-width: 2px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.buttons {
+	font-weight: bold;
+	color: white;
+	border-width: 7px;
+	font-family: Georgia;
+	background-color: gray;
+	padding: 15px 95px 15px 95px;
+	border-radius: 24px;
+	border-color: white;
+	border-style: solid;
+}
+
+.buttons:hover {
+	background-color: forestgreen;
+	text-decoration: underline;
+}
+
+.buttons:active {
+	background-color: darkgreen;
+}
+
+.headers {
+	font-family: Georgia;
+}
+
+.landingHeader {
+	font-family: Georgia;
+	text-decoration: underline;
+	font-size: 30px;
+	margin-left: 40%;
+}
+
+.labelClass {
+	margin-bottom: 0px;
+	font-size: 28px;
+	font-family: Georgia;
+	color: white;
+	font-weight: bold;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+.noteClass {
+	font-size: 14px;
+	font-family: Georgia;
+	color: darkgreen;
+	font-weight: bold;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+
+.radioClass {
+	transform: scale(2.5);
+}
+
+.textBoxClass {
+	width: 250px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: forestgreen;
+	color: white;
+	font-weight: bold;
+	opacity: 0.55;
+	border-color: white;
+	border: solid;
+}
+
+.textBoxClass:focus {
+	width: 250px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: forestgreen;
+	color: white;
+	font-weight: bold;
+	opacity: 1.0;
+}
+
+.user-info {
+	margin: 5px 5px;
+	/*border: 2px solid black;*/
+	height: 150px;
+	background-color: lightgrey;
+}
+
+#name {
+	font-weight: bold;
+	color: black;
+	margin: 0;
+}
+
+#title-name {
+	color: black;
+}
+
+#rating {
+	margin: 5px;
+	/*border: 2px solid black;*/
+	background-color: dimgrey;
+	width: 200px;
+}
+
+#comment {
+	/*border: 2px solid black;*/
+	background-color: dimgrey;
+	color: black;
+	margin: 5px;
+}
+
+.left-side {
+	/*border: 1px dotted red;*/
+	float: left;
+}
+
+.right-side {
+	/*border: 1px dotted green;*/
+	float: right;
+	height: 100px;
+	width: 100px;
+}
+
+/*//////////////////////////////////////////////////////*/
+/* Google Maps Rules */
+#map {
+	height: 800px;
+	width: 1000px;
+	margin-left: 0;
+}
+
+@media screen and (min-width: 1200px) {
+	#map {
+		height: 800px;
+		width: 1400px;
+	}
+
+	.container {
+		max-width: 1920px;
+	}
+}

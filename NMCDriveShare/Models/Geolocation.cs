@@ -14,16 +14,8 @@ namespace NMCDriveShare.Models
     
     public partial class Geolocation
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Geolocation()
-        {
-            this.Users = new HashSet<User>();
-        }
-    
         public int locationId { get; set; }
-        public string coordinates { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public Nullable<decimal> longitude { get; set; }
+        public Nullable<decimal> latitude { get; set; }
     }
 }

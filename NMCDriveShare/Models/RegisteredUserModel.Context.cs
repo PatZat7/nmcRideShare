@@ -30,44 +30,43 @@ namespace NMCDriveShare.Models
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Geolocation> Geolocations { get; set; }
         public virtual DbSet<RideBoard> RideBoards { get; set; }
-        public virtual DbSet<RideBoardUser> RideBoardUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
-
-        public virtual int AddNewUser(string lastName, string firstName, string username, string phoneNumber, Nullable<bool> isDriver, string nmcEmail, string password, string gender)
+    
+        public virtual int AddNewUser(string firstName, string lastName, string username, string phoneNumber, Nullable<bool> isDriver, string nmcEmail, string password, string gender)
         {
-            var lastNameParameter = lastName != null ?
-                new ObjectParameter("lastName", lastName) :
-                new ObjectParameter("lastName", typeof(string));
-
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
                 new ObjectParameter("firstName", typeof(string));
-
+    
+            var lastNameParameter = lastName != null ?
+                new ObjectParameter("lastName", lastName) :
+                new ObjectParameter("lastName", typeof(string));
+    
             var usernameParameter = username != null ?
                 new ObjectParameter("username", username) :
                 new ObjectParameter("username", typeof(string));
-
+    
             var phoneNumberParameter = phoneNumber != null ?
                 new ObjectParameter("phoneNumber", phoneNumber) :
                 new ObjectParameter("phoneNumber", typeof(string));
-
-            var isDriverParameter = isDriver != null ?
+    
+            var isDriverParameter = isDriver.HasValue ?
                 new ObjectParameter("isDriver", isDriver) :
-                new ObjectParameter("isDriver", typeof(Nullable<bool>));
-
+                new ObjectParameter("isDriver", typeof(bool));
+    
             var nmcEmailParameter = nmcEmail != null ?
                 new ObjectParameter("nmcEmail", nmcEmail) :
                 new ObjectParameter("nmcEmail", typeof(string));
-
+    
             var passwordParameter = password != null ?
                 new ObjectParameter("password", password) :
                 new ObjectParameter("password", typeof(string));
-
+    
             var genderParameter = gender != null ?
                 new ObjectParameter("gender", gender) :
                 new ObjectParameter("gender", typeof(string));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNewUser", lastNameParameter, firstNameParameter, usernameParameter, phoneNumberParameter, isDriverParameter, nmcEmailParameter, passwordParameter, genderParameter);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNewUser", firstNameParameter, lastNameParameter, usernameParameter, phoneNumberParameter, isDriverParameter, nmcEmailParameter, passwordParameter, genderParameter);
         }
     }
 }

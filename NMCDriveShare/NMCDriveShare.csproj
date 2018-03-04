@@ -180,9 +180,6 @@
     <Compile Include="Models\RideBoard.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RideBoardUser.cs">
-      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>

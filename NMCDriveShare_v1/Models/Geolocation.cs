@@ -7,18 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NMCDriveShare.Models
+namespace NMCDriveShare_v1.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class RideBoardUser
+    public partial class Geolocation
     {
-        public int boardId { get; set; }
-        public int userNum { get; set; }
-        public int userId { get; set; }
-    
-        public virtual RideBoard RideBoard { get; set; }
-        public virtual User User { get; set; }
+        public int locationId { get; set; }
+        public Nullable<decimal> longitude { get; set; }
+        public Nullable<decimal> latitude { get; set; }
     }
 }

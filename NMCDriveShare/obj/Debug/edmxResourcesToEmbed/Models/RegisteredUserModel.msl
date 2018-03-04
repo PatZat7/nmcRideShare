@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DriveShareModelStoreContainer" CdmEntityContainer="DriveShareEntities3">
+    <FunctionImportMapping FunctionImportName="AddNewUser" FunctionName="DriveShareModel.Store.AddNewUser" />
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="DriveShareModel.Comment">
         <MappingFragment StoreEntitySet="Comments">
@@ -13,7 +14,8 @@
     <EntitySetMapping Name="Geolocations">
       <EntityTypeMapping TypeName="DriveShareModel.Geolocation">
         <MappingFragment StoreEntitySet="Geolocation">
-          <ScalarProperty Name="coordinates" ColumnName="coordinates" />
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
           <ScalarProperty Name="locationId" ColumnName="locationId" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -23,15 +25,6 @@
         <MappingFragment StoreEntitySet="RideBoard">
           <ScalarProperty Name="destinationId" ColumnName="destinationId" />
           <ScalarProperty Name="driverId" ColumnName="driverId" />
-          <ScalarProperty Name="boardId" ColumnName="boardId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RideBoardUsers">
-      <EntityTypeMapping TypeName="DriveShareModel.RideBoardUser">
-        <MappingFragment StoreEntitySet="RideBoardUser">
-          <ScalarProperty Name="userId" ColumnName="userId" />
-          <ScalarProperty Name="userNum" ColumnName="userNum" />
           <ScalarProperty Name="boardId" ColumnName="boardId" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -53,6 +46,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="AddNewUser" FunctionName="DriveShareModel.Store.AddNewUser" />
+    <AssociationSetMapping Name="RideBoardSlot" TypeName="DriveShareModel.RideBoardSlot" StoreEntitySet="RideBoardSlot">
+      <EndProperty Name="User">
+        <ScalarProperty Name="userID" ColumnName="userId" />
+      </EndProperty>
+      <EndProperty Name="RideBoard">
+        <ScalarProperty Name="boardId" ColumnName="boardId" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

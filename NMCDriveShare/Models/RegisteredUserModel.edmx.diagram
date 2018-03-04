@@ -5,16 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c1a77129725743e985af51871de36ab5" Name="Diagram1">
-        <EntityTypeShape EntityType="DriveShareModel.Comment" Width="1.5" PointX="5.25" PointY="3.75" />
-        <EntityTypeShape EntityType="DriveShareModel.Geolocation" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="DriveShareModel.RideBoard" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="DriveShareModel.RideBoardUser" Width="1.5" PointX="7.5" PointY="2.125" />
-        <EntityTypeShape EntityType="DriveShareModel.User" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="DriveShareModel.Comment" Width="1.5" PointX="7.5" PointY="2.125" />
+        <EntityTypeShape EntityType="DriveShareModel.Geolocation" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="DriveShareModel.RideBoard" Width="1.5" PointX="3" PointY="1.875" />
+        <EntityTypeShape EntityType="DriveShareModel.User" Width="1.5" PointX="5.25" PointY="1" />
         <AssociationConnector Association="DriveShareModel.FK__Comments__userID__36B12243" />
-        <AssociationConnector Association="DriveShareModel.FK__Users__locationI__656C112C" />
-        <AssociationConnector Association="DriveShareModel.FK__RideBoard__board__6754599E" />
+        <AssociationConnector Association="DriveShareModel.FK__RideBoard__desti__14270015" />
+        <AssociationConnector Association="DriveShareModel.FK__Users__locationI__03F0984C" />
         <AssociationConnector Association="DriveShareModel.FK__RideBoard__drive__66603565" />
-        <AssociationConnector Association="DriveShareModel.FK__RideBoard__userI__68487DD7" />
+        <AssociationConnector Association="DriveShareModel.RideBoardSlot" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
