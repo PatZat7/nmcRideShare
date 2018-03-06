@@ -23,6 +23,7 @@
         <AssociationConnector Association="DriveShareModel.FK__RideBoard__drive__4222D4EF" />
         <AssociationConnector Association="DriveShareModel.AspNetUserRoles" />
         <AssociationConnector Association="DriveShareModel.RideBoardSlot1" />
+        <EntityTypeShape EntityType="DriveShareModel.vw_UserLocations" Width="1.5" PointX="8.5" PointY="1.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

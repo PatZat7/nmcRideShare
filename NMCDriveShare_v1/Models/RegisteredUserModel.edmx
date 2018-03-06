@@ -111,6 +111,19 @@
           <Property Name="isActive" Type="bit" Nullable="false" />
           <Property Name="authUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_UserLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_UserLocations">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="isDriver" Type="bit" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
+          <Property Name="longitude" Type="decimal" Precision="8" Scale="5" />
+          <Property Name="latitude" Type="decimal" Precision="8" Scale="5" />
+        </EntityType>
         <Association Name="FK__Comment__userID__3E52440B">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -276,6 +289,16 @@
           <EntitySet Name="RideBoard" EntityType="Self.RideBoard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RideBoardSlot" EntityType="Self.RideBoardSlot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_UserLocations" EntityType="Self.vw_UserLocations" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_UserLocations].[UserName] AS [UserName], 
+    [vw_UserLocations].[isDriver] AS [isDriver], 
+    [vw_UserLocations].[firstName] AS [firstName], 
+    [vw_UserLocations].[lastName] AS [lastName], 
+    [vw_UserLocations].[longitude] AS [longitude], 
+    [vw_UserLocations].[latitude] AS [latitude]
+    FROM [dbo].[vw_UserLocations] AS [vw_UserLocations]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Comment__userID__3E52440B" Association="Self.FK__Comment__userID__3E52440B">
             <End Role="User" EntitySet="User" />
             <End Role="Comment" EntitySet="Comment" />
@@ -382,6 +405,7 @@
             <End Role="RideBoard" EntitySet="RideBoards" />
             <End Role="User1" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="vw_UserLocations" EntityType="DriveShareModel.vw_UserLocations" />
           </EntityContainer>
         <EntityType Name="Geolocation">
           <Key>
@@ -587,6 +611,17 @@
           <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
           <End Type="DriveShareModel.User" Role="User1" Multiplicity="*" />
         </Association>
+        <EntityType Name="vw_UserLocations">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="isDriver" Type="Boolean" />
+          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="longitude" Type="Decimal" Precision="8" Scale="5" />
+          <Property Name="latitude" Type="Decimal" Precision="8" Scale="5" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -706,6 +741,18 @@
               <ScalarProperty Name="boardId" ColumnName="boardId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="vw_UserLocations">
+            <EntityTypeMapping TypeName="DriveShareModel.vw_UserLocations">
+              <MappingFragment StoreEntitySet="vw_UserLocations">
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="isDriver" ColumnName="isDriver" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
