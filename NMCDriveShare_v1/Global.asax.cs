@@ -17,5 +17,13 @@ namespace NMCDriveShare_v1
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Session_Start()
+        {
+            //TEMPORARY: Global Var to track login status of user
+            /////////
+            Session["loggedIn"] = false;
+            /////////
+        }
     }
 }

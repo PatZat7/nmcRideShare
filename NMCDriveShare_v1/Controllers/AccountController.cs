@@ -79,6 +79,10 @@ namespace NMCDriveShare_v1.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //TEMPORARY: Global Var to track login status of user
+                    /////////
+                    this.Session["loggedIn"] = true;
+                    ////////
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -157,7 +161,12 @@ namespace NMCDriveShare_v1.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+                    //TEMPORARY: Global Var to track login status of user
+                    /////////
+                    this.Session["loggedIn"] = true;
+                    ////////
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -334,6 +343,10 @@ namespace NMCDriveShare_v1.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //TEMPORARY: Global Var to track login status of user
+                    /////////
+                    this.Session["loggedIn"] = true;
+                    ////////
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -376,6 +389,10 @@ namespace NMCDriveShare_v1.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //TEMPORARY: Global Var to track login status of user
+                        /////////
+                        this.Session["loggedIn"] = true;
+                        ////////
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -393,6 +410,10 @@ namespace NMCDriveShare_v1.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            //TEMPORARY: Global Var to track login status of user
+            /////////
+            this.Session["loggedIn"] = false;
+            /////////
             return RedirectToAction("Index", "Home");
         }
 
