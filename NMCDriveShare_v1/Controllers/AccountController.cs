@@ -17,12 +17,13 @@ namespace NMCDriveShare_v1.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+		private readonly DriveShareEntities3 _dataContext = new DriveShareEntities3();
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -51,6 +52,11 @@ namespace NMCDriveShare_v1.Controllers
                 _userManager = value;
             }
         }
+
+		private DriveShareEntities3 DataContext
+		{
+			get => _dataContext;
+		}
 
         //
         // GET: /Account/Login
@@ -151,12 +157,16 @@ namespace NMCDriveShare_v1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+				// create new AspNetUser
+                var aspNetUser = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(aspNetUser, model.Password);
+
+				// create new User and hook it to the AspNetUser
+				DataContext.AddNewUser(model.FirstName, model.LastName, model.IsDriver, model.Gender, aspNetUser.Id);
 
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(aspNetUser, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

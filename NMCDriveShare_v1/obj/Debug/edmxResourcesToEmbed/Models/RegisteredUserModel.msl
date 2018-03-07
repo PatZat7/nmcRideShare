@@ -114,5 +114,17 @@
         <ScalarProperty Name="boardId" ColumnName="boardId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="vw_UserLocations">
+      <EntityTypeMapping TypeName="DriveShareModel.vw_UserLocations">
+        <MappingFragment StoreEntitySet="vw_UserLocations">
+          <ScalarProperty Name="latitude" ColumnName="latitude" />
+          <ScalarProperty Name="longitude" ColumnName="longitude" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="isDriver" ColumnName="isDriver" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

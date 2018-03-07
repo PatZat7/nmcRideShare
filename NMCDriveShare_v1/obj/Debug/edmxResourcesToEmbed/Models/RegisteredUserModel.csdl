@@ -4,11 +4,7 @@
     <FunctionImport Name="AddNewUser">
       <Parameter Name="firstName" Mode="In" Type="String" />
       <Parameter Name="lastName" Mode="In" Type="String" />
-      <Parameter Name="username" Mode="In" Type="String" />
-      <Parameter Name="phoneNumber" Mode="In" Type="String" />
       <Parameter Name="isDriver" Mode="In" Type="Boolean" />
-      <Parameter Name="nmcEmail" Mode="In" Type="String" />
-      <Parameter Name="passwordHash" Mode="In" Type="String" />
       <Parameter Name="gender" Mode="In" Type="String" />
       <Parameter Name="authUserId" Mode="In" Type="String" />
     </FunctionImport>
@@ -57,6 +53,7 @@
       <End Role="RideBoard" EntitySet="RideBoards" />
       <End Role="User1" EntitySet="Users" />
     </AssociationSet>
+    <EntitySet Name="vw_UserLocations" EntityType="DriveShareModel.vw_UserLocations" />
   </EntityContainer>
   <EntityType Name="Geolocation">
     <Key>
@@ -262,4 +259,15 @@
     <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
     <End Type="DriveShareModel.User" Role="User1" Multiplicity="*" />
   </Association>
+  <EntityType Name="vw_UserLocations">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="isDriver" Type="Boolean" />
+    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="longitude" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="latitude" Type="Decimal" Precision="8" Scale="5" />
+  </EntityType>
 </Schema>

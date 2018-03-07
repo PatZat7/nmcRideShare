@@ -11,6 +11,7 @@ namespace NMCDriveShare.Controllers
     public class PortalController : Controller
     {
         // Users display portal
+		[Authorize]
         public ActionResult Index()
         {
 			// Connects to database through SqlClient

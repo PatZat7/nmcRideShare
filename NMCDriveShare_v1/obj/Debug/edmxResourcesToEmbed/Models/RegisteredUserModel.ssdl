@@ -106,6 +106,19 @@
     <Property Name="isActive" Type="bit" Nullable="false" />
     <Property Name="authUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_UserLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_UserLocations">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="isDriver" Type="bit" />
+    <Property Name="firstName" Type="varchar" MaxLength="50" />
+    <Property Name="lastName" Type="varchar" MaxLength="50" />
+    <Property Name="longitude" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="latitude" Type="decimal" Precision="8" Scale="5" />
+  </EntityType>
   <Association Name="FK__Comment__userID__3E52440B">
     <End Role="User" Type="Self.User" Multiplicity="1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -166,10 +179,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__User__authUserId__3B75D760">
-    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="FK__User__authUserId__6E01572D">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AspNetUsers">
@@ -251,11 +262,7 @@
   <Function Name="AddNewUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="firstName" Type="varchar" Mode="In" />
     <Parameter Name="lastName" Type="varchar" Mode="In" />
-    <Parameter Name="username" Type="varchar" Mode="In" />
-    <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
     <Parameter Name="isDriver" Type="bit" Mode="In" />
-    <Parameter Name="nmcEmail" Type="varchar" Mode="In" />
-    <Parameter Name="passwordHash" Type="nvarchar(max)" Mode="In" />
     <Parameter Name="gender" Type="varchar" Mode="In" />
     <Parameter Name="authUserId" Type="nvarchar" Mode="In" />
   </Function>
@@ -271,6 +278,16 @@
     <EntitySet Name="RideBoard" EntityType="Self.RideBoard" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RideBoardSlot" EntityType="Self.RideBoardSlot" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vw_UserLocations" EntityType="Self.vw_UserLocations" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_UserLocations].[UserName] AS [UserName], 
+    [vw_UserLocations].[isDriver] AS [isDriver], 
+    [vw_UserLocations].[firstName] AS [firstName], 
+    [vw_UserLocations].[lastName] AS [lastName], 
+    [vw_UserLocations].[longitude] AS [longitude], 
+    [vw_UserLocations].[latitude] AS [latitude]
+    FROM [dbo].[vw_UserLocations] AS [vw_UserLocations]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK__Comment__userID__3E52440B" Association="Self.FK__Comment__userID__3E52440B">
       <End Role="User" EntitySet="User" />
       <End Role="Comment" EntitySet="Comment" />
@@ -291,7 +308,7 @@
       <End Role="User" EntitySet="User" />
       <End Role="RideBoardSlot" EntitySet="RideBoardSlot" />
     </AssociationSet>
-    <AssociationSet Name="FK__User__authUserId__3B75D760" Association="Self.FK__User__authUserId__3B75D760">
+    <AssociationSet Name="FK__User__authUserId__6E01572D" Association="Self.FK__User__authUserId__6E01572D">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="User" EntitySet="User" />
     </AssociationSet>
