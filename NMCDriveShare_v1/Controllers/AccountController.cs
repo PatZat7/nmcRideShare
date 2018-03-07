@@ -414,7 +414,7 @@ namespace NMCDriveShare_v1.Controllers
             /////////
             this.Session["loggedIn"] = false;
             /////////
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -471,7 +471,7 @@ namespace NMCDriveShare_v1.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Portal");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
