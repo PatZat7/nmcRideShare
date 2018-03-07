@@ -157,26 +157,35 @@ namespace NMCDriveShare_v1.Controllers
         {
             if (ModelState.IsValid)
             {
-				// create new AspNetUser
-                var aspNetUser = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(aspNetUser, model.Password);
+				try
+				{
+					// create new AspNetUser
+					var aspNetUser = new ApplicationUser { UserName = model.Email, Email = model.Email };
+					var result = UserManager.Create(aspNetUser, model.Password);
 
-				// create new User and hook it to the AspNetUser
-				DataContext.AddNewUser(model.FirstName, model.LastName, model.IsDriver, model.Gender, aspNetUser.Id);
+					// create new User and hook it to the AspNetUser
+					DataContext.AddNewUser(model.FirstName, model.LastName, model.IsDriver, model.Gender, aspNetUser.Id);
 
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(aspNetUser, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+					if (result.Succeeded)
+					{
+						await SignInManager.SignInAsync(aspNetUser, isPersistent: false, rememberBrowser: false);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
+						// For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+						// Send an email with this link
+						// string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+						// var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+						// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+						return RedirectToAction("Index", "Home");
+					}
+					AddErrors(result);
+				}
+				catch
+				{
+					// display an error message
+					ViewBag.signInError = "An error occurred. Please try again.";
+					return View("Register");
+				}
             }
 
             // If we got this far, something failed, redisplay form
