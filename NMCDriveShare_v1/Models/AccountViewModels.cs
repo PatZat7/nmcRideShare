@@ -69,6 +69,24 @@ namespace NMCDriveShare_v1.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+		[Required]
+		[StringLength(50, ErrorMessage = "First name less than 50 characters required.")]
+		[Display(Name = "First Name")]
+		public string FirstName { get; set; }
+
+		[Required]
+		[StringLength(50, ErrorMessage = "Last name less than 50 characters required.")]
+		[Display(Name = "Last Name")]
+		public string LastName { get; set; }
+
+		[Required]
+		[Display(Name = "Rider or Driver?")]
+		public bool? IsDriver { get; set; }
+
+		[Required]
+		[StringLength(10)]
+		public string Gender { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]

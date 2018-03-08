@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin;
+using System.Data.Entity;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(NMCDriveShare_v1.Startup))]

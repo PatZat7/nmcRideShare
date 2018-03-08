@@ -184,10 +184,8 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User__authUserId__3B75D760">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="FK__User__authUserId__6E01572D">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -269,11 +267,7 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
         <Function Name="AddNewUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="firstName" Type="varchar" Mode="In" />
           <Parameter Name="lastName" Type="varchar" Mode="In" />
-          <Parameter Name="username" Type="varchar" Mode="In" />
-          <Parameter Name="phoneNumber" Type="varchar" Mode="In" />
           <Parameter Name="isDriver" Type="bit" Mode="In" />
-          <Parameter Name="nmcEmail" Type="varchar" Mode="In" />
-          <Parameter Name="passwordHash" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="gender" Type="varchar" Mode="In" />
           <Parameter Name="authUserId" Type="nvarchar" Mode="In" />
         </Function>
@@ -319,7 +313,7 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
             <End Role="User" EntitySet="User" />
             <End Role="RideBoardSlot" EntitySet="RideBoardSlot" />
           </AssociationSet>
-          <AssociationSet Name="FK__User__authUserId__3B75D760" Association="Self.FK__User__authUserId__3B75D760">
+          <AssociationSet Name="FK__User__authUserId__6E01572D" Association="Self.FK__User__authUserId__6E01572D">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
@@ -352,11 +346,7 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
           <FunctionImport Name="AddNewUser">
             <Parameter Name="firstName" Mode="In" Type="String" />
             <Parameter Name="lastName" Mode="In" Type="String" />
-            <Parameter Name="username" Mode="In" Type="String" />
-            <Parameter Name="phoneNumber" Mode="In" Type="String" />
             <Parameter Name="isDriver" Mode="In" Type="Boolean" />
-            <Parameter Name="nmcEmail" Mode="In" Type="String" />
-            <Parameter Name="passwordHash" Mode="In" Type="String" />
             <Parameter Name="gender" Mode="In" Type="String" />
             <Parameter Name="authUserId" Mode="In" Type="String" />
           </FunctionImport>

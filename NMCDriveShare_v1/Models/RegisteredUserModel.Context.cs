@@ -38,7 +38,7 @@ namespace NMCDriveShare_v1.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<vw_UserLocations> vw_UserLocations { get; set; }
     
-        public virtual int AddNewUser(string firstName, string lastName, string username, string phoneNumber, Nullable<bool> isDriver, string nmcEmail, string passwordHash, string gender, string authUserId)
+        public virtual int AddNewUser(string firstName, string lastName, Nullable<bool> isDriver, string gender, string authUserId)
         {
             var firstNameParameter = firstName != null ?
                 new ObjectParameter("firstName", firstName) :
@@ -48,25 +48,9 @@ namespace NMCDriveShare_v1.Models
                 new ObjectParameter("lastName", lastName) :
                 new ObjectParameter("lastName", typeof(string));
     
-            var usernameParameter = username != null ?
-                new ObjectParameter("username", username) :
-                new ObjectParameter("username", typeof(string));
-    
-            var phoneNumberParameter = phoneNumber != null ?
-                new ObjectParameter("phoneNumber", phoneNumber) :
-                new ObjectParameter("phoneNumber", typeof(string));
-    
             var isDriverParameter = isDriver.HasValue ?
                 new ObjectParameter("isDriver", isDriver) :
                 new ObjectParameter("isDriver", typeof(bool));
-    
-            var nmcEmailParameter = nmcEmail != null ?
-                new ObjectParameter("nmcEmail", nmcEmail) :
-                new ObjectParameter("nmcEmail", typeof(string));
-    
-            var passwordHashParameter = passwordHash != null ?
-                new ObjectParameter("passwordHash", passwordHash) :
-                new ObjectParameter("passwordHash", typeof(string));
     
             var genderParameter = gender != null ?
                 new ObjectParameter("gender", gender) :
@@ -76,7 +60,7 @@ namespace NMCDriveShare_v1.Models
                 new ObjectParameter("authUserId", authUserId) :
                 new ObjectParameter("authUserId", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNewUser", firstNameParameter, lastNameParameter, usernameParameter, phoneNumberParameter, isDriverParameter, nmcEmailParameter, passwordHashParameter, genderParameter, authUserIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNewUser", firstNameParameter, lastNameParameter, isDriverParameter, genderParameter, authUserIdParameter);
         }
     }
 }
