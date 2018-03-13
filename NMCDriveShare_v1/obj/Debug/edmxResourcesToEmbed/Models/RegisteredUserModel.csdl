@@ -261,8 +261,9 @@
   </Association>
   <EntityType Name="vw_UserLocations">
     <Key>
-      <PropertyRef Name="UserName" />
+      <PropertyRef Name="locationId" />
     </Key>
+    <Property Name="locationId" Type="String" Nullable="false" />
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="isDriver" Type="Boolean" />
     <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />

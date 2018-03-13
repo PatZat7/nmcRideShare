@@ -109,9 +109,6 @@
   <!--Errors Found During Generation:
 warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_UserLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="vw_UserLocations">
-    <Key>
-      <PropertyRef Name="UserName" />
-    </Key>
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="isDriver" Type="bit" />
     <Property Name="firstName" Type="varchar" MaxLength="50" />

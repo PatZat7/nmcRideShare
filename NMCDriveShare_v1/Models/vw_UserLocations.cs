@@ -14,6 +14,7 @@ namespace NMCDriveShare_v1.Models
     
     public partial class vw_UserLocations
     {
+        public string locationId { get; set; }
         public string UserName { get; set; }
         public Nullable<bool> isDriver { get; set; }
         public string firstName { get; set; }
