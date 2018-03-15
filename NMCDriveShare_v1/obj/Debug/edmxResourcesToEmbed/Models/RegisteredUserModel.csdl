@@ -8,19 +8,18 @@
       <Parameter Name="gender" Mode="In" Type="String" />
       <Parameter Name="authUserId" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="Geolocations" EntityType="DriveShareModel.Geolocation" />
-    <EntitySet Name="RideBoards" EntityType="DriveShareModel.RideBoard" />
-    <AssociationSet Name="FK__RideBoard__desti__14270015" Association="DriveShareModel.FK__RideBoard__desti__14270015">
-      <End Role="Geolocation" EntitySet="Geolocations" />
-      <End Role="RideBoard" EntitySet="RideBoards" />
-    </AssociationSet>
     <EntitySet Name="C__MigrationHistory" EntityType="DriveShareModel.C__MigrationHistory" />
     <EntitySet Name="AspNetRoles" EntityType="DriveShareModel.AspNetRole" />
     <EntitySet Name="AspNetUserClaims" EntityType="DriveShareModel.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="DriveShareModel.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="DriveShareModel.AspNetUser" />
-    <EntitySet Name="Comments" EntityType="DriveShareModel.Comment" />
-    <EntitySet Name="Users" EntityType="DriveShareModel.User" />
+    <EntitySet Name="ChatMessages" EntityType="DriveShareModel.ChatMessage" />
+    <EntitySet Name="ChatThreads" EntityType="DriveShareModel.ChatThread" />
+    <EntitySet Name="ProfilePictures" EntityType="DriveShareModel.ProfilePicture" />
+    <EntitySet Name="RideRequests" EntityType="DriveShareModel.RideRequest" />
+    <EntitySet Name="RideRequestStatus" EntityType="DriveShareModel.RideRequestStatu" />
+    <EntitySet Name="Routes" EntityType="DriveShareModel.Route" />
+    <EntitySet Name="Schedules" EntityType="DriveShareModel.Schedule" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DriveShareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -29,63 +28,65 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
     </AssociationSet>
-    <AssociationSet Name="FK__User__authUserId__3B75D760" Association="DriveShareModel.FK__User__authUserId__3B75D760">
+    <AssociationSet Name="FK__Route__DriverId__2EDAF651" Association="DriveShareModel.FK__Route__DriverId__2EDAF651">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="User1" EntitySet="Users" />
+      <End Role="Route" EntitySet="Routes" />
     </AssociationSet>
-    <AssociationSet Name="FK__Comment__userID__3E52440B" Association="DriveShareModel.FK__Comment__userID__3E52440B">
-      <End Role="User1" EntitySet="Users" />
-      <End Role="Comment1" EntitySet="Comments" />
+    <AssociationSet Name="FK_ChatMessage_FromUserId" Association="DriveShareModel.FK_ChatMessage_FromUserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ChatMessage" EntitySet="ChatMessages" />
     </AssociationSet>
-    <AssociationSet Name="FK__User__locationId__3A81B327" Association="DriveShareModel.FK__User__locationId__3A81B327">
-      <End Role="Geolocation" EntitySet="Geolocations" />
-      <End Role="User1" EntitySet="Users" />
+    <AssociationSet Name="FK_ChatMessage_ToUserId" Association="DriveShareModel.FK_ChatMessage_ToUserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ChatMessage" EntitySet="ChatMessages" />
     </AssociationSet>
-    <AssociationSet Name="FK__RideBoard__drive__4222D4EF" Association="DriveShareModel.FK__RideBoard__drive__4222D4EF">
-      <End Role="User1" EntitySet="Users" />
-      <End Role="RideBoard" EntitySet="RideBoards" />
+    <AssociationSet Name="FK_ChatThread_User1Id" Association="DriveShareModel.FK_ChatThread_User1Id">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ChatThread" EntitySet="ChatThreads" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatThread_User2Id" Association="DriveShareModel.FK_ChatThread_User2Id">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ChatThread" EntitySet="ChatThreads" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfilePicture_UserId" Association="DriveShareModel.FK_ProfilePicture_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ProfilePicture" EntitySet="ProfilePictures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_RiderId" Association="DriveShareModel.FK_RideRequest_RiderId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="RideRequest" EntitySet="RideRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_RequestStatusId" Association="DriveShareModel.FK_RideRequest_RequestStatusId">
+      <End Role="RideRequestStatu" EntitySet="RideRequestStatus" />
+      <End Role="RideRequest" EntitySet="RideRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_ScheduleId" Association="DriveShareModel.FK_RideRequest_ScheduleId">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="RideRequest" EntitySet="RideRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Route__ScheduleI__2DE6D218" Association="DriveShareModel.FK__Route__ScheduleI__2DE6D218">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="Route" EntitySet="Routes" />
     </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="DriveShareModel.AspNetUserRoles">
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
-    <AssociationSet Name="RideBoardSlot1" Association="DriveShareModel.RideBoardSlot1">
-      <End Role="RideBoard" EntitySet="RideBoards" />
-      <End Role="User1" EntitySet="Users" />
+    <AssociationSet Name="RouteSlot" Association="DriveShareModel.RouteSlot">
+      <End Role="Route" EntitySet="Routes" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="Geolocations" EntityType="DriveShareModel.Geolocation" />
+    <AssociationSet Name="FK_AspNetUsers_LocationId" Association="DriveShareModel.FK_AspNetUsers_LocationId">
+      <End Role="Geolocation" EntitySet="Geolocations" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Route__Destinati__2CF2ADDF" Association="DriveShareModel.FK__Route__Destinati__2CF2ADDF">
+      <End Role="Geolocation" EntitySet="Geolocations" />
+      <End Role="Route" EntitySet="Routes" />
     </AssociationSet>
     <EntitySet Name="vw_UserLocations" EntityType="DriveShareModel.vw_UserLocations" />
   </EntityContainer>
-  <EntityType Name="Geolocation">
-    <Key>
-      <PropertyRef Name="locationId" />
-    </Key>
-    <Property Name="locationId" Type="Int32" Nullable="false" />
-    <Property Name="longitude" Type="Decimal" Precision="8" Scale="5" />
-    <Property Name="latitude" Type="Decimal" Precision="8" Scale="5" />
-  </EntityType>
-  <EntityType Name="RideBoard">
-    <Key>
-      <PropertyRef Name="boardId" />
-    </Key>
-    <Property Name="boardId" Type="Int32" Nullable="false" />
-    <Property Name="driverId" Type="Int32" Nullable="false" />
-    <Property Name="destinationId" Type="Int32" />
-    <NavigationProperty Name="Destination" Relationship="DriveShareModel.FK__RideBoard__desti__14270015" FromRole="RideBoard" ToRole="Geolocation" />
-    <NavigationProperty Name="Driver" Relationship="DriveShareModel.FK__RideBoard__drive__4222D4EF" FromRole="RideBoard" ToRole="User1" />
-    <NavigationProperty Name="Riders" Relationship="DriveShareModel.RideBoardSlot1" FromRole="RideBoard" ToRole="User1" />
-  </EntityType>
-  <Association Name="FK__RideBoard__desti__14270015">
-    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
-    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Geolocation">
-        <PropertyRef Name="locationId" />
-      </Principal>
-      <Dependent Role="RideBoard">
-        <PropertyRef Name="destinationId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -141,37 +142,117 @@
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsDriver" Type="Boolean" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="LocationId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Age" Type="Byte" Nullable="false" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="DriveShareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="DriveShareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-    <NavigationProperty Name="Users" Relationship="DriveShareModel.FK__User__authUserId__3B75D760" FromRole="AspNetUser" ToRole="User1" />
+    <NavigationProperty Name="RoutesDriving" Relationship="DriveShareModel.FK__Route__DriverId__2EDAF651" FromRole="AspNetUser" ToRole="Route" />
+    <NavigationProperty Name="ChatMessagesFrom" Relationship="DriveShareModel.FK_ChatMessage_FromUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
+    <NavigationProperty Name="ChatMessagesTo" Relationship="DriveShareModel.FK_ChatMessage_ToUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
+    <NavigationProperty Name="ChatThreadsFrom" Relationship="DriveShareModel.FK_ChatThread_User1Id" FromRole="AspNetUser" ToRole="ChatThread" />
+    <NavigationProperty Name="ChatThreadsTo" Relationship="DriveShareModel.FK_ChatThread_User2Id" FromRole="AspNetUser" ToRole="ChatThread" />
+    <NavigationProperty Name="ProfilePictures" Relationship="DriveShareModel.FK_ProfilePicture_UserId" FromRole="AspNetUser" ToRole="ProfilePicture" />
+    <NavigationProperty Name="RideRequests" Relationship="DriveShareModel.FK_RideRequest_RiderId" FromRole="AspNetUser" ToRole="RideRequest" />
     <NavigationProperty Name="AspNetRoles" Relationship="DriveShareModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <NavigationProperty Name="RoutesRiding" Relationship="DriveShareModel.RouteSlot" FromRole="AspNetUser" ToRole="Route" />
+    <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK_AspNetUsers_LocationId" FromRole="AspNetUser" ToRole="Geolocation" />
   </EntityType>
-  <EntityType Name="Comment">
+  <EntityType Name="ChatMessage">
     <Key>
-      <PropertyRef Name="commentID" />
+      <PropertyRef Name="ThreadId" />
     </Key>
-    <Property Name="commentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="userID" Type="Int32" Nullable="false" />
-    <Property Name="commentText" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Subject" Relationship="DriveShareModel.FK__Comment__userID__3E52440B" FromRole="Comment1" ToRole="User1" />
+    <Property Name="ThreadId" Type="Int64" Nullable="false" />
+    <Property Name="MessageOrder" Type="Int32" Nullable="false" />
+    <Property Name="FromUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ToUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateSent" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
+    <Property Name="IsSent" Type="Boolean" Nullable="false" />
+    <Property Name="IsFailed" Type="Boolean" Nullable="false" />
+    <Property Name="MessageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FromUser" Relationship="DriveShareModel.FK_ChatMessage_FromUserId" FromRole="ChatMessage" ToRole="AspNetUser" />
+    <NavigationProperty Name="ToUser" Relationship="DriveShareModel.FK_ChatMessage_ToUserId" FromRole="ChatMessage" ToRole="AspNetUser" />
   </EntityType>
-  <EntityType Name="User">
+  <EntityType Name="ChatThread">
     <Key>
-      <PropertyRef Name="userID" />
+      <PropertyRef Name="ThreadId" />
     </Key>
-    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="isDriver" Type="Boolean" />
-    <Property Name="gender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
-    <Property Name="locationId" Type="Int32" />
-    <Property Name="isActive" Type="Boolean" Nullable="false" />
-    <Property Name="authUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUser" Relationship="DriveShareModel.FK__User__authUserId__3B75D760" FromRole="User1" ToRole="AspNetUser" />
-    <NavigationProperty Name="Comments" Relationship="DriveShareModel.FK__Comment__userID__3E52440B" FromRole="User1" ToRole="Comment1" />
-    <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK__User__locationId__3A81B327" FromRole="User1" ToRole="Geolocation" />
-    <NavigationProperty Name="DriverBoards" Relationship="DriveShareModel.FK__RideBoard__drive__4222D4EF" FromRole="User1" ToRole="RideBoard" />
-    <NavigationProperty Name="RiderBoards" Relationship="DriveShareModel.RideBoardSlot1" FromRole="User1" ToRole="RideBoard" />
+    <Property Name="ThreadId" Type="Int64" Nullable="false" />
+    <Property Name="User1Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="User2Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="LastPostedOnDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="User1" Relationship="DriveShareModel.FK_ChatThread_User1Id" FromRole="ChatThread" ToRole="AspNetUser" />
+    <NavigationProperty Name="User2" Relationship="DriveShareModel.FK_ChatThread_User2Id" FromRole="ChatThread" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="ProfilePicture">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="IsVehiclePicture" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsVehiclePicture" Type="Boolean" Nullable="false" />
+    <Property Name="PictureContent" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="User" Relationship="DriveShareModel.FK_ProfilePicture_UserId" FromRole="ProfilePicture" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="RideRequest">
+    <Key>
+      <PropertyRef Name="RiderId" />
+      <PropertyRef Name="RequestNum" />
+    </Key>
+    <Property Name="RiderId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="RequestNum" Type="Int32" Nullable="false" />
+    <Property Name="ScheduleId" Type="Int32" />
+    <Property Name="DepartingTime" Type="Time" Nullable="false" Precision="0" />
+    <Property Name="ArrivalTime" Type="Time" Nullable="false" Precision="0" />
+    <Property Name="RequestStatusId" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Rider" Relationship="DriveShareModel.FK_RideRequest_RiderId" FromRole="RideRequest" ToRole="AspNetUser" />
+    <NavigationProperty Name="RideRequestStatu" Relationship="DriveShareModel.FK_RideRequest_RequestStatusId" FromRole="RideRequest" ToRole="RideRequestStatu" />
+    <NavigationProperty Name="Schedule" Relationship="DriveShareModel.FK_RideRequest_ScheduleId" FromRole="RideRequest" ToRole="Schedule" />
+  </EntityType>
+  <EntityType Name="RideRequestStatu">
+    <Key>
+      <PropertyRef Name="RequestStatusId" />
+    </Key>
+    <Property Name="RequestStatusId" Type="Byte" Nullable="false" />
+    <Property Name="RequestStatusName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Route">
+    <Key>
+      <PropertyRef Name="DriverId" />
+      <PropertyRef Name="RouteNum" />
+    </Key>
+    <Property Name="DriverId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="RouteNum" Type="Int32" Nullable="false" />
+    <Property Name="ScheduleId" Type="Int32" Nullable="false" />
+    <Property Name="DestinationId" Type="Int32" />
+    <Property Name="DepartTime" Type="Time" Nullable="false" Precision="0" />
+    <Property Name="ArriveTime" Type="Time" Nullable="false" Precision="0" />
+    <Property Name="MaxSeatCount" Type="Int32" />
+    <NavigationProperty Name="Driver" Relationship="DriveShareModel.FK__Route__DriverId__2EDAF651" FromRole="Route" ToRole="AspNetUser" />
+    <NavigationProperty Name="Schedule" Relationship="DriveShareModel.FK__Route__ScheduleI__2DE6D218" FromRole="Route" ToRole="Schedule" />
+    <NavigationProperty Name="Riders" Relationship="DriveShareModel.RouteSlot" FromRole="Route" ToRole="AspNetUser" />
+    <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK__Route__Destinati__2CF2ADDF" FromRole="Route" ToRole="Geolocation" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ScheduleId" />
+    </Key>
+    <Property Name="ScheduleId" Type="Int32" Nullable="false" />
+    <Property Name="CheckedSunday" Type="Boolean" Nullable="false" />
+    <Property Name="CheckedMonday" Type="Boolean" Nullable="false" />
+    <Property Name="CheckedTuesday" Type="Boolean" Nullable="false" />
+    <Property Name="CheckedWednesday" Type="Boolean" Nullable="false" />
+    <Property Name="CheckedThursday" Type="Boolean" Nullable="false" />
+    <Property Name="CheckedFriday" Type="Boolean" Nullable="false" />
+    <Property Name="CheckedSaturday" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="RideRequests" Relationship="DriveShareModel.FK_RideRequest_ScheduleId" FromRole="Schedule" ToRole="RideRequest" />
+    <NavigationProperty Name="Routes" Relationship="DriveShareModel.FK__Route__ScheduleI__2DE6D218" FromRole="Schedule" ToRole="Route" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -201,53 +282,123 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__User__authUserId__3B75D760">
-    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="DriveShareModel.User" Role="User1" Multiplicity="*" />
+  <Association Name="FK__Route__DriverId__2EDAF651">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.Route" Role="Route" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AspNetUser">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="User1">
-        <PropertyRef Name="authUserId" />
+      <Dependent Role="Route">
+        <PropertyRef Name="DriverId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Comment__userID__3E52440B">
-    <End Type="DriveShareModel.User" Role="User1" Multiplicity="1" />
-    <End Type="DriveShareModel.Comment" Role="Comment1" Multiplicity="*" />
+  <Association Name="FK_ChatMessage_FromUserId">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User1">
-        <PropertyRef Name="userID" />
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Comment1">
-        <PropertyRef Name="userID" />
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="FromUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__User__locationId__3A81B327">
-    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
-    <End Type="DriveShareModel.User" Role="User1" Multiplicity="*" />
+  <Association Name="FK_ChatMessage_ToUserId">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Geolocation">
-        <PropertyRef Name="locationId" />
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="User1">
-        <PropertyRef Name="locationId" />
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="ToUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__RideBoard__drive__4222D4EF">
-    <End Type="DriveShareModel.User" Role="User1" Multiplicity="1" />
-    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
+  <Association Name="FK_ChatThread_User1Id">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.ChatThread" Role="ChatThread" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User1">
-        <PropertyRef Name="userID" />
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="RideBoard">
-        <PropertyRef Name="driverId" />
+      <Dependent Role="ChatThread">
+        <PropertyRef Name="User1Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatThread_User2Id">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.ChatThread" Role="ChatThread" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatThread">
+        <PropertyRef Name="User2Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfilePicture_UserId">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.ProfilePicture" Role="ProfilePicture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfilePicture">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_RiderId">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.RideRequest" Role="RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="RiderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_RequestStatusId">
+    <End Type="DriveShareModel.RideRequestStatu" Role="RideRequestStatu" Multiplicity="1" />
+    <End Type="DriveShareModel.RideRequest" Role="RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RideRequestStatu">
+        <PropertyRef Name="RequestStatusId" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="RequestStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_ScheduleId">
+    <End Type="DriveShareModel.Schedule" Role="Schedule" Multiplicity="0..1" />
+    <End Type="DriveShareModel.RideRequest" Role="RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheduleId" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="ScheduleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Route__ScheduleI__2DE6D218">
+    <End Type="DriveShareModel.Schedule" Role="Schedule" Multiplicity="1" />
+    <End Type="DriveShareModel.Route" Role="Route" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheduleId" />
+      </Principal>
+      <Dependent Role="Route">
+        <PropertyRef Name="ScheduleId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -255,20 +406,58 @@
     <End Type="DriveShareModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
   </Association>
-  <Association Name="RideBoardSlot1">
-    <End Type="DriveShareModel.RideBoard" Role="RideBoard" Multiplicity="*" />
-    <End Type="DriveShareModel.User" Role="User1" Multiplicity="*" />
+  <Association Name="RouteSlot">
+    <End Type="DriveShareModel.Route" Role="Route" Multiplicity="*" />
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Geolocation">
+    <Key>
+      <PropertyRef Name="LocationId" />
+    </Key>
+    <Property Name="LocationId" Type="Int32" Nullable="false" />
+    <Property Name="Longitude" Precision="8" Scale="5" Type="Decimal" />
+    <Property Name="Latitude" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Color" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="User" Relationship="DriveShareModel.FK_AspNetUsers_LocationId" FromRole="Geolocation" ToRole="AspNetUser" />
+    <NavigationProperty Name="Routes" Relationship="DriveShareModel.FK__Route__Destinati__2CF2ADDF" FromRole="Geolocation" ToRole="Route" />
+  </EntityType>
+  <Association Name="FK_AspNetUsers_LocationId">
+    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="LocationId" />
+      </Principal>
+      <Dependent Role="AspNetUser">
+        <PropertyRef Name="LocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Route__Destinati__2CF2ADDF">
+    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+    <End Type="DriveShareModel.Route" Role="Route" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="LocationId" />
+      </Principal>
+      <Dependent Role="Route">
+        <PropertyRef Name="DestinationId" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
   <EntityType Name="vw_UserLocations">
     <Key>
-      <PropertyRef Name="locationId" />
+      <PropertyRef Name="LocationId" />
     </Key>
-    <Property Name="locationId" Type="String" Nullable="false" />
-    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="isDriver" Type="Boolean" />
-    <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="longitude" Type="Decimal" Precision="8" Scale="5" />
-    <Property Name="latitude" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="LocationId" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IsDriver" Type="Boolean" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+    <Property Name="Longitude" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="Latitude" Type="Decimal" Precision="8" Scale="5" />
+    <Property Name="Color" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

@@ -202,11 +202,6 @@
     <Compile Include="DAL\IDataService.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\MSSQL\DefaultRepositoryEF.cs" />
-    <Compile Include="DAL\MSSQL\GeolocationRepositoryEF.cs" />
-    <Compile Include="DAL\MSSQL\DriveShareRepositoryEF.cs" />
-    <Compile Include="DAL\MSSQL\RideBoardRepositoryEF.cs" />
-    <Compile Include="DAL\MSSQL\CommentRepositoryEF.cs" />
-    <Compile Include="DAL\MSSQL\UserRepositoryEF.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,7 +218,10 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Comment.cs">
+    <Compile Include="Models\ChatMessage.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChatThread.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
@@ -234,6 +232,9 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProfilePicture.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\RegisteredUserModel.Context.cs">
       <DependentUpon>RegisteredUserModel.Context.tt</DependentUpon>
@@ -250,10 +251,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Models\RideBoard.cs">
+    <Compile Include="Models\RideRequest.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
+    <Compile Include="Models\RideRequestStatu.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Route.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Schedule.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vw_UserLocations.cs">

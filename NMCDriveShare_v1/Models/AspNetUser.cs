@@ -19,8 +19,15 @@ namespace NMCDriveShare_v1.Models
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
-            this.Users = new HashSet<User>();
+            this.RoutesDriving = new HashSet<Route>();
+            this.ChatMessagesFrom = new HashSet<ChatMessage>();
+            this.ChatMessagesTo = new HashSet<ChatMessage>();
+            this.ChatThreadsFrom = new HashSet<ChatThread>();
+            this.ChatThreadsTo = new HashSet<ChatThread>();
+            this.ProfilePictures = new HashSet<ProfilePicture>();
+            this.RideRequests = new HashSet<RideRequest>();
             this.AspNetRoles = new HashSet<AspNetRole>();
+            this.RoutesRiding = new HashSet<Route>();
         }
     
         public string Id { get; set; }
@@ -35,14 +42,36 @@ namespace NMCDriveShare_v1.Models
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public Nullable<bool> IsDriver { get; set; }
+        public string Gender { get; set; }
+        public Nullable<int> LocationId { get; set; }
+        public bool IsActive { get; set; }
+        public byte Age { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Route> RoutesDriving { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessage> ChatMessagesFrom { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessage> ChatMessagesTo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatThread> ChatThreadsFrom { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatThread> ChatThreadsTo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProfilePicture> ProfilePictures { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RideRequest> RideRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Route> RoutesRiding { get; set; }
+        public virtual Geolocation Geolocation { get; set; }
     }
 }

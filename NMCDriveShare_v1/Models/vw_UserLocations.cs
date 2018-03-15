@@ -14,12 +14,14 @@ namespace NMCDriveShare_v1.Models
     
     public partial class vw_UserLocations
     {
-        public string locationId { get; set; }
+        public int LocationId { get; set; }
         public string UserName { get; set; }
-        public Nullable<bool> isDriver { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public Nullable<decimal> longitude { get; set; }
-        public Nullable<decimal> latitude { get; set; }
+        public Nullable<bool> IsDriver { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public Nullable<decimal> Longitude { get; set; }
+        public Nullable<decimal> Latitude { get; set; }
+        public string Color { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -351,7 +351,6 @@ C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microso
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AI.Web.xml
-C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.csprojResolveAssemblyReference.cache
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.csproj.CoreCompileInputs.cache
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.dll
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.pdb
@@ -716,3 +715,4 @@ C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microso
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AspNet.SignalR.Core.xml
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.csprojResolveAssemblyReference.cache

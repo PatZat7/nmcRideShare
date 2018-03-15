@@ -27,15 +27,19 @@ namespace NMCDriveShare_v1.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Geolocation> Geolocations { get; set; }
-        public virtual DbSet<RideBoard> RideBoards { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<ChatMessage> ChatMessages { get; set; }
+        public virtual DbSet<ChatThread> ChatThreads { get; set; }
+        public virtual DbSet<ProfilePicture> ProfilePictures { get; set; }
+        public virtual DbSet<RideRequest> RideRequests { get; set; }
+        public virtual DbSet<RideRequestStatu> RideRequestStatus { get; set; }
+        public virtual DbSet<Route> Routes { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<Geolocation> Geolocations { get; set; }
         public virtual DbSet<vw_UserLocations> vw_UserLocations { get; set; }
     
         public virtual int AddNewUser(string firstName, string lastName, Nullable<bool> isDriver, string gender, string authUserId)

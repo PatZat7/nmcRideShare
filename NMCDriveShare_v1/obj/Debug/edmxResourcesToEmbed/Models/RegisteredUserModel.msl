@@ -1,25 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DriveShareModelStoreContainer" CdmEntityContainer="DriveShareEntities3">
-    <FunctionImportMapping FunctionImportName="AddNewUser" FunctionName="DriveShareModel.Store.AddNewUser" />
-    <EntitySetMapping Name="Geolocations">
-      <EntityTypeMapping TypeName="DriveShareModel.Geolocation">
-        <MappingFragment StoreEntitySet="Geolocation">
-          <ScalarProperty Name="latitude" ColumnName="latitude" />
-          <ScalarProperty Name="longitude" ColumnName="longitude" />
-          <ScalarProperty Name="locationId" ColumnName="locationId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RideBoards">
-      <EntityTypeMapping TypeName="DriveShareModel.RideBoard">
-        <MappingFragment StoreEntitySet="RideBoard">
-          <ScalarProperty Name="destinationId" ColumnName="destinationId" />
-          <ScalarProperty Name="driverId" ColumnName="driverId" />
-          <ScalarProperty Name="boardId" ColumnName="boardId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="C__MigrationHistory">
       <EntityTypeMapping TypeName="DriveShareModel.C__MigrationHistory">
         <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -60,6 +41,13 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="DriveShareModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="IsDriver" ColumnName="IsDriver" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
           <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -75,26 +63,85 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Comments">
-      <EntityTypeMapping TypeName="DriveShareModel.Comment">
-        <MappingFragment StoreEntitySet="Comment">
-          <ScalarProperty Name="commentText" ColumnName="commentText" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
-          <ScalarProperty Name="commentID" ColumnName="commentID" />
+    <EntitySetMapping Name="ChatMessages">
+      <EntityTypeMapping TypeName="DriveShareModel.ChatMessage">
+        <MappingFragment StoreEntitySet="ChatMessage">
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="IsFailed" ColumnName="IsFailed" />
+          <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+          <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
+          <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+          <ScalarProperty Name="MessageOrder" ColumnName="MessageOrder" />
+          <ScalarProperty Name="ThreadId" ColumnName="ThreadId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="DriveShareModel.User">
-        <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="authUserId" ColumnName="authUserId" />
-          <ScalarProperty Name="isActive" ColumnName="isActive" />
-          <ScalarProperty Name="locationId" ColumnName="locationId" />
-          <ScalarProperty Name="gender" ColumnName="gender" />
-          <ScalarProperty Name="isDriver" ColumnName="isDriver" />
-          <ScalarProperty Name="firstName" ColumnName="firstName" />
-          <ScalarProperty Name="lastName" ColumnName="lastName" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
+    <EntitySetMapping Name="ChatThreads">
+      <EntityTypeMapping TypeName="DriveShareModel.ChatThread">
+        <MappingFragment StoreEntitySet="ChatThread">
+          <ScalarProperty Name="LastPostedOnDate" ColumnName="LastPostedOnDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="User2Id" ColumnName="User2Id" />
+          <ScalarProperty Name="User1Id" ColumnName="User1Id" />
+          <ScalarProperty Name="ThreadId" ColumnName="ThreadId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfilePictures">
+      <EntityTypeMapping TypeName="DriveShareModel.ProfilePicture">
+        <MappingFragment StoreEntitySet="ProfilePicture">
+          <ScalarProperty Name="PictureContent" ColumnName="PictureContent" />
+          <ScalarProperty Name="IsVehiclePicture" ColumnName="IsVehiclePicture" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RideRequests">
+      <EntityTypeMapping TypeName="DriveShareModel.RideRequest">
+        <MappingFragment StoreEntitySet="RideRequest">
+          <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+          <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
+          <ScalarProperty Name="DepartingTime" ColumnName="DepartingTime" />
+          <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+          <ScalarProperty Name="RequestNum" ColumnName="RequestNum" />
+          <ScalarProperty Name="RiderId" ColumnName="RiderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RideRequestStatus">
+      <EntityTypeMapping TypeName="DriveShareModel.RideRequestStatu">
+        <MappingFragment StoreEntitySet="RideRequestStatus">
+          <ScalarProperty Name="RequestStatusName" ColumnName="RequestStatusName" />
+          <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Routes">
+      <EntityTypeMapping TypeName="DriveShareModel.Route">
+        <MappingFragment StoreEntitySet="Route">
+          <ScalarProperty Name="MaxSeatCount" ColumnName="MaxSeatCount" />
+          <ScalarProperty Name="ArriveTime" ColumnName="ArriveTime" />
+          <ScalarProperty Name="DepartTime" ColumnName="DepartTime" />
+          <ScalarProperty Name="DestinationId" ColumnName="DestinationId" />
+          <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+          <ScalarProperty Name="RouteNum" ColumnName="RouteNum" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedules">
+      <EntityTypeMapping TypeName="DriveShareModel.Schedule">
+        <MappingFragment StoreEntitySet="Schedule">
+          <ScalarProperty Name="CheckedSaturday" ColumnName="CheckedSaturday" />
+          <ScalarProperty Name="CheckedFriday" ColumnName="CheckedFriday" />
+          <ScalarProperty Name="CheckedThursday" ColumnName="CheckedThursday" />
+          <ScalarProperty Name="CheckedWednesday" ColumnName="CheckedWednesday" />
+          <ScalarProperty Name="CheckedTuesday" ColumnName="CheckedTuesday" />
+          <ScalarProperty Name="CheckedMonday" ColumnName="CheckedMonday" />
+          <ScalarProperty Name="CheckedSunday" ColumnName="CheckedSunday" />
+          <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -106,23 +153,38 @@
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="RideBoardSlot1" TypeName="DriveShareModel.RideBoardSlot1" StoreEntitySet="RideBoardSlot">
-      <EndProperty Name="User1">
-        <ScalarProperty Name="userID" ColumnName="userId" />
+    <AssociationSetMapping Name="RouteSlot" TypeName="DriveShareModel.RouteSlot" StoreEntitySet="RouteSlot">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="RiderId" />
       </EndProperty>
-      <EndProperty Name="RideBoard">
-        <ScalarProperty Name="boardId" ColumnName="boardId" />
+      <EndProperty Name="Route">
+        <ScalarProperty Name="RouteNum" ColumnName="RouteNum" />
+        <ScalarProperty Name="DriverId" ColumnName="DriverId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Geolocations">
+      <EntityTypeMapping TypeName="DriveShareModel.Geolocation">
+        <MappingFragment StoreEntitySet="Geolocation">
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Latitude" ColumnName="latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="longitude" />
+          <ScalarProperty Name="LocationId" ColumnName="locationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="vw_UserLocations">
       <EntityTypeMapping TypeName="DriveShareModel.vw_UserLocations">
         <MappingFragment StoreEntitySet="vw_UserLocations">
-          <ScalarProperty Name="latitude" ColumnName="latitude" />
-          <ScalarProperty Name="longitude" ColumnName="longitude" />
-          <ScalarProperty Name="lastName" ColumnName="lastName" />
-          <ScalarProperty Name="firstName" ColumnName="firstName" />
-          <ScalarProperty Name="isDriver" ColumnName="isDriver" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="IsDriver" ColumnName="IsDriver" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
