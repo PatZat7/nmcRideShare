@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<body>
+    <div class="user-info">
+        <div class="left-side">
+
+        </div>
+        <div class="right-side">
+            <p>Username</p>
+            <p> Name Goes Here</p>
+            <p>Gender: Male</p>
+            <p>Driver (toggle) Rider</p>
+        </div>
+    </div>
+
+    <div class="userRideList">
+
+
+        @for (int i = 0; i < 10; i++)
+        {
+            <div class="ride">
+                <div>
+                    <p>Departing From: <input type="text" /></p>
+                    <p>At: <input type="text" /></p>
+                </div>
+                <div>
+                    <p>Destination: <input type="text" /></p>
+                    <p>Until: <input type="text" /></p>
+                </div>
+                <div>
+                    <p>Days: Su M Tu W Th F Sa</p>
+                    <p>Scheduled: <input class="checkbox" type="checkbox" /></p>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="userRouteList">
+
+        @for (int i = 0; i < 10; i++)
+        {
+            <div class="ride">
+                <div>
+                    <p>Departing From: <input   type="text" /></p>
+                    <p>At: <input type="text" /></p>
+                </div>
+                <div>
+                    <p>Destination: <input type="text" /></p>
+                    <p>Until: <input type="text" /></p>
+                </div>
+                <div>
+                    <p>Days: Su M Tu W Th F Sa</p>
+                    <p>Seats: <input type="text" /></p>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="contactList">
+        @for (int i = 0; i < 10; i++)
+        {
+            <div>
+                <div class="contactIcon">
+                    <img width="32" height="32" alt="Icon" />
+                </div>
+                <div class="contactControls">
+                    <p> Username <input class="btn-default" type="button" value="Chat" /> <input class="btn-default" type="button" value="To Map" /> <input class="btn-default" type="button" value="Remove" /></p>
+                </div>
+
+            </div>
+        }
+
+
+    </div>
+
+    <div class="chat">
+
+    </div>
+
+
+
+
+</body>

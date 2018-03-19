@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: #8C8C8C;
+    height: 100%;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -31,11 +33,6 @@ textarea {
 	background-color: green;
 }
 
-.body-content {
-	background-color: darkgrey;
-	margin: 0;
-	width: auto;
-}
 
 .line {
 	border-color: black;
@@ -123,10 +120,115 @@ textarea {
 }
 
 .user-info {
-	margin: 5px 5px;
-	/*border: 2px solid black;*/
-	height: 150px;
-	background-color: lightgrey;
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 110px;
+    overflow: hidden;
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+}
+
+.userRideList {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 200px;
+    overflow: scroll;
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+}
+
+.userRouteList {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 200px;
+    display: none;
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+}
+
+.ride {
+    background: #878787;
+    margin: 5px;
+    min-height: 110px;
+}
+
+    .ride p {
+        display: inline-block;
+        margin-left: 10%;
+    }
+
+        .ride p input {
+            width: 100px;
+            display: inline-block;
+            height: 25px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555555;
+            vertical-align: middle;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        }
+
+        .ride p .checkbox{
+            width:10px;
+        }
+
+.contactList {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 200px;
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+    overflow: scroll;
+}
+
+    .contactList .contactControls {
+        display: inline-block;
+        border: 1px solid black;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .contactList p {
+        border: 1px solid black;
+        display: inline-block;
+        min-width: 330px;
+        margin-top: 5px;
+        margin-bottom:0px;
+    }
+
+    .contactList p .btn-default {
+        margin-left: 5%;
+        border-radius: 5px;
+    }
+
+    .contactList .contactIcon {
+        border: 1px solid black;
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+        margin-left: 5%;
+    }
+
+
+.chat {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 110px;
+    background-color: white;
 }
 
 #name {
@@ -153,16 +255,35 @@ textarea {
 	margin: 5px;
 }
 
-.left-side {
-	/*border: 1px dotted red;*/
-	float: left;
+.right-side {
+	border: 1px dotted red;
+	float: right;
+    margin-right: 10%;
+    margin-top:10px;
+    overflow:scroll;
 }
 
-.right-side {
-	/*border: 1px dotted green;*/
-	float: right;
+.right-side p {
+    width: content;
+    margin: 0 auto;
+}
+
+.left-side {
+	border: 1px dotted green;
+	float: left;
+    margin: 5px;
 	height: 100px;
 	width: 100px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
 }
 
 /*//////////////////////////////////////////////////////*/

@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PortalController.cs" />
+    <Compile Include="Controllers\RiderController.cs" />
     <Compile Include="DAL\IDataService.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\MSSQL\DefaultRepositoryEF.cs" />
@@ -340,6 +341,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Rider\Index.cshtml" />
     <Content Include="Views\Portal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace NMCDriveShare_v1.Controllers
 {
-    public class PortalController : Controller
+    public class RiderController : Controller
     {
-        // GET: Portal
+        // GET: Rider
         public ActionResult Index()
         {
             return View();
