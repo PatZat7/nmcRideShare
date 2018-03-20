@@ -351,7 +351,6 @@ C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microso
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\bin\Microsoft.AI.Web.xml
-C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.csprojResolveAssemblyReference.cache
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.csproj.CoreCompileInputs.cache
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.dll
 C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.pdb
@@ -839,3 +838,4 @@ C:\Users\Jacob\Desktop\dsrepos\New folder (2)\DriveShare\NMCDriveShare_v1\obj\De
 C:\Users\Jacob\Desktop\dsrepos\New folder (2)\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.csproj.CoreCompileInputs.cache
 C:\Users\Jacob\Desktop\dsrepos\New folder (2)\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.dll
 C:\Users\Jacob\Desktop\dsrepos\New folder (2)\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.pdb
+C:\Users\G1HannaMax\CodeSpace\NMC\CIT280\DriveShare\NMCDriveShare_v1\obj\Debug\NMCDriveShare_v1.csprojResolveAssemblyReference.cache

@@ -4,26 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c1a77129725743e985af51871de36ab5" Name="Diagram1" ZoomLevel="73">
-        <EntityTypeShape EntityType="DriveShareModel.Geolocation" Width="1.5" PointX="0.75" PointY="2" />
-        <EntityTypeShape EntityType="DriveShareModel.RideBoard" Width="1.5" PointX="3" PointY="1.875" />
-        <AssociationConnector Association="DriveShareModel.FK__RideBoard__desti__14270015" />
-        <EntityTypeShape EntityType="DriveShareModel.C__MigrationHistory" Width="1.75" PointX="0.75" PointY="4.875" />
-        <EntityTypeShape EntityType="DriveShareModel.AspNetRole" Width="1.5" PointX="3.625" PointY="5.75" />
-        <EntityTypeShape EntityType="DriveShareModel.AspNetUserClaim" Width="1.75" PointX="8.625" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DriveShareModel.AspNetUserLogin" Width="1.75" PointX="11" PointY="7" />
-        <EntityTypeShape EntityType="DriveShareModel.AspNetUser" Width="1.5" PointX="5.875" PointY="5.25" />
-        <EntityTypeShape EntityType="DriveShareModel.Comment" Width="1.5" PointX="10.875" PointY="3.625" />
-        <EntityTypeShape EntityType="DriveShareModel.User" Width="1.5" PointX="5.375" PointY="1.125" />
+      <Diagram DiagramId="c1a77129725743e985af51871de36ab5" Name="Diagram1" ZoomLevel="60">
+        <EntityTypeShape EntityType="DriveShareModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DriveShareModel.AspNetRole" Width="1.5" PointX="6" PointY="7.5" />
+        <EntityTypeShape EntityType="DriveShareModel.AspNetUserClaim" Width="1.5" PointX="10.5" PointY="19" />
+        <EntityTypeShape EntityType="DriveShareModel.AspNetUserLogin" Width="1.5" PointX="10.5" PointY="16.5" />
+        <EntityTypeShape EntityType="DriveShareModel.AspNetUser" Width="1.875" PointX="8.25" PointY="8.75" />
+        <EntityTypeShape EntityType="DriveShareModel.ChatThread" Width="1.5" PointX="10.5" PointY="3.625" />
+        <EntityTypeShape EntityType="DriveShareModel.ProfilePicture" Width="1.5" PointX="10.5" PointY="10.625" />
+        <EntityTypeShape EntityType="DriveShareModel.RideRequest" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="DriveShareModel.RideRequestStatu" Width="1.5" PointX="0.75" PointY="8.375" />
+        <EntityTypeShape EntityType="DriveShareModel.Route" Width="1.5" PointX="6" PointY="10.75" />
+        <EntityTypeShape EntityType="DriveShareModel.Schedule" Width="1.5" PointX="0.75" PointY="10.875" />
         <AssociationConnector Association="DriveShareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="DriveShareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="DriveShareModel.FK__User__authUserId__3B75D760" />
-        <AssociationConnector Association="DriveShareModel.FK__Comment__userID__3E52440B" />
-        <AssociationConnector Association="DriveShareModel.FK__User__locationId__3A81B327" />
-        <AssociationConnector Association="DriveShareModel.FK__RideBoard__drive__4222D4EF" />
+        <AssociationConnector Association="DriveShareModel.FK__Route__DriverId__2EDAF651" />
+        <AssociationConnector Association="DriveShareModel.FK_ChatThread_User1Id" />
+        <AssociationConnector Association="DriveShareModel.FK_ChatThread_User2Id" />
+        <AssociationConnector Association="DriveShareModel.FK_ProfilePicture_UserId" />
+        <AssociationConnector Association="DriveShareModel.FK_RideRequest_RiderId" />
+        <AssociationConnector Association="DriveShareModel.FK_RideRequest_RequestStatusId" />
+        <AssociationConnector Association="DriveShareModel.FK_RideRequest_ScheduleId" />
+        <AssociationConnector Association="DriveShareModel.FK__Route__ScheduleI__2DE6D218" />
         <AssociationConnector Association="DriveShareModel.AspNetUserRoles" />
-        <AssociationConnector Association="DriveShareModel.RideBoardSlot1" />
-        <EntityTypeShape EntityType="DriveShareModel.vw_UserLocations" Width="1.5" PointX="8.5" PointY="1.125" />
+        <AssociationConnector Association="DriveShareModel.RouteSlot" />
+        <EntityTypeShape EntityType="DriveShareModel.Geolocation" Width="1.5" PointX="3.75" PointY="15" />
+        <AssociationConnector Association="DriveShareModel.FK_AspNetUsers_LocationId" />
+        <AssociationConnector Association="DriveShareModel.FK__Route__Destinati__2CF2ADDF" />
+        <EntityTypeShape EntityType="DriveShareModel.vw_UserLocations" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DriveShareModel.ChatMessage" Width="1.5" PointX="12.75" PointY="8" />
+        <AssociationConnector Association="DriveShareModel.FK_ChatMessage_FromUserId" />
+        <AssociationConnector Association="DriveShareModel.FK_ChatMessage_ToUserId" />
+        <AssociationConnector Association="DriveShareModel.FK_ChatMessage_ThreadId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
