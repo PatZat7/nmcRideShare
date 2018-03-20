@@ -24,7 +24,8 @@ namespace NMCDriveShare_v1.Models
         public bool IsFailed { get; set; }
         public string MessageContent { get; set; }
     
-        public virtual AspNetUser FromUser { get; set; }
-        public virtual AspNetUser ToUser { get; set; }
+        public virtual AspNetUser Sender { get; set; }
+        public virtual AspNetUser Receiver { get; set; }
+        public virtual ChatThread ChatThread { get; set; }
     }
 }

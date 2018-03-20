@@ -32,7 +32,6 @@ namespace NMCDriveShare_v1.Models
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<ChatMessage> ChatMessages { get; set; }
         public virtual DbSet<ChatThread> ChatThreads { get; set; }
         public virtual DbSet<ProfilePicture> ProfilePictures { get; set; }
         public virtual DbSet<RideRequest> RideRequests { get; set; }
@@ -41,6 +40,7 @@ namespace NMCDriveShare_v1.Models
         public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<Geolocation> Geolocations { get; set; }
         public virtual DbSet<vw_UserLocations> vw_UserLocations { get; set; }
+        public virtual DbSet<ChatMessage> ChatMessages { get; set; }
     
         public virtual int AddNewUser(string firstName, string lastName, Nullable<bool> isDriver, string gender, string authUserId)
         {
@@ -65,6 +65,16 @@ namespace NMCDriveShare_v1.Models
                 new ObjectParameter("authUserId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNewUser", firstNameParameter, lastNameParameter, isDriverParameter, genderParameter, authUserIdParameter);
+        }
+    
+        [DbFunction("DriveShareEntities3", "fn_UserGeolocation")]
+        public virtual IQueryable<fn_UserGeolocation_Result> fn_UserGeolocation(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_UserGeolocation_Result>("[DriveShareEntities3].[fn_UserGeolocation](@userId)", userIdParameter);
         }
     }
 }

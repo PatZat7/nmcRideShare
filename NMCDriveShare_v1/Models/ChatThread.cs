@@ -14,6 +14,12 @@ namespace NMCDriveShare_v1.Models
     
     public partial class ChatThread
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ChatThread()
+        {
+            this.ChatMessages = new HashSet<ChatMessage>();
+        }
+    
         public long ThreadId { get; set; }
         public string User1Id { get; set; }
         public string User2Id { get; set; }
@@ -22,5 +28,7 @@ namespace NMCDriveShare_v1.Models
     
         public virtual AspNetUser User1 { get; set; }
         public virtual AspNetUser User2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessage> ChatMessages { get; set; }
     }
 }

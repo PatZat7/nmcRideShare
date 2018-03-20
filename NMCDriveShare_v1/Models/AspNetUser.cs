@@ -20,14 +20,14 @@ namespace NMCDriveShare_v1.Models
             this.AspNetUserClaims = new HashSet<AspNetUserClaim>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.RoutesDriving = new HashSet<Route>();
-            this.ChatMessagesFrom = new HashSet<ChatMessage>();
-            this.ChatMessagesTo = new HashSet<ChatMessage>();
             this.ChatThreadsFrom = new HashSet<ChatThread>();
             this.ChatThreadsTo = new HashSet<ChatThread>();
             this.ProfilePictures = new HashSet<ProfilePicture>();
             this.RideRequests = new HashSet<RideRequest>();
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.RoutesRiding = new HashSet<Route>();
+            this.ChatMessagesFrom = new HashSet<ChatMessage>();
+            this.ChatMessagesTo = new HashSet<ChatMessage>();
         }
     
         public string Id { get; set; }
@@ -57,10 +57,6 @@ namespace NMCDriveShare_v1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Route> RoutesDriving { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChatMessage> ChatMessagesFrom { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChatMessage> ChatMessagesTo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatThread> ChatThreadsFrom { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChatThread> ChatThreadsTo { get; set; }
@@ -73,5 +69,9 @@ namespace NMCDriveShare_v1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Route> RoutesRiding { get; set; }
         public virtual Geolocation Geolocation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessage> ChatMessagesFrom { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChatMessage> ChatMessagesTo { get; set; }
     }
 }
