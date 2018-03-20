@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c1a77129725743e985af51871de36ab5" Name="Diagram1" ZoomLevel="54">
+      <Diagram DiagramId="c1a77129725743e985af51871de36ab5" Name="Diagram1" ZoomLevel="60">
         <EntityTypeShape EntityType="DriveShareModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DriveShareModel.AspNetRole" Width="1.5" PointX="6" PointY="7.5" />
         <EntityTypeShape EntityType="DriveShareModel.AspNetUserClaim" Width="1.5" PointX="10.5" PointY="19" />
         <EntityTypeShape EntityType="DriveShareModel.AspNetUserLogin" Width="1.5" PointX="10.5" PointY="16.5" />
-        <EntityTypeShape EntityType="DriveShareModel.AspNetUser" Width="1.5" PointX="8.25" PointY="8.75" />
+        <EntityTypeShape EntityType="DriveShareModel.AspNetUser" Width="1.875" PointX="8.25" PointY="8.75" />
         <EntityTypeShape EntityType="DriveShareModel.ChatThread" Width="1.5" PointX="10.5" PointY="3.625" />
         <EntityTypeShape EntityType="DriveShareModel.ProfilePicture" Width="1.5" PointX="10.5" PointY="10.625" />
         <EntityTypeShape EntityType="DriveShareModel.RideRequest" Width="1.5" PointX="3" PointY="10.875" />

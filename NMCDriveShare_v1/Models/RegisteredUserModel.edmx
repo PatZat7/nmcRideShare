@@ -726,8 +726,8 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
           <NavigationProperty Name="AspNetRoles" Relationship="DriveShareModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <NavigationProperty Name="RoutesRiding" Relationship="DriveShareModel.RouteSlot" FromRole="AspNetUser" ToRole="Route" />
           <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK_AspNetUsers_LocationId" FromRole="AspNetUser" ToRole="Geolocation" />
-          <NavigationProperty Name="ChatMessagesFrom" Relationship="DriveShareModel.FK_ChatMessage_FromUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
-          <NavigationProperty Name="ChatMessagesTo" Relationship="DriveShareModel.FK_ChatMessage_ToUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
+          <NavigationProperty Name="ChatMessagesStartedBy" Relationship="DriveShareModel.FK_ChatMessage_FromUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
+          <NavigationProperty Name="ChatMessagesStartedTo" Relationship="DriveShareModel.FK_ChatMessage_ToUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
         </EntityType>
         <EntityType Name="ChatThread">
           <Key>

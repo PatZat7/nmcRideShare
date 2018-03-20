@@ -227,6 +227,9 @@
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\fn_UserGeolocation_Result.cs">
+      <DependentUpon>RegisteredUserModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Geolocation.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>

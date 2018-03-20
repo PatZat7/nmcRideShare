@@ -71,6 +71,7 @@
   <EntityType Name="ChatMessage">
     <Key>
       <PropertyRef Name="ThreadId" />
+      <PropertyRef Name="MessageOrder" />
     </Key>
     <Property Name="ThreadId" Type="bigint" Nullable="false" />
     <Property Name="MessageOrder" Type="int" Nullable="false" />
@@ -268,6 +269,18 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ChatMessage_ThreadId">
+    <End Role="ChatThread" Type="Self.ChatThread" Multiplicity="1" />
+    <End Role="ChatMessage" Type="Self.ChatMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChatThread">
+        <PropertyRef Name="ThreadId" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="ThreadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ChatMessage_ToUserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="ChatMessage" Type="Self.ChatMessage" Multiplicity="*" />
@@ -408,6 +421,29 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="fn_CalculateGeolocationDistanceKm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+    <Parameter Name="longitude1" Type="decimal" Mode="In" />
+    <Parameter Name="latitude1" Type="decimal" Mode="In" />
+    <Parameter Name="longitude2" Type="decimal" Mode="In" />
+    <Parameter Name="latitude2" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="fn_CalculateGeolocationDistanceMi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+    <Parameter Name="longitude1" Type="decimal" Mode="In" />
+    <Parameter Name="latitude1" Type="decimal" Mode="In" />
+    <Parameter Name="longitude2" Type="decimal" Mode="In" />
+    <Parameter Name="latitude2" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="fn_UserGeolocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="nvarchar" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="UserLat" Type="decimal" Precision="8" Scale="5" />
+          <Property Name="UserLong" Type="decimal" Precision="8" Scale="5" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
   <EntityContainer Name="DriveShareModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -463,6 +499,10 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
     </AssociationSet>
     <AssociationSet Name="FK_ChatMessage_FromUserId" Association="Self.FK_ChatMessage_FromUserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ChatMessage" EntitySet="ChatMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatMessage_ThreadId" Association="Self.FK_ChatMessage_ThreadId">
+      <End Role="ChatThread" EntitySet="ChatThread" />
       <End Role="ChatMessage" EntitySet="ChatMessage" />
     </AssociationSet>
     <AssociationSet Name="FK_ChatMessage_ToUserId" Association="Self.FK_ChatMessage_ToUserId">

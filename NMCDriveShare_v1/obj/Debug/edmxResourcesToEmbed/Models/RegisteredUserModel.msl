@@ -63,21 +63,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ChatMessages">
-      <EntityTypeMapping TypeName="DriveShareModel.ChatMessage">
-        <MappingFragment StoreEntitySet="ChatMessage">
-          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
-          <ScalarProperty Name="IsFailed" ColumnName="IsFailed" />
-          <ScalarProperty Name="IsSent" ColumnName="IsSent" />
-          <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
-          <ScalarProperty Name="DateSent" ColumnName="DateSent" />
-          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
-          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
-          <ScalarProperty Name="MessageOrder" ColumnName="MessageOrder" />
-          <ScalarProperty Name="ThreadId" ColumnName="ThreadId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ChatThreads">
       <EntityTypeMapping TypeName="DriveShareModel.ChatThread">
         <MappingFragment StoreEntitySet="ChatThread">
@@ -185,6 +170,29 @@
           <ScalarProperty Name="IsDriver" ColumnName="IsDriver" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="fn_UserGeolocation" FunctionName="DriveShareModel.Store.fn_UserGeolocation">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DriveShareModel.fn_UserGeolocation_Result">
+          <ScalarProperty Name="UserLat" ColumnName="UserLat" />
+          <ScalarProperty Name="UserLong" ColumnName="UserLong" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ChatMessages">
+      <EntityTypeMapping TypeName="DriveShareModel.ChatMessage">
+        <MappingFragment StoreEntitySet="ChatMessage">
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="IsFailed" ColumnName="IsFailed" />
+          <ScalarProperty Name="IsSent" ColumnName="IsSent" />
+          <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
+          <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+          <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+          <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
+          <ScalarProperty Name="MessageOrder" ColumnName="MessageOrder" />
+          <ScalarProperty Name="ThreadId" ColumnName="ThreadId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

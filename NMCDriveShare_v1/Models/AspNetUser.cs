@@ -26,8 +26,8 @@ namespace NMCDriveShare_v1.Models
             this.RideRequests = new HashSet<RideRequest>();
             this.AspNetRoles = new HashSet<AspNetRole>();
             this.RoutesRiding = new HashSet<Route>();
-            this.ChatMessagesFrom = new HashSet<ChatMessage>();
-            this.ChatMessagesTo = new HashSet<ChatMessage>();
+            this.ChatMessagesStartedBy = new HashSet<ChatMessage>();
+            this.ChatMessagesStartedTo = new HashSet<ChatMessage>();
         }
     
         public string Id { get; set; }
@@ -70,8 +70,8 @@ namespace NMCDriveShare_v1.Models
         public virtual ICollection<Route> RoutesRiding { get; set; }
         public virtual Geolocation Geolocation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChatMessage> ChatMessagesFrom { get; set; }
+        public virtual ICollection<ChatMessage> ChatMessagesStartedBy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChatMessage> ChatMessagesTo { get; set; }
+        public virtual ICollection<ChatMessage> ChatMessagesStartedTo { get; set; }
     }
 }

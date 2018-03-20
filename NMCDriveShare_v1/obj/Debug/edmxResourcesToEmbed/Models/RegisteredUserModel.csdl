@@ -13,7 +13,6 @@
     <EntitySet Name="AspNetUserClaims" EntityType="DriveShareModel.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="DriveShareModel.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="DriveShareModel.AspNetUser" />
-    <EntitySet Name="ChatMessages" EntityType="DriveShareModel.ChatMessage" />
     <EntitySet Name="ChatThreads" EntityType="DriveShareModel.ChatThread" />
     <EntitySet Name="ProfilePictures" EntityType="DriveShareModel.ProfilePicture" />
     <EntitySet Name="RideRequests" EntityType="DriveShareModel.RideRequest" />
@@ -31,14 +30,6 @@
     <AssociationSet Name="FK__Route__DriverId__2EDAF651" Association="DriveShareModel.FK__Route__DriverId__2EDAF651">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="Route" EntitySet="Routes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ChatMessage_FromUserId" Association="DriveShareModel.FK_ChatMessage_FromUserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="ChatMessage" EntitySet="ChatMessages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ChatMessage_ToUserId" Association="DriveShareModel.FK_ChatMessage_ToUserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="ChatMessage" EntitySet="ChatMessages" />
     </AssociationSet>
     <AssociationSet Name="FK_ChatThread_User1Id" Association="DriveShareModel.FK_ChatThread_User1Id">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -86,6 +77,22 @@
       <End Role="Route" EntitySet="Routes" />
     </AssociationSet>
     <EntitySet Name="vw_UserLocations" EntityType="DriveShareModel.vw_UserLocations" />
+    <FunctionImport Name="fn_UserGeolocation" IsComposable="true" ReturnType="Collection(DriveShareModel.fn_UserGeolocation_Result)">
+      <Parameter Name="userId" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="ChatMessages" EntityType="DriveShareModel.ChatMessage" />
+    <AssociationSet Name="FK_ChatMessage_FromUserId" Association="DriveShareModel.FK_ChatMessage_FromUserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ChatMessage" EntitySet="ChatMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatMessage_ToUserId" Association="DriveShareModel.FK_ChatMessage_ToUserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ChatMessage" EntitySet="ChatMessages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatMessage_ThreadId" Association="DriveShareModel.FK_ChatMessage_ThreadId">
+      <End Role="ChatThread" EntitySet="ChatThreads" />
+      <End Role="ChatMessage" EntitySet="ChatMessages" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -152,8 +159,6 @@
     <NavigationProperty Name="AspNetUserClaims" Relationship="DriveShareModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="DriveShareModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="RoutesDriving" Relationship="DriveShareModel.FK__Route__DriverId__2EDAF651" FromRole="AspNetUser" ToRole="Route" />
-    <NavigationProperty Name="ChatMessagesFrom" Relationship="DriveShareModel.FK_ChatMessage_FromUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
-    <NavigationProperty Name="ChatMessagesTo" Relationship="DriveShareModel.FK_ChatMessage_ToUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
     <NavigationProperty Name="ChatThreadsFrom" Relationship="DriveShareModel.FK_ChatThread_User1Id" FromRole="AspNetUser" ToRole="ChatThread" />
     <NavigationProperty Name="ChatThreadsTo" Relationship="DriveShareModel.FK_ChatThread_User2Id" FromRole="AspNetUser" ToRole="ChatThread" />
     <NavigationProperty Name="ProfilePictures" Relationship="DriveShareModel.FK_ProfilePicture_UserId" FromRole="AspNetUser" ToRole="ProfilePicture" />
@@ -161,22 +166,8 @@
     <NavigationProperty Name="AspNetRoles" Relationship="DriveShareModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
     <NavigationProperty Name="RoutesRiding" Relationship="DriveShareModel.RouteSlot" FromRole="AspNetUser" ToRole="Route" />
     <NavigationProperty Name="Geolocation" Relationship="DriveShareModel.FK_AspNetUsers_LocationId" FromRole="AspNetUser" ToRole="Geolocation" />
-  </EntityType>
-  <EntityType Name="ChatMessage">
-    <Key>
-      <PropertyRef Name="ThreadId" />
-    </Key>
-    <Property Name="ThreadId" Type="Int64" Nullable="false" />
-    <Property Name="MessageOrder" Type="Int32" Nullable="false" />
-    <Property Name="FromUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="ToUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="DateSent" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
-    <Property Name="IsSent" Type="Boolean" Nullable="false" />
-    <Property Name="IsFailed" Type="Boolean" Nullable="false" />
-    <Property Name="MessageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="FromUser" Relationship="DriveShareModel.FK_ChatMessage_FromUserId" FromRole="ChatMessage" ToRole="AspNetUser" />
-    <NavigationProperty Name="ToUser" Relationship="DriveShareModel.FK_ChatMessage_ToUserId" FromRole="ChatMessage" ToRole="AspNetUser" />
+    <NavigationProperty Name="ChatMessagesStartedBy" Relationship="DriveShareModel.FK_ChatMessage_FromUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
+    <NavigationProperty Name="ChatMessagesStartedTo" Relationship="DriveShareModel.FK_ChatMessage_ToUserId" FromRole="AspNetUser" ToRole="ChatMessage" />
   </EntityType>
   <EntityType Name="ChatThread">
     <Key>
@@ -189,6 +180,7 @@
     <Property Name="LastPostedOnDate" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="User1" Relationship="DriveShareModel.FK_ChatThread_User1Id" FromRole="ChatThread" ToRole="AspNetUser" />
     <NavigationProperty Name="User2" Relationship="DriveShareModel.FK_ChatThread_User2Id" FromRole="ChatThread" ToRole="AspNetUser" />
+    <NavigationProperty Name="ChatMessages" Relationship="DriveShareModel.FK_ChatMessage_ThreadId" FromRole="ChatThread" ToRole="ChatMessage" />
   </EntityType>
   <EntityType Name="ProfilePicture">
     <Key>
@@ -291,30 +283,6 @@
       </Principal>
       <Dependent Role="Route">
         <PropertyRef Name="DriverId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ChatMessage_FromUserId">
-    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-    <End Type="DriveShareModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUser">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ChatMessage">
-        <PropertyRef Name="FromUserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ChatMessage_ToUserId">
-    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-    <End Type="DriveShareModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUser">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ChatMessage">
-        <PropertyRef Name="ToUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -460,4 +428,62 @@
     <Property Name="Color" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
     <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
   </EntityType>
+  <ComplexType Name="fn_UserGeolocation_Result">
+    <Property Type="Decimal" Name="UserLat" Nullable="true" Precision="8" Scale="5" />
+    <Property Type="Decimal" Name="UserLong" Nullable="true" Precision="8" Scale="5" />
+  </ComplexType>
+  <EntityType Name="ChatMessage">
+    <Key>
+      <PropertyRef Name="ThreadId" />
+      <PropertyRef Name="MessageOrder" />
+    </Key>
+    <Property Name="ThreadId" Type="Int64" Nullable="false" />
+    <Property Name="MessageOrder" Type="Int32" Nullable="false" />
+    <Property Name="FromUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ToUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateSent" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
+    <Property Name="IsSent" Type="Boolean" Nullable="false" />
+    <Property Name="IsFailed" Type="Boolean" Nullable="false" />
+    <Property Name="MessageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Sender" Relationship="DriveShareModel.FK_ChatMessage_FromUserId" FromRole="ChatMessage" ToRole="AspNetUser" />
+    <NavigationProperty Name="Receiver" Relationship="DriveShareModel.FK_ChatMessage_ToUserId" FromRole="ChatMessage" ToRole="AspNetUser" />
+    <NavigationProperty Name="ChatThread" Relationship="DriveShareModel.FK_ChatMessage_ThreadId" FromRole="ChatMessage" ToRole="ChatThread" />
+  </EntityType>
+  <Association Name="FK_ChatMessage_FromUserId">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatMessage_ToUserId">
+    <End Type="DriveShareModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="DriveShareModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatMessage_ThreadId">
+    <End Type="DriveShareModel.ChatThread" Role="ChatThread" Multiplicity="1" />
+    <End Type="DriveShareModel.ChatMessage" Role="ChatMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChatThread">
+        <PropertyRef Name="ThreadId" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="ThreadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
