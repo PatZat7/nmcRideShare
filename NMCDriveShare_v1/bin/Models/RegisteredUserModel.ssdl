@@ -1,0 +1,553 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DriveShareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="70" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="IsDriver" Type="bit" />
+    <Property Name="Gender" Type="char" MaxLength="10" />
+    <Property Name="LocationId" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Age" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ChatMessage">
+    <Key>
+      <PropertyRef Name="ThreadId" />
+      <PropertyRef Name="MessageOrder" />
+    </Key>
+    <Property Name="ThreadId" Type="bigint" Nullable="false" />
+    <Property Name="MessageOrder" Type="int" Nullable="false" />
+    <Property Name="FromUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ToUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DateSent" Type="datetime2" Precision="0" Nullable="false" />
+    <Property Name="IsBlocked" Type="bit" Nullable="false" />
+    <Property Name="IsSent" Type="bit" Nullable="false" />
+    <Property Name="IsFailed" Type="bit" Nullable="false" />
+    <Property Name="MessageContent" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="ChatThread">
+    <Key>
+      <PropertyRef Name="ThreadId" />
+    </Key>
+    <Property Name="ThreadId" Type="bigint" Nullable="false" />
+    <Property Name="User1Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="User2Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="StartDate" Type="datetime2" Precision="0" Nullable="false" />
+    <Property Name="LastPostedOnDate" Type="datetime2" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Geolocation">
+    <Key>
+      <PropertyRef Name="locationId" />
+    </Key>
+    <Property Name="locationId" Type="int" Nullable="false" />
+    <Property Name="longitude" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="latitude" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="Description" Type="varchar" MaxLength="250" />
+    <Property Name="Color" Type="char" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfilePicture">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="IsVehiclePicture" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IsVehiclePicture" Type="bit" Nullable="false" />
+    <Property Name="PictureContent" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RideRequest">
+    <Key>
+      <PropertyRef Name="RiderId" />
+      <PropertyRef Name="RequestNum" />
+    </Key>
+    <Property Name="RiderId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RequestNum" Type="int" Nullable="false" />
+    <Property Name="ScheduleId" Type="int" />
+    <Property Name="DepartingTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="ArrivalTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="RequestStatusId" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RideRequestStatus">
+    <Key>
+      <PropertyRef Name="RequestStatusId" />
+    </Key>
+    <Property Name="RequestStatusId" Type="tinyint" Nullable="false" />
+    <Property Name="RequestStatusName" Type="char" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Route">
+    <Key>
+      <PropertyRef Name="DriverId" />
+      <PropertyRef Name="RouteNum" />
+    </Key>
+    <Property Name="DriverId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RouteNum" Type="int" Nullable="false" />
+    <Property Name="ScheduleId" Type="int" Nullable="false" />
+    <Property Name="DestinationId" Type="int" />
+    <Property Name="DepartTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="ArriveTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="MaxSeatCount" Type="int" />
+  </EntityType>
+  <EntityType Name="RouteSlot">
+    <Key>
+      <PropertyRef Name="DriverId" />
+      <PropertyRef Name="RouteNum" />
+      <PropertyRef Name="RiderId" />
+    </Key>
+    <Property Name="DriverId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RouteNum" Type="int" Nullable="false" />
+    <Property Name="RiderId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ScheduleId" />
+    </Key>
+    <Property Name="ScheduleId" Type="int" Nullable="false" />
+    <Property Name="CheckedSunday" Type="bit" Nullable="false" />
+    <Property Name="CheckedMonday" Type="bit" Nullable="false" />
+    <Property Name="CheckedTuesday" Type="bit" Nullable="false" />
+    <Property Name="CheckedWednesday" Type="bit" Nullable="false" />
+    <Property Name="CheckedThursday" Type="bit" Nullable="false" />
+    <Property Name="CheckedFriday" Type="bit" Nullable="false" />
+    <Property Name="CheckedSaturday" Type="bit" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_UserLocations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_UserLocations">
+    <Key>
+      <PropertyRef Name="LocationId" />
+    </Key>
+    <Property Name="LocationId" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="IsDriver" Type="bit" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="70" />
+    <Property Name="Longitude" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="Latitude" Type="decimal" Precision="8" Scale="5" />
+    <Property Name="Color" Type="char" MaxLength="20" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <Association Name="FK__Route__Destinati__2CF2ADDF">
+    <End Role="Geolocation" Type="Self.Geolocation" Multiplicity="0..1" />
+    <End Role="Route" Type="Self.Route" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="locationId" />
+      </Principal>
+      <Dependent Role="Route">
+        <PropertyRef Name="DestinationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Route__DriverId__2EDAF651">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Route" Type="Self.Route" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Route">
+        <PropertyRef Name="DriverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Route__ScheduleI__2DE6D218">
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+    <End Role="Route" Type="Self.Route" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheduleId" />
+      </Principal>
+      <Dependent Role="Route">
+        <PropertyRef Name="ScheduleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RouteSlot__2FCF1A8A">
+    <End Role="Route" Type="Self.Route" Multiplicity="1" />
+    <End Role="RouteSlot" Type="Self.RouteSlot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Route">
+        <PropertyRef Name="DriverId" />
+        <PropertyRef Name="RouteNum" />
+      </Principal>
+      <Dependent Role="RouteSlot">
+        <PropertyRef Name="DriverId" />
+        <PropertyRef Name="RouteNum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__RouteSlot__Rider__30C33EC3">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="RouteSlot" Type="Self.RouteSlot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RouteSlot">
+        <PropertyRef Name="RiderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUsers_LocationId">
+    <End Role="Geolocation" Type="Self.Geolocation" Multiplicity="0..1" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="locationId" />
+      </Principal>
+      <Dependent Role="AspNetUsers">
+        <PropertyRef Name="LocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatMessage_FromUserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ChatMessage" Type="Self.ChatMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="FromUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatMessage_ThreadId">
+    <End Role="ChatThread" Type="Self.ChatThread" Multiplicity="1" />
+    <End Role="ChatMessage" Type="Self.ChatMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChatThread">
+        <PropertyRef Name="ThreadId" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="ThreadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatMessage_ToUserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ChatMessage" Type="Self.ChatMessage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatMessage">
+        <PropertyRef Name="ToUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatThread_User1Id">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ChatThread" Type="Self.ChatThread" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatThread">
+        <PropertyRef Name="User1Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ChatThread_User2Id">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ChatThread" Type="Self.ChatThread" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChatThread">
+        <PropertyRef Name="User2Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfilePicture_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ProfilePicture" Type="Self.ProfilePicture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfilePicture">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_RequestStatusId">
+    <End Role="RideRequestStatus" Type="Self.RideRequestStatus" Multiplicity="1" />
+    <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RideRequestStatus">
+        <PropertyRef Name="RequestStatusId" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="RequestStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_RiderId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="RiderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_ScheduleId">
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+    <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheduleId" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="ScheduleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_CalculateGeolocationDistanceKm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+    <Parameter Name="longitude1" Type="decimal" Mode="In" />
+    <Parameter Name="latitude1" Type="decimal" Mode="In" />
+    <Parameter Name="longitude2" Type="decimal" Mode="In" />
+    <Parameter Name="latitude2" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="fn_CalculateGeolocationDistanceMi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+    <Parameter Name="longitude1" Type="decimal" Mode="In" />
+    <Parameter Name="latitude1" Type="decimal" Mode="In" />
+    <Parameter Name="longitude2" Type="decimal" Mode="In" />
+    <Parameter Name="latitude2" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="fn_UserGeolocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="nvarchar" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="UserLat" Type="decimal" Precision="8" Scale="5" />
+          <Property Name="UserLong" Type="decimal" Precision="8" Scale="5" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <EntityContainer Name="DriveShareModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChatMessage" EntityType="Self.ChatMessage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChatThread" EntityType="Self.ChatThread" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Geolocation" EntityType="Self.Geolocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProfilePicture" EntityType="Self.ProfilePicture" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RideRequest" EntityType="Self.RideRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RideRequestStatus" EntityType="Self.RideRequestStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RouteSlot" EntityType="Self.RouteSlot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vw_UserLocations" EntityType="Self.vw_UserLocations" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_UserLocations].[LocationId] AS [LocationId], 
+    [vw_UserLocations].[UserName] AS [UserName], 
+    [vw_UserLocations].[IsDriver] AS [IsDriver], 
+    [vw_UserLocations].[FirstName] AS [FirstName], 
+    [vw_UserLocations].[LastName] AS [LastName], 
+    [vw_UserLocations].[Longitude] AS [Longitude], 
+    [vw_UserLocations].[Latitude] AS [Latitude], 
+    [vw_UserLocations].[Color] AS [Color], 
+    [vw_UserLocations].[Description] AS [Description]
+    FROM [dbo].[vw_UserLocations] AS [vw_UserLocations]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Route__Destinati__2CF2ADDF" Association="Self.FK__Route__Destinati__2CF2ADDF">
+      <End Role="Geolocation" EntitySet="Geolocation" />
+      <End Role="Route" EntitySet="Route" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Route__DriverId__2EDAF651" Association="Self.FK__Route__DriverId__2EDAF651">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Route" EntitySet="Route" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Route__ScheduleI__2DE6D218" Association="Self.FK__Route__ScheduleI__2DE6D218">
+      <End Role="Schedule" EntitySet="Schedule" />
+      <End Role="Route" EntitySet="Route" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RouteSlot__2FCF1A8A" Association="Self.FK__RouteSlot__2FCF1A8A">
+      <End Role="Route" EntitySet="Route" />
+      <End Role="RouteSlot" EntitySet="RouteSlot" />
+    </AssociationSet>
+    <AssociationSet Name="FK__RouteSlot__Rider__30C33EC3" Association="Self.FK__RouteSlot__Rider__30C33EC3">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="RouteSlot" EntitySet="RouteSlot" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUsers_LocationId" Association="Self.FK_AspNetUsers_LocationId">
+      <End Role="Geolocation" EntitySet="Geolocation" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatMessage_FromUserId" Association="Self.FK_ChatMessage_FromUserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ChatMessage" EntitySet="ChatMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatMessage_ThreadId" Association="Self.FK_ChatMessage_ThreadId">
+      <End Role="ChatThread" EntitySet="ChatThread" />
+      <End Role="ChatMessage" EntitySet="ChatMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatMessage_ToUserId" Association="Self.FK_ChatMessage_ToUserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ChatMessage" EntitySet="ChatMessage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatThread_User1Id" Association="Self.FK_ChatThread_User1Id">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ChatThread" EntitySet="ChatThread" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ChatThread_User2Id" Association="Self.FK_ChatThread_User2Id">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ChatThread" EntitySet="ChatThread" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfilePicture_UserId" Association="Self.FK_ProfilePicture_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ProfilePicture" EntitySet="ProfilePicture" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_RequestStatusId" Association="Self.FK_RideRequest_RequestStatusId">
+      <End Role="RideRequestStatus" EntitySet="RideRequestStatus" />
+      <End Role="RideRequest" EntitySet="RideRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_RiderId" Association="Self.FK_RideRequest_RiderId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="RideRequest" EntitySet="RideRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_ScheduleId" Association="Self.FK_RideRequest_ScheduleId">
+      <End Role="Schedule" EntitySet="Schedule" />
+      <End Role="RideRequest" EntitySet="RideRequest" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -28,68 +28,86 @@
 
 	<div class="col-md-9">
 		<div id="map"></div>
+		<script src="/Scripts/jquery-1.10.2.js"></script>
 		<script>
-              var map;
-                function initMap() {
-                    google.maps.visualRefresh = true;
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: 44.765365, lng: -85.585569},
-                  zoom: 16
-                  });
+			var map;
+			function initMap() {
+				google.maps.visualRefresh = true;
+				map = new google.maps.Map(document.getElementById('map'), {
+					center: { lat: 44.765365, lng: -85.585569 },
+					zoom: 16
+				});
 
-                var marker = new google.maps.Marker({
-                    position: { lat: 44.765365, lng: -85.585569 },
-                    map: map
-                });
+				var marker = new google.maps.Marker({
+					position: { lat: 44.765365, lng: -85.585569 },
+					map: map
+				});
+
+				//users current location
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function (p) {
+						var LatLng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+
+						//TODO 6) Ajax call start to save userlocation in database upon accepting to share his or her locaiton.
+						$.ajax({
+							type: "POST",
+							url: "UpdateUserLocation",
+							data: "{ 'latitude': " + p.coords.latitude + ", 'longitude': " + p.coords.longitude + " }",
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							success: function (result) {
+								alert("Location added successfully.");
+								console.log('Data received: ');
+								console.log(result);
+							}
+						});
+					});
+				} else {
+					$.ajax({
+						type: "POST",
+						url: "UpdateUserLocation",
+						data: { latitude: null, longitude: null },
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function (result) {
+							alert("Location removed.");
+							console.log('Data received: ');
+							console.log(result);
+						}
+					});
+
+					alert('Geo Location feature is not supported in this browser.');
+				}
 
 
-                // a sample list of JSON encoded data of places to visit in Tunisia
-                // you can either make up a JSON list server side, or call it from a controller using JSONResult
-                var data = @Html.Raw(ViewBag.markers);
+				// a sample list of JSON encoded data of places to visit in Tunisia
+				// you can either make up a JSON list server side, or call it from a controller using JSONResult
+				var data = @Html.Raw(ViewBag.markers);
 
-                // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
-                $.each(data, function (i, item) {
-                    var marker = new google.maps.Marker({
-                        'position': new google.maps.LatLng(item.GeoLong, item.GeoLat),
-                        'map': map,
-                        'title': item.PlaceName
-                    });
+				for (var i = 0; i < data.length; i++) {
+					var item = data[i];
+					var marker = new google.maps.Marker({
+						'position': new google.maps.LatLng(item.lat, item.lng),
+						'map': map,
+						'title': item.title
+					});
 
-                    // Make the marker-pin blue!
-                    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+					//alert("New location added (" + item.lng + ", " + item.lat + ").");
 
-                    // put in some information about each json object - in this case, the opening hours.
-                    var infowindow = new google.maps.InfoWindow({
-                        content: "<div class='infoDiv'><h2>" + item.PlaceName + "</div></div>"
-                    });
+					// Make the marker-pin blue!
+					marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png')
 
-                    // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
-                    google.maps.event.addListener(marker, 'click', function () {
-                        infowindow.open(map, marker);
-                    });
+					// put in some information about each json object - in this case, the opening hours.
+					var infowindow = new google.maps.InfoWindow({
+						content: "<div class='infoDiv'><h2>" + item.title + "</h2></div>"
+					});
 
-                    //users current location
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function (p) {
-                            var LatLng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
-
-                            var markerU = new google.maps.Marker({
-                                position: LatLng,
-                                map: map,
-                                title: "<div style = 'height:60px;width:200px'><b>Your location:</b><br />Latitude: " + p.coords.latitude + "<br />Longitude: " + p.coords.longitude
-                            });
-                            google.maps.event.addListener(markerU, "click", function (e) {
-                                var infoWindow = new google.maps.InfoWindow();
-                                infoWindow.setContent(markerU.title);
-                                infoWindow.open(map, markerU);
-                            });
-                        });
-                    } else {
-                        alert('Geo Location feature is not supported in this browser.');
-                    }
-
-                })
-              }
+					// finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
+					google.maps.event.addListener(marker, 'click', function () {
+						infowindow.open(map, marker);
+					});
+				}
+			}
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT8UdHuPW6QYktZFzTP-HVX5Gs5BPdULU&callback=initMap"
 				async defer></script>
