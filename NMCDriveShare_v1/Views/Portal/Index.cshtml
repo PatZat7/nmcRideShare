@@ -35,13 +35,70 @@
 				google.maps.visualRefresh = true;
 				map = new google.maps.Map(document.getElementById('map'), {
 					center: { lat: 44.765365, lng: -85.585569 },
-					zoom: 16
+					zoom: 12
 				});
 
+				// Main campus
 				var marker = new google.maps.Marker({
 					position: { lat: 44.765365, lng: -85.585569 },
-					map: map
+					map: map,
+					title: "NMC Main Campus"
 				});
+
+				// Aero-Park Drive
+				var marker2 = new google.maps.Marker({
+					position: { lat: 44.742810, lng: -85.574102 },
+					map: map,
+					title: "NMC Aero-Park Campus"
+				});
+
+				// Maritime campus
+				var marker3 = new google.maps.Marker({
+					position: { lat: 44.765159, lng: -85.606783 },
+					map: map,
+					title: "NMC Great Lakes Campus"
+				});
+
+				// University Center
+				var marker4 = new google.maps.Marker({
+					position: { lat: 44.739414, lng: -85.618954 },
+					map: map,
+					title: "NMC University Center"
+				});
+
+				// seed data
+				var seedMarkers = [
+					new google.maps.Marker({
+						position: { lat: 44.764330, lng: -85.619476 },
+						map: map,
+						title: "Nancy"
+					}),
+					new google.maps.Marker({
+						position: { lat: 44.723523, lng: -85.647678 },
+						map: map,
+						title: "Bob"
+					}),
+					new google.maps.Marker({
+						position: { lat: 44.739414, lng: -85.618954 },
+						map: map,
+						title: "parlinr@mail.nmc.edu"
+					})
+				];
+
+				// customize seed data to display with blue marker
+				for (var i = 0; i < seedMarkers.length; i++) {
+					//var seedMarker = seedMarkers[i];
+					let seedInfowindow = new google.maps.InfoWindow({
+						content: "<div class='infoDiv'><h2>" + seedMarkers[i].title + "</h2></div>"
+					});
+
+					// finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
+					google.maps.event.addListener(seedMarkers[i], 'click', function () {
+						seedInfowindow.open(map, seedMarkers[i]);
+					});
+
+					seedMarkers[i].setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+				}
 
 				//users current location
 				if (navigator.geolocation) {
@@ -95,7 +152,7 @@
 					//alert("New location added (" + item.lng + ", " + item.lat + ").");
 
 					// Make the marker-pin blue!
-					marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+					marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 
 					// put in some information about each json object - in this case, the opening hours.
 					var infowindow = new google.maps.InfoWindow({
