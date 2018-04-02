@@ -3,32 +3,48 @@
     ViewBag.Title = "Index";
 }
 
+<script>
+    function hideFunction() {
+        var x = document.getElementById('rideList');
+        var y = document.getElementById('routeList');
+        if (document.getElementById('viewType').checked) {
+            x.style.display = "none";
+            y.style.display = "block";
+        }
+        else {
+            x.style.display = "block";
+            y.style.display = "none";
+        }
+    }
+</script>
+
 <body>
-    <div class="user-info">
-        <div class="left-side">
+    @*<div class="col-md-12">*@
+    <div class="user-info row">
+        <div class="left-side col-md-4">
 
         </div>
-        <div class="right-side">
+        <div class="right-side col-md-8">
             <p>Username</p>
             <p> Name Goes Here</p>
             <p>Gender: Male</p>
-            <p>Driver (toggle) Rider</p>
+            <p>Driver <input id="viewType" type="checkbox" onclick="hideFunction()" /> Rider</p>
         </div>
     </div>
 
-    <div class="userRideList">
+    <div id="rideList" class="userRideList row">
 
-
-        @for (int i = 0; i < 10; i++)
+        @for (int i = 0; i < 3; i++)
         {
-            <div class="ride">
+            <div class="ride row">
+
                 <div>
-                    <p>Departing From: <input type="text" /></p>
-                    <p>At: <input type="text" /></p>
+                    <p>Departing From: Location here</p>
+                    <p>At: Time here</p>
                 </div>
                 <div>
-                    <p>Destination: <input type="text" /></p>
-                    <p>Until: <input type="text" /></p>
+                    <p>Destination: Location here</p>
+                    <p>Until: Time Here</p>
                 </div>
                 <div>
                     <p>Days: Su M Tu W Th F Sa</p>
@@ -37,20 +53,39 @@
             </div>
         }
 
+        <div class="ride row">
+
+            <div>
+                <p>Departing From: <input type="text" /></p>
+                <p>At: <input type="text" /></p>
+            </div>
+            <div>
+                <p>Destination: <input type="text" /></p>
+                <p>Until: <input type="text" /></p>
+            </div>
+            <div>
+                <p>Days: Su M Tu W Th F Sa</p>
+                <p>Scheduled: <input class="checkbox" type="checkbox" /></p>
+            </div>
+            <div><input type="button" value="Submit" /></div>
+        </div>
+
+
+
     </div>
 
-    <div class="userRouteList">
+    <div id="routeList" class="userRouteList row">
 
-        @for (int i = 0; i < 10; i++)
+        @for (int i = 0; i < 3; i++)
         {
-            <div class="ride">
+            <div class="ride row">
                 <div>
-                    <p>Departing From: <input   type="text" /></p>
-                    <p>At: <input type="text" /></p>
+                    <p>Departing From: Location here</p>
+                    <p>At: Time Here</p>
                 </div>
                 <div>
-                    <p>Destination: <input type="text" /></p>
-                    <p>Until: <input type="text" /></p>
+                    <p>Destination: Location here</p>
+                    <p>Until: Time Here</p>
                 </div>
                 <div>
                     <p>Days: Su M Tu W Th F Sa</p>
@@ -59,9 +94,31 @@
             </div>
         }
 
+
+        <div class="ride row">
+            <div>
+                <p>Departing From: <input type="text" /></p>
+                <p>At: <input type="text" /></p>
+            </div>
+            <div>
+                <p>Destination: <input type="text" /></p>
+                <p>Until: <input type="text" /></p>
+            </div>
+            <div>
+                <p>Days: Su M Tu W Th F Sa</p>
+                <p>Seats: <input type="text" /></p>
+            </div>
+            <div><input type="button" value="Submit" /></div>
+        </div>
+
+
+
+
+
+
     </div>
 
-    <div class="contactList">
+    <div class="contactList row">
         @for (int i = 0; i < 10; i++)
         {
             <div>
@@ -78,11 +135,11 @@
 
     </div>
 
-    <div class="chat">
+    <div class="chat row">
 
     </div>
 
-
+    @*</div>*@
 
 
 </body>
