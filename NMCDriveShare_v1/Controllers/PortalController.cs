@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using NMCDriveShare_v1.Models;
 using System.Data.Entity.Core;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace NMCDriveShare_v1.Controllers
 {
@@ -111,6 +113,45 @@ namespace NMCDriveShare_v1.Controllers
 			markers += "]";
 
 			ViewBag.markers = markers;
+
+			// get currently active ride requests
+			DateTime currentTime = DateTime.Now;
+			IEnumerable<RideRequest> requests = _dbContext.RideRequests.ToList();
+
+			// get daily active requests
+			switch (currentTime.DayOfWeek)
+			{
+				case DayOfWeek.Sunday:
+					requests = requests.Where(rr => rr.Schedule.CheckedSunday == true);
+					break;
+				case DayOfWeek.Monday:
+					requests = requests.Where(rr => rr.Schedule.CheckedMonday == true);
+					break;
+				case DayOfWeek.Tuesday:
+					requests = requests.Where(rr => rr.Schedule.CheckedTuesday == true);
+					break;
+				case DayOfWeek.Wednesday:
+					requests = requests.Where(rr => rr.Schedule.CheckedWednesday == true);
+					break;
+				case DayOfWeek.Thursday:
+					requests = requests.Where(rr => rr.Schedule.CheckedThursday == true);
+					break;
+				case DayOfWeek.Friday:
+					requests = requests.Where(rr => rr.Schedule.CheckedFriday == true);
+					break;
+				case DayOfWeek.Saturday:
+					requests = requests.Where(rr => rr.Schedule.CheckedSaturday == true);
+					break;
+				default:
+					break;
+			}
+
+			// get requests to come, ignore passed ones
+			// order requests with earlier times first
+			requests = requests.Where(rr => rr.DepartingTime.CompareTo(currentTime.TimeOfDay) > 0)
+				.OrderBy(rr => rr.DepartingTime);
+
+			ViewBag.activeRideRequests = requests;
 
 			return View();
 		}

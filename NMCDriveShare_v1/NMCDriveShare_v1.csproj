@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PortalController.cs" />
@@ -267,6 +268,8 @@
     <Compile Include="Models\Schedule.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\AddRideViewModel.cs" />
+    <Compile Include="Models\ViewModels\RiderSchedulesViewModel.cs" />
     <Compile Include="Models\vw_UserLocations.cs">
       <DependentUpon>RegisteredUserModel.tt</DependentUpon>
     </Compile>
@@ -353,6 +356,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Rider\Index.cshtml" />
     <Content Include="Views\Portal\Index.cshtml" />
+    <Content Include="Views\Driver\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

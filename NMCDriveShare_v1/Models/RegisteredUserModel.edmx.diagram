@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c1a77129725743e985af51871de36ab5" Name="Diagram1" ZoomLevel="60">
+      <Diagram DiagramId="c1a77129725743e985af51871de36ab5" Name="Diagram1" ZoomLevel="89">
         <EntityTypeShape EntityType="DriveShareModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DriveShareModel.AspNetRole" Width="1.5" PointX="6" PointY="7.5" />
         <EntityTypeShape EntityType="DriveShareModel.AspNetUserClaim" Width="1.5" PointX="10.5" PointY="19" />
@@ -25,7 +25,18 @@
         <AssociationConnector Association="DriveShareModel.FK_RideRequest_RiderId" />
         <AssociationConnector Association="DriveShareModel.FK_RideRequest_RequestStatusId" />
         <AssociationConnector Association="DriveShareModel.FK_RideRequest_ScheduleId" />
-        <AssociationConnector Association="DriveShareModel.FK__Route__ScheduleI__2DE6D218" />
+        <AssociationConnector Association="DriveShareModel.FK__Route__ScheduleI__2DE6D218" ManuallyRouted="true" >
+          <ConnectorPoint PointX="2.25" PointY="10.944361582328451" />
+          <ConnectorPoint PointX="2.658375" PointY="10.944361582328451" />
+          <ConnectorPoint PointX="2.658375" PointY="10.330886504921903" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="10.330886504921903" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="10.330886504921903" />
+          <ConnectorPoint PointX="4.7625" PointY="10.330886504921903" />
+          <ConnectorPoint PointX="4.7625" PointY="11.107189550701271" />
+          <ConnectorPoint PointX="4.9229166666666666" PointY="11.107189550701271" />
+          <ConnectorPoint PointX="5.0895833333333327" PointY="11.107189550701271" />
+          <ConnectorPoint PointX="6" PointY="11.107189550701271" />
+        </AssociationConnector>
         <AssociationConnector Association="DriveShareModel.AspNetUserRoles" />
         <AssociationConnector Association="DriveShareModel.RouteSlot" />
         <EntityTypeShape EntityType="DriveShareModel.Geolocation" Width="1.5" PointX="3.75" PointY="15" />
@@ -36,6 +47,8 @@
         <AssociationConnector Association="DriveShareModel.FK_ChatMessage_FromUserId" />
         <AssociationConnector Association="DriveShareModel.FK_ChatMessage_ToUserId" />
         <AssociationConnector Association="DriveShareModel.FK_ChatMessage_ThreadId" />
+        <AssociationConnector Association="DriveShareModel.FK_RideRequest_DropoffLocationId" />
+        <AssociationConnector Association="DriveShareModel.FK_RideRequest_PickupLocationId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

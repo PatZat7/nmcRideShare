@@ -93,6 +93,14 @@
       <End Role="ChatThread" EntitySet="ChatThreads" />
       <End Role="ChatMessage" EntitySet="ChatMessages" />
     </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_DropoffLocationId" Association="DriveShareModel.FK_RideRequest_DropoffLocationId">
+      <End Role="Geolocation" EntitySet="Geolocations" />
+      <End Role="RideRequest" EntitySet="RideRequests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_PickupLocationId" Association="DriveShareModel.FK_RideRequest_PickupLocationId">
+      <End Role="Geolocation" EntitySet="Geolocations" />
+      <End Role="RideRequest" EntitySet="RideRequests" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -206,6 +214,10 @@
     <NavigationProperty Name="Rider" Relationship="DriveShareModel.FK_RideRequest_RiderId" FromRole="RideRequest" ToRole="AspNetUser" />
     <NavigationProperty Name="RideRequestStatu" Relationship="DriveShareModel.FK_RideRequest_RequestStatusId" FromRole="RideRequest" ToRole="RideRequestStatu" />
     <NavigationProperty Name="Schedule" Relationship="DriveShareModel.FK_RideRequest_ScheduleId" FromRole="RideRequest" ToRole="Schedule" />
+    <Property Name="PickupLocationId" Type="Int32" />
+    <Property Name="DropoffLocationId" Type="Int32" />
+    <NavigationProperty Name="DropoffLocation" Relationship="DriveShareModel.FK_RideRequest_DropoffLocationId" FromRole="RideRequest" ToRole="Geolocation" />
+    <NavigationProperty Name="PickupLocation" Relationship="DriveShareModel.FK_RideRequest_PickupLocationId" FromRole="RideRequest" ToRole="Geolocation" />
   </EntityType>
   <EntityType Name="RideRequestStatu">
     <Key>
@@ -483,6 +495,30 @@
       </Principal>
       <Dependent Role="ChatMessage">
         <PropertyRef Name="ThreadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_DropoffLocationId">
+    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+    <End Type="DriveShareModel.RideRequest" Role="RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="LocationId" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="DropoffLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_PickupLocationId">
+    <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+    <End Type="DriveShareModel.RideRequest" Role="RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="LocationId" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="PickupLocationId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
