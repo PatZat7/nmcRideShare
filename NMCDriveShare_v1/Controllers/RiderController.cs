@@ -60,12 +60,17 @@ namespace NMCDriveShare_v1.Controllers
 					ArrivalTime = TimeSpan.Parse(viewModel.ArrivalTime),
 					DepartingTime = TimeSpan.Parse(viewModel.DepartingTime),
 					RiderId = user.Id,
+					Rider = user,
 					ScheduleId = rideSchedule.ScheduleId,
+					Schedule = rideSchedule,
 					RequestNum = (_dbContext.RideRequests
 							.OrderByDescending(rr => rr.RiderId == userId)
 							.FirstOrDefault()
 						?? new RideRequest() { RequestNum = 0 })
 						.RequestNum + 1,
+					RequestStatusId = _dbContext.RideRequestStatus
+						.FirstOrDefault(s => s.RequestStatusName == "None")
+						.RequestStatusId,
 					RideRequestStatu = _dbContext.RideRequestStatus
 						.FirstOrDefault(s => s.RequestStatusName == "None")
 				};

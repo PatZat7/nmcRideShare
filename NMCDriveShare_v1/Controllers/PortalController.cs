@@ -165,20 +165,20 @@ namespace NMCDriveShare_v1.Controllers
 				string userId = User.Identity.GetUserId();
 				AspNetUser currentUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == userId);
 				// make a copy of the user
-				AspNetUser currentUserTemp = new AspNetUser()
-				{
-					AccessFailedCount = currentUser.AccessFailedCount, Age = currentUser.Age, AspNetRoles = currentUser.AspNetRoles,
-					AspNetUserClaims = currentUser.AspNetUserClaims, AspNetUserLogins = currentUser.AspNetUserLogins,
-					ChatMessagesStartedBy = currentUser.ChatMessagesStartedBy, ChatMessagesStartedTo = currentUser.ChatMessagesStartedTo,
-					ChatThreadsFrom = currentUser.ChatThreadsFrom, ChatThreadsTo = currentUser.ChatThreadsTo, Email = currentUser.Email,
-					EmailConfirmed = currentUser.EmailConfirmed, FirstName = currentUser.FirstName, Gender = currentUser.Gender,
-					Geolocation = currentUser.Geolocation, Id = currentUser.Id, IsActive = currentUser.IsActive, IsDriver = currentUser.IsDriver,
-					LastName = currentUser.LastName, LocationId = currentUser.LocationId, LockoutEnabled = currentUser.LockoutEnabled,
-					LockoutEndDateUtc = currentUser.LockoutEndDateUtc, PasswordHash = currentUser.PasswordHash, PhoneNumber = currentUser.PhoneNumber,
-					PhoneNumberConfirmed = currentUser.PhoneNumberConfirmed, ProfilePictures = currentUser.ProfilePictures,
-					RideRequests = currentUser.RideRequests, RoutesDriving = currentUser.RoutesDriving, RoutesRiding = currentUser.RoutesRiding,
-					SecurityStamp = currentUser.SecurityStamp, TwoFactorEnabled = currentUser.TwoFactorEnabled, UserName = currentUser.UserName
-				};
+				//AspNetUser currentUserTemp = new AspNetUser()
+				//{
+				//	AccessFailedCount = currentUser.AccessFailedCount, Age = currentUser.Age, AspNetRoles = currentUser.AspNetRoles,
+				//	AspNetUserClaims = currentUser.AspNetUserClaims, AspNetUserLogins = currentUser.AspNetUserLogins,
+				//	ChatMessagesStartedBy = currentUser.ChatMessagesStartedBy, ChatMessagesStartedTo = currentUser.ChatMessagesStartedTo,
+				//	ChatThreadsFrom = currentUser.ChatThreadsFrom, ChatThreadsTo = currentUser.ChatThreadsTo, Email = currentUser.Email,
+				//	EmailConfirmed = currentUser.EmailConfirmed, FirstName = currentUser.FirstName, Gender = currentUser.Gender,
+				//	Geolocation = currentUser.Geolocation, Id = currentUser.Id, IsActive = currentUser.IsActive, IsDriver = currentUser.IsDriver,
+				//	LastName = currentUser.LastName, LocationId = currentUser.LocationId, LockoutEnabled = currentUser.LockoutEnabled,
+				//	LockoutEndDateUtc = currentUser.LockoutEndDateUtc, PasswordHash = currentUser.PasswordHash, PhoneNumber = currentUser.PhoneNumber,
+				//	PhoneNumberConfirmed = currentUser.PhoneNumberConfirmed, ProfilePictures = currentUser.ProfilePictures,
+				//	RideRequests = currentUser.RideRequests, RoutesDriving = currentUser.RoutesDriving, RoutesRiding = currentUser.RoutesRiding,
+				//	SecurityStamp = currentUser.SecurityStamp, TwoFactorEnabled = currentUser.TwoFactorEnabled, UserName = currentUser.UserName
+				//};
 
 				string statusString = "";
 
@@ -209,23 +209,23 @@ namespace NMCDriveShare_v1.Controllers
 						_dbContext.Geolocations.Add(userLocation);
 						_dbContext.SaveChanges();
 
-						// attach the geolocation to the current user
-						currentUserTemp.LocationId = userLocation.LocationId;
-						currentUserTemp.Geolocation = userLocation;
-
 						// update the current user
 						// 1) remove the user in the database
-						AspNetUser selectedUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == currentUser.Id);
-						_dbContext.AspNetUsers.Remove(selectedUser);
-						_dbContext.SaveChanges();
+						//AspNetUser selectedUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == currentUser.Id);
+						//_dbContext.AspNetUsers.Remove(selectedUser);
+						//_dbContext.SaveChanges();
+
+						// attach the geolocation to the current user
+						currentUser.LocationId = userLocation.LocationId;
+						currentUser.Geolocation = userLocation;
 
 						// 2) re-insert the user
-						_dbContext.AspNetUsers.Add(currentUserTemp);
+						//_dbContext.AspNetUsers.Add(currentUser);
 						_dbContext.SaveChanges();
 
-						userLocation = _dbContext.Geolocations.FirstOrDefault(g => g.LocationId == currentUserTemp.LocationId);
+						userLocation = _dbContext.Geolocations.FirstOrDefault(g => g.LocationId == currentUser.LocationId);
 
-						statusString = $"Added location for user \"{currentUserTemp.UserName}\"." +
+						statusString = $"Added location for user \"{currentUser.UserName}\"." +
 							$"Location is ({userLocation.Latitude}, {userLocation.Longitude}).";
 					}
 					else
@@ -247,26 +247,31 @@ namespace NMCDriveShare_v1.Controllers
 						currentLocation.Longitude = longitude;
 
 						// update the geolocation in the database
-						Geolocation selectedLocation = _dbContext.Geolocations.FirstOrDefault(g => g.LocationId == currentLocation.LocationId);
-						_dbContext.Geolocations.Remove(selectedLocation);
-						_dbContext.SaveChanges();
-						_dbContext.Geolocations.Add(currentLocation);
+						//Geolocation selectedLocation = _dbContext.Geolocations.FirstOrDefault(g => g.LocationId == currentLocation.LocationId);
+						//_dbContext.Geolocations.Remove(selectedLocation);
+						//_dbContext.SaveChanges();
+						//_dbContext.Geolocations.Add(currentLocation);
+						//_dbContext.SaveChanges();
+
 						_dbContext.SaveChanges();
 
 						// attach the updated location to the user
-						currentUserTemp.Geolocation = currentLocation;
+						currentUser.Geolocation = currentLocation;
+						currentUser.LocationId = currentLocation.LocationId;
 
 						// update the current user
 						// remove the user in the database and add the one from memory
-						AspNetUser selectedUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == currentUser.Id);
-						_dbContext.AspNetUsers.Remove(selectedUser);
-						_dbContext.SaveChanges();
-						_dbContext.AspNetUsers.Add(currentUserTemp);
+						//AspNetUser selectedUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == currentUser.Id);
+						//_dbContext.AspNetUsers.Remove(selectedUser);
+						//_dbContext.SaveChanges();
+						//_dbContext.AspNetUsers.Add(currentUser);
+						//_dbContext.SaveChanges();
+
 						_dbContext.SaveChanges();
 
-						Geolocation userLocation = _dbContext.Geolocations.FirstOrDefault(g => g.LocationId == currentUserTemp.LocationId);
+						Geolocation userLocation = _dbContext.Geolocations.FirstOrDefault(g => g.LocationId == currentUser.LocationId);
 
-						statusString = $"Updated location for user \"{currentUserTemp.UserName}\". Location is ({userLocation.Latitude}, {userLocation.Longitude}).";
+						statusString = $"Updated location for user \"{currentUser.UserName}\". Location is ({userLocation.Latitude}, {userLocation.Longitude}).";
 
 					}
 					// else, if geolocation fails, remove it
@@ -277,13 +282,14 @@ namespace NMCDriveShare_v1.Controllers
 
 						// detach the location from the user
 						currentUser.LocationId = null;
+						currentUser.Geolocation = null;
 
 						// update the current user
 						// remove the user in the database and add the one from memory
-						AspNetUser selectedUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == currentUser.Id);
-						_dbContext.AspNetUsers.Remove(selectedUser);
-						_dbContext.SaveChanges();
-						_dbContext.AspNetUsers.Add(currentUser);
+						//AspNetUser selectedUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == currentUser.Id);
+						//_dbContext.AspNetUsers.Remove(selectedUser);
+						//_dbContext.SaveChanges();
+						//_dbContext.AspNetUsers.Add(currentUser);
 						_dbContext.SaveChanges();
 
 						// remove it from the db context
