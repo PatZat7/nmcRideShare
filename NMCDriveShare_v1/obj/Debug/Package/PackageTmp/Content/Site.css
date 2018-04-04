@@ -1,0 +1,307 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background: #8C8C8C;
+    height: 100%;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.row {
+	margin-top: 100px;
+}
+
+.navbar-fixed-top {
+    background-color: #00784D;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5), inset 0px 25px 50px rgba(0, 0, 0, 0.7);
+}
+
+
+.line {
+	border-color: black;
+	border-width: 2px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.buttons {
+	font-weight: bold;
+	color: white;
+	border-width: 7px;
+	font-family: Georgia;
+	background-color: gray;
+	padding: 15px 95px 15px 95px;
+	border-radius: 24px;
+	border-color: white;
+	border-style: solid;
+}
+
+.buttons:hover {
+	background-color: forestgreen;
+	text-decoration: underline;
+}
+
+.buttons:active {
+	background-color: darkgreen;
+}
+
+.headers {
+	font-family: Georgia;
+}
+
+.landingHeader {
+	font-family: Georgia;
+	text-decoration: underline;
+	font-size: 30px;
+	margin-left: 40%;
+}
+
+.labelClass {
+	margin-bottom: 0px;
+	font-size: 28px;
+	font-family: Georgia;
+	color: white;
+	font-weight: bold;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+.noteClass {
+	font-size: 14px;
+	font-family: Georgia;
+	color: darkgreen;
+	font-weight: bold;
+	margin-right: 20px;
+	margin-left: 20px;
+}
+
+
+.radioClass {
+	transform: scale(2.5);
+}
+
+.textBoxClass {
+	width: 250px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: forestgreen;
+	color: white;
+	font-weight: bold;
+	opacity: 0.55;
+	border-color: white;
+	border: solid;
+}
+
+.textBoxClass:focus {
+	width: 250px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: forestgreen;
+	color: white;
+	font-weight: bold;
+	opacity: 1.0;
+}
+
+
+
+.userRideList {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 200px;
+    overflow: scroll;
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+}
+
+.userRouteList {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 200px;
+    overflow: scroll;
+    display: none;
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+}
+
+.ride {
+    background: #878787;
+    margin: 5px;
+    min-height: 110px;
+}
+
+    .ride p {
+        display: inline-block;
+        margin-left: 10%;
+    }
+
+        .ride p input {
+            width: 100px;
+            display: inline-block;
+            height: 25px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555555;
+            vertical-align: middle;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+            -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        }
+
+        .ride p .checkbox{
+            width:10px;
+        }
+
+.contactList {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 200px;
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+    overflow: scroll;
+}
+
+    .contactList .contactControls {
+        display: inline-block;
+        border: 1px solid black;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .contactList p {
+        border: 1px solid black;
+        display: inline-block;
+        min-width: 330px;
+        margin-top: 5px;
+        margin-bottom:0px;
+    }
+
+    .contactList p .btn-default {
+        margin-left: 5%;
+        border-radius: 5px;
+    }
+
+    .contactList .contactIcon {
+        border: 1px solid black;
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+        margin-left: 5%;
+    }
+
+
+.chat {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    height: 110px;
+    background-color: white;
+}
+
+#name {
+	font-weight: bold;
+	color: black;
+	margin: 0;
+}
+
+#title-name {
+	color: black;
+}
+
+#rating {
+	margin: 5px;
+	/*border: 2px solid black;*/
+	background-color: dimgrey;
+	width: 200px;
+}
+
+#comment {
+	/*border: 2px solid black;*/
+	background-color: dimgrey;
+	color: black;
+	margin: 5px;
+}
+
+.user-info {
+    margin: 5px 5px;
+    /*border: 2px solid black;*/
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+}
+
+.right-side {
+	border: 1px dotted red;
+    margin: auto;
+    width:initial;
+    margin-top:10px;
+    overflow:visible;
+}
+
+.right-side p {
+    margin: 0 auto;
+}
+
+.left-side {
+	border: 1px dotted green;
+	
+    margin: 5px;
+	height: 100px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #00784D;
+    box-shadow: 0px -10px 40px rgba(0, 0, 0, 0.5), inset 0px -25px 50px rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+}
+
+/*//////////////////////////////////////////////////////*/
+/* Google Maps Rules */
+#map {
+	height: 800px;
+	width: 1000px;
+	margin-left: 0;
+}
+
+@media screen and (min-width: 1200px) {
+	#map {
+		height: 800px;
+		width: 1400px;
+	}
+
+	.container {
+		max-width: 1920px;
+	}
+}

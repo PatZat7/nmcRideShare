@@ -1,0 +1,132 @@
+﻿
+@using NMCDriveShare_v1.Models;
+@model NMCDriveShare_v1.Models.ViewModels.RiderSchedulesViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    function hideFunction() {
+  //      var x = document.getElementById('rideList');
+  //      if (document.getElementById('viewType').checked) {
+  //          x.style.display = "none";
+  //      }
+  //      else {
+  //          x.style.display = "block";
+		//}
+
+		location.href = "@Url.Action("Index", "Driver")";
+	}
+</script>
+
+<body>
+    @*<div class="col-md-12">*@
+    <div class="user-info row">
+        <div class="left-side col-md-4">
+
+        </div>
+        <div class="right-side col-md-8">
+            <p>Username</p>
+            <p> Name Goes Here</p>
+            <p>Gender: Male</p>
+            <p>Driver <input id="viewType" type="checkbox" onclick="hideFunction()" /> Rider</p>
+        </div>
+    </div>
+
+    <div id="rideList" class="userRideList row">
+
+		<div class="ride row">
+			@if (!string.IsNullOrEmpty(ViewBag.AddRideErrorMessage))
+			{
+				<p class="text-danger">@ViewBag.AddRideErrorMessage</p>
+			}
+			@using (Html.BeginForm("AddRide", "Rider", FormMethod.Post))
+			{
+				<div>
+					<p>Departing From: <input type="text" /></p>
+					<p>At: <input type="time" name="DepartingTime" /></p>
+				</div>
+				<div>
+					<p>Destination: <input type="text" /></p>
+					<p>Until: <input type="time" name="ArrivalTime" /></p>
+				</div>
+				<div>
+					<p>
+						Days:
+						Su <input class="checkbox" type="checkbox" name="CheckedSunday" />
+						M <input class="checkbox" type="checkbox" name="CheckedMonday" />
+						Tu <input class="checkbox" type="checkbox" name="CheckedTuesday" />
+						W <input class="checkbox" type="checkbox" name="CheckedWednesday" />
+						Th <input class="checkbox" type="checkbox" name="CheckedThursday" />
+						F <input class="checkbox" type="checkbox" name="CheckedFriday" />
+						Sa<input class="checkbox" type="checkbox" name="CheckedSaturday" />
+					</p>
+					@*<p>Scheduled: <input class="checkbox" type="checkbox" /></p>*@
+				</div>
+				<div><input type="submit" value="Submit" /></div>
+			}
+		</div>
+
+        @foreach (RideRequest rr in Model.RideRequests)
+        {
+            <div class="ride row">
+
+				<div>
+					<p>Departing From: </p>
+					<p>At: @rr.DepartingTime</p>
+				</div>
+				<div>
+					<p>Destination: </p>
+					<p>Until: @rr.ArrivalTime</p>
+				</div>
+                <div>
+					<p>
+						Days:
+						Su <input class="checkbox" type="checkbox" @(rr.Schedule.CheckedSunday ? " checked" : "") disabled />
+						M <input class="checkbox" type="checkbox" @(rr.Schedule.CheckedMonday ? " checked" : "") disabled />
+						Tu <input class="checkbox" type="checkbox" @(rr.Schedule.CheckedTuesday ? " checked" : "") disabled />
+						W <input class="checkbox" type="checkbox" @(rr.Schedule.CheckedWednesday ? " checked" : "") disabled />
+						Th <input class="checkbox" type="checkbox" @(rr.Schedule.CheckedThursday ? " checked" : "") disabled />
+						F <input class="checkbox" type="checkbox" @(rr.Schedule.CheckedFriday ? " checked" : "") disabled />
+						Sa<input class="checkbox" type="checkbox" @(rr.Schedule.CheckedSaturday ? " checked" : "") disabled />
+					</p>
+                    <p>Scheduled: <input class="checkbox" type="checkbox" /></p>
+                </div>
+				<div>
+					@using (Html.BeginForm("RemoveRide", "Rider", FormMethod.Post))
+					{
+						<input type="hidden" name="requestNum" value="@rr.RequestNum" />
+						<input type="submit" value="Delete" class="btn-danger" />
+					}
+				</div>
+            </div>
+        }
+
+    </div>
+
+    <div class="contactList row">
+        @for (int i = 0; i < 10; i++)
+        {
+            <div>
+                <div class="contactIcon">
+                    <img width="32" height="32" alt="Icon" />
+                </div>
+                <div class="contactControls">
+                    <p> Username <input class="btn-default" type="button" value="Chat" /> <input class="btn-default" type="button" value="To Map" /> <input class="btn-default" type="button" value="Remove" /></p>
+                </div>
+
+            </div>
+        }
+
+
+    </div>
+
+    <div class="chat row">
+
+    </div>
+
+    @*</div>*@
+
+
+</body>

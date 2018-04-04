@@ -1,0 +1,185 @@
+﻿
+@using NMCDriveShare_v1.Models
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<div class="row">
+	<div class="col-md-3">
+		<h2>User Database</h2>
+		<hr class="line" />
+		<div>
+			@foreach (RideRequest rr in (IEnumerable<RideRequest>)ViewBag.activeRideRequests)
+			{
+				<div class="user-info">
+					<p id="name">@rr.Rider.UserName</p>
+					<p id="title-name">@string.Format("To {0}", rr.DropoffLocation != null ? rr.DropoffLocation.Description : "<No location specified>")</p>
+					<div>
+						<p>At: @rr.DepartingTime</p>
+					</div>
+					<div>
+						<p>Until: @rr.ArrivalTime</p>
+					</div>
+				</div>
+
+				@*<div class="user-info">
+					<div class="left-side">
+						<p id="name">First Last</p>
+						<p id="title-name">Rider/Driver</p>
+						<div id="rating"><p>rating</p></div>
+						<div id="comment"><p>Comment</p></div>
+					</div>
+					<div class="right-side">
+						TODO: User photographs to be stored in database and displayed here
+					</div>
+				</div>*@
+			}
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<div id="map"></div>
+		<script src="/Scripts/jquery-1.10.2.js"></script>
+		<script>
+			var map;
+			function initMap() {
+				google.maps.visualRefresh = true;
+				map = new google.maps.Map(document.getElementById('map'), {
+					center: { lat: 44.765365, lng: -85.585569 },
+					zoom: 12
+				});
+
+				// Main campus
+				var marker = new google.maps.Marker({
+					position: { lat: 44.765365, lng: -85.585569 },
+					map: map,
+					title: "NMC Main Campus"
+				});
+
+				// Aero-Park Drive
+				var marker2 = new google.maps.Marker({
+					position: { lat: 44.742810, lng: -85.574102 },
+					map: map,
+					title: "NMC Aero-Park Campus"
+				});
+
+				// Maritime campus
+				var marker3 = new google.maps.Marker({
+					position: { lat: 44.765159, lng: -85.606783 },
+					map: map,
+					title: "NMC Great Lakes Campus"
+				});
+
+				// University Center
+				var marker4 = new google.maps.Marker({
+					position: { lat: 44.739414, lng: -85.618954 },
+					map: map,
+					title: "NMC University Center"
+				});
+
+				// seed data
+				var seedMarkers = [
+					new google.maps.Marker({
+						position: { lat: 44.764330, lng: -85.619476 },
+						map: map,
+						title: "Nancy"
+					}),
+					new google.maps.Marker({
+						position: { lat: 44.723523, lng: -85.647678 },
+						map: map,
+						title: "Bob"
+					}),
+					new google.maps.Marker({
+						position: { lat: 44.739414, lng: -85.618954 },
+						map: map,
+						title: "parlinr@mail.nmc.edu"
+					})
+				];
+
+				// customize seed data to display with blue marker
+				for (var i = 0; i < seedMarkers.length; i++) {
+					//var seedMarker = seedMarkers[i];
+					let seedInfowindow = new google.maps.InfoWindow({
+						content: "<div class='infoDiv'><h2>" + seedMarkers[i].title + "</h2></div>"
+					});
+
+					// finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
+					google.maps.event.addListener(seedMarkers[i], 'click', function () {
+						seedInfowindow.open(map, seedMarkers[i]);
+					});
+
+					seedMarkers[i].setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+				}
+
+				//users current location
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function (p) {
+						var LatLng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+
+						//TODO 6) Ajax call start to save userlocation in database upon accepting to share his or her locaiton.
+						$.ajax({
+							type: "POST",
+							url: "UpdateUserLocation",
+							data: "{ 'latitude': " + p.coords.latitude + ", 'longitude': " + p.coords.longitude + " }",
+							contentType: "application/json; charset=utf-8",
+							dataType: "json",
+							success: function (result) {
+								alert("Location added successfully.");
+								console.log('Data received: ');
+								console.log(result);
+							}
+						});
+					});
+				} else {
+					$.ajax({
+						type: "POST",
+						url: "UpdateUserLocation",
+						data: { latitude: null, longitude: null },
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function (result) {
+							alert("Location removed.");
+							console.log('Data received: ');
+							console.log(result);
+						}
+					});
+
+					alert('Geo Location feature is not supported in this browser.');
+				}
+
+
+				// a sample list of JSON encoded data of places to visit in Tunisia
+				// you can either make up a JSON list server side, or call it from a controller using JSONResult
+				var data = @Html.Raw(ViewBag.markers);
+
+				for (var i = 0; i < data.length; i++) {
+					var item = data[i];
+					var marker = new google.maps.Marker({
+						'position': new google.maps.LatLng(item.lat, item.lng),
+						'map': map,
+						'title': item.title
+					});
+
+					//alert("New location added (" + item.lng + ", " + item.lat + ").");
+
+					// Make the marker-pin blue!
+					marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+
+					// put in some information about each json object - in this case, the opening hours.
+					var infowindow = new google.maps.InfoWindow({
+						content: "<div class='infoDiv'><h2>" + item.title + "</h2></div>"
+					});
+
+					// finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
+					google.maps.event.addListener(marker, 'click', function () {
+						infowindow.open(map, marker);
+					});
+				}
+			}
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT8UdHuPW6QYktZFzTP-HVX5Gs5BPdULU&callback=initMap"
+				async defer></script>
+	</div>
+
+</div>

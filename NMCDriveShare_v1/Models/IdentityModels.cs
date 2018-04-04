@@ -21,7 +21,7 @@ namespace NMCDriveShare_v1.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DriveShareEntities3_Online", throwIfV1Schema: false)
         {
         }
 
