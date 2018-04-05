@@ -148,8 +148,8 @@ namespace NMCDriveShare_v1.Controllers
 
 			// get requests to come, ignore passed ones
 			// order requests with earlier times first
-			requests = requests.Where(rr => rr.DepartingTime.CompareTo(currentTime.TimeOfDay) > 0)
-				.OrderBy(rr => rr.DepartingTime);
+			//requests = requests.Where(rr => rr.DepartingTime.CompareTo(currentTime.TimeOfDay) > 0)
+			//	.OrderBy(rr => rr.DepartingTime);
 
 			ViewBag.activeRideRequests = requests;
 
