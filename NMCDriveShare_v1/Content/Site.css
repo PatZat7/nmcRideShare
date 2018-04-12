@@ -165,11 +165,10 @@ textarea {
             line-height: 1.428571429;
             color: #555555;
             vertical-align: middle;
-            background-color: #ffffff;
-            border: 1px solid #cccccc;
+
+
             border-radius: 4px;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
             -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
             transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
         }
@@ -305,3 +304,42 @@ footer {
 		max-width: 1920px;
 	}
 }
+
+
+
+
+
+
+/*Recent code Here*/
+#viewType {
+    display: none;
+}
+
+.checker {
+    background-image: url('../Images/checkboxes1.png');
+    background-position: left center;
+    background-size: auto 100%;
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+}
+
+#viewType:checked + .checker {
+    background-position: right center;
+}
+
+.hidden {
+    /*display: none;*/
+}
+
+.allDayButtons {
+    background-color: transparent;
+    border: none;
+    width: auto;
+}
+
+.greenBox {
+    background-color: green;
+}
+
+

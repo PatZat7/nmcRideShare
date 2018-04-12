@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using NMCDriveShare_v1.Models;
+using NMCDriveShare_v1.Utilities;
 
 namespace NMCDriveShare_v1.Controllers
 {
@@ -15,12 +16,15 @@ namespace NMCDriveShare_v1.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+		private readonly DriveShareEntities3 _dbContext = new DriveShareEntities3();
 
-        public ManageController()
-        {
-        }
+		public ManageController()
+		{
+			//if (User != null) ViewBag.IsDriver = UserStatusChecker.CheckDriverStatus(_dbContext, User.Identity.GetUserId());
+		}
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+			: this()
         {
             UserManager = userManager;
             SignInManager = signInManager;

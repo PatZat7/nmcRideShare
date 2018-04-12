@@ -86,6 +86,8 @@
     <EntitySetMapping Name="RideRequests">
       <EntityTypeMapping TypeName="DriveShareModel.RideRequest">
         <MappingFragment StoreEntitySet="RideRequest">
+          <ScalarProperty Name="DropoffLocationId" ColumnName="DropoffLocationId" />
+          <ScalarProperty Name="PickupLocationId" ColumnName="PickupLocationId" />
           <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
           <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
           <ScalarProperty Name="DepartingTime" ColumnName="DepartingTime" />

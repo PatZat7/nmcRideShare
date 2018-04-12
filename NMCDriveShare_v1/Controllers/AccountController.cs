@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using NMCDriveShare_v1.Models;
+using NMCDriveShare_v1.Utilities;
 
 namespace NMCDriveShare_v1.Controllers
 {
@@ -19,11 +20,13 @@ namespace NMCDriveShare_v1.Controllers
         private ApplicationUserManager _userManager;
 		private readonly DriveShareEntities3 _dataContext = new DriveShareEntities3();
 
-        public AccountController()
-        {
-        }
+		public AccountController()
+		{
+			//if (User != null) ViewBag.IsDriver = UserStatusChecker.CheckDriverStatus(_dataContext, User.Identity.GetUserId());
+		}
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+		public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+			: this()
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -164,11 +167,15 @@ namespace NMCDriveShare_v1.Controllers
                 try
 				{
 					// create new AspNetUser
-					var aspNetUser = new ApplicationUser { UserName = model.Email, Email = model.Email };
+					var aspNetUser = new ApplicationUser {
+						UserName = model.Email,
+						Email = model.Email,
+					
+					};
 					var result = UserManager.Create(aspNetUser, model.Password);
 
 					// create new User and hook it to the AspNetUser
-					DataContext.AddNewUser(model.FirstName, model.LastName, model.IsDriver, model.Gender, aspNetUser.Id);
+					//DataContext.AddNewUser(model.FirstName, model.LastName, model.IsDriver, model.Gender, aspNetUser.Id);
 
 					if (result.Succeeded)
 					{
@@ -180,7 +187,7 @@ namespace NMCDriveShare_v1.Controllers
 						// var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
 						// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-						return RedirectToAction("Index", "Home");
+						return RedirectToAction("Index", "Portal");
 					}
 					AddErrors(result);
 				}

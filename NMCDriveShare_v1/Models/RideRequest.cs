@@ -20,9 +20,13 @@ namespace NMCDriveShare_v1.Models
         public System.TimeSpan DepartingTime { get; set; }
         public System.TimeSpan ArrivalTime { get; set; }
         public byte RequestStatusId { get; set; }
+        public Nullable<int> PickupLocationId { get; set; }
+        public Nullable<int> DropoffLocationId { get; set; }
     
         public virtual AspNetUser Rider { get; set; }
         public virtual RideRequestStatu RideRequestStatu { get; set; }
         public virtual Schedule Schedule { get; set; }
+        public virtual Geolocation DropoffLocation { get; set; }
+        public virtual Geolocation PickupLocation { get; set; }
     }
 }

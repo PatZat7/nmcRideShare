@@ -125,6 +125,8 @@
           <Property Name="RiderId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="RequestNum" Type="int" Nullable="false" />
           <Property Name="ScheduleId" Type="int" />
+          <Property Name="PickupLocationId" Type="int" />
+          <Property Name="DropoffLocationId" Type="int" />
           <Property Name="DepartingTime" Type="time" Precision="0" Nullable="false" />
           <Property Name="ArrivalTime" Type="time" Precision="0" Nullable="false" />
           <Property Name="RequestStatusId" Type="tinyint" Nullable="false" />
@@ -391,6 +393,30 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RideRequest_DropoffLocationId">
+          <End Role="Geolocation" Type="Self.Geolocation" Multiplicity="0..1" />
+          <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geolocation">
+              <PropertyRef Name="locationId" />
+            </Principal>
+            <Dependent Role="RideRequest">
+              <PropertyRef Name="DropoffLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RideRequest_PickupLocationId">
+          <End Role="Geolocation" Type="Self.Geolocation" Multiplicity="0..1" />
+          <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geolocation">
+              <PropertyRef Name="locationId" />
+            </Principal>
+            <Dependent Role="RideRequest">
+              <PropertyRef Name="PickupLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RideRequest_RequestStatusId">
           <End Role="RideRequestStatus" Type="Self.RideRequestStatus" Multiplicity="1" />
           <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
@@ -543,6 +569,14 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ProfilePicture" EntitySet="ProfilePicture" />
           </AssociationSet>
+          <AssociationSet Name="FK_RideRequest_DropoffLocationId" Association="Self.FK_RideRequest_DropoffLocationId">
+            <End Role="Geolocation" EntitySet="Geolocation" />
+            <End Role="RideRequest" EntitySet="RideRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RideRequest_PickupLocationId" Association="Self.FK_RideRequest_PickupLocationId">
+            <End Role="Geolocation" EntitySet="Geolocation" />
+            <End Role="RideRequest" EntitySet="RideRequest" />
+          </AssociationSet>
           <AssociationSet Name="FK_RideRequest_RequestStatusId" Association="Self.FK_RideRequest_RequestStatusId">
             <End Role="RideRequestStatus" EntitySet="RideRequestStatus" />
             <End Role="RideRequest" EntitySet="RideRequest" />
@@ -652,6 +686,14 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
           <AssociationSet Name="FK_ChatMessage_ThreadId" Association="DriveShareModel.FK_ChatMessage_ThreadId">
             <End Role="ChatThread" EntitySet="ChatThreads" />
             <End Role="ChatMessage" EntitySet="ChatMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RideRequest_DropoffLocationId" Association="DriveShareModel.FK_RideRequest_DropoffLocationId">
+            <End Role="Geolocation" EntitySet="Geolocations" />
+            <End Role="RideRequest" EntitySet="RideRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RideRequest_PickupLocationId" Association="DriveShareModel.FK_RideRequest_PickupLocationId">
+            <End Role="Geolocation" EntitySet="Geolocations" />
+            <End Role="RideRequest" EntitySet="RideRequests" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -766,6 +808,10 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
           <NavigationProperty Name="Rider" Relationship="DriveShareModel.FK_RideRequest_RiderId" FromRole="RideRequest" ToRole="AspNetUser" />
           <NavigationProperty Name="RideRequestStatu" Relationship="DriveShareModel.FK_RideRequest_RequestStatusId" FromRole="RideRequest" ToRole="RideRequestStatu" />
           <NavigationProperty Name="Schedule" Relationship="DriveShareModel.FK_RideRequest_ScheduleId" FromRole="RideRequest" ToRole="Schedule" />
+          <Property Name="PickupLocationId" Type="Int32" />
+          <Property Name="DropoffLocationId" Type="Int32" />
+          <NavigationProperty Name="DropoffLocation" Relationship="DriveShareModel.FK_RideRequest_DropoffLocationId" FromRole="RideRequest" ToRole="Geolocation" />
+          <NavigationProperty Name="PickupLocation" Relationship="DriveShareModel.FK_RideRequest_PickupLocationId" FromRole="RideRequest" ToRole="Geolocation" />
         </EntityType>
         <EntityType Name="RideRequestStatu">
           <Key>
@@ -1046,6 +1092,30 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RideRequest_DropoffLocationId">
+          <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+          <End Type="DriveShareModel.RideRequest" Role="RideRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geolocation">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="RideRequest">
+              <PropertyRef Name="DropoffLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RideRequest_PickupLocationId">
+          <End Type="DriveShareModel.Geolocation" Role="Geolocation" Multiplicity="0..1" />
+          <End Type="DriveShareModel.RideRequest" Role="RideRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Geolocation">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="RideRequest">
+              <PropertyRef Name="PickupLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1137,6 +1207,8 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
           <EntitySetMapping Name="RideRequests">
             <EntityTypeMapping TypeName="DriveShareModel.RideRequest">
               <MappingFragment StoreEntitySet="RideRequest">
+                <ScalarProperty Name="DropoffLocationId" ColumnName="DropoffLocationId" />
+                <ScalarProperty Name="PickupLocationId" ColumnName="PickupLocationId" />
                 <ScalarProperty Name="RequestStatusId" ColumnName="RequestStatusId" />
                 <ScalarProperty Name="ArrivalTime" ColumnName="ArrivalTime" />
                 <ScalarProperty Name="DepartingTime" ColumnName="DepartingTime" />

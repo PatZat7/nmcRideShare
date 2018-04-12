@@ -120,6 +120,8 @@
     <Property Name="RiderId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="RequestNum" Type="int" Nullable="false" />
     <Property Name="ScheduleId" Type="int" />
+    <Property Name="PickupLocationId" Type="int" />
+    <Property Name="DropoffLocationId" Type="int" />
     <Property Name="DepartingTime" Type="time" Precision="0" Nullable="false" />
     <Property Name="ArrivalTime" Type="time" Precision="0" Nullable="false" />
     <Property Name="RequestStatusId" Type="tinyint" Nullable="false" />
@@ -385,6 +387,30 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_RideRequest_DropoffLocationId">
+    <End Role="Geolocation" Type="Self.Geolocation" Multiplicity="0..1" />
+    <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="locationId" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="DropoffLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RideRequest_PickupLocationId">
+    <End Role="Geolocation" Type="Self.Geolocation" Multiplicity="0..1" />
+    <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Geolocation">
+        <PropertyRef Name="locationId" />
+      </Principal>
+      <Dependent Role="RideRequest">
+        <PropertyRef Name="PickupLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_RideRequest_RequestStatusId">
     <End Role="RideRequestStatus" Type="Self.RideRequestStatus" Multiplicity="1" />
     <End Role="RideRequest" Type="Self.RideRequest" Multiplicity="*" />
@@ -536,6 +562,14 @@ warning 6002: The table/view 'aspnet-NMCDriveShare_v1-20180226063808.dbo.vw_User
     <AssociationSet Name="FK_ProfilePicture_UserId" Association="Self.FK_ProfilePicture_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="ProfilePicture" EntitySet="ProfilePicture" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_DropoffLocationId" Association="Self.FK_RideRequest_DropoffLocationId">
+      <End Role="Geolocation" EntitySet="Geolocation" />
+      <End Role="RideRequest" EntitySet="RideRequest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RideRequest_PickupLocationId" Association="Self.FK_RideRequest_PickupLocationId">
+      <End Role="Geolocation" EntitySet="Geolocation" />
+      <End Role="RideRequest" EntitySet="RideRequest" />
     </AssociationSet>
     <AssociationSet Name="FK_RideRequest_RequestStatusId" Association="Self.FK_RideRequest_RequestStatusId">
       <End Role="RideRequestStatus" EntitySet="RideRequestStatus" />
