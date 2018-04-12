@@ -10,6 +10,7 @@ using NMCDriveShare_v1.Models;
 using System.Data.Entity.Core;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using NMCDriveShare_v1.Utilities;
 
 namespace NMCDriveShare_v1.Controllers
 {
@@ -17,6 +18,11 @@ namespace NMCDriveShare_v1.Controllers
 	public class PortalController : Controller
     {
 		private readonly DriveShareEntities3 _dbContext = new DriveShareEntities3();
+
+		public PortalController()
+		{
+			//if (User != null) ViewBag.IsDriver = UserStatusChecker.CheckDriverStatus(_dbContext, User.Identity.GetUserId());
+		}
 
 		// Restored changes from a previous commit
 		// Users display portal
@@ -119,32 +125,32 @@ namespace NMCDriveShare_v1.Controllers
 			IEnumerable<RideRequest> requests = _dbContext.RideRequests.ToList();
 
 			// get daily active requests
-			switch (currentTime.DayOfWeek)
-			{
-				case DayOfWeek.Sunday:
-					requests = requests.Where(rr => rr.Schedule.CheckedSunday == true);
-					break;
-				case DayOfWeek.Monday:
-					requests = requests.Where(rr => rr.Schedule.CheckedMonday == true);
-					break;
-				case DayOfWeek.Tuesday:
-					requests = requests.Where(rr => rr.Schedule.CheckedTuesday == true);
-					break;
-				case DayOfWeek.Wednesday:
-					requests = requests.Where(rr => rr.Schedule.CheckedWednesday == true);
-					break;
-				case DayOfWeek.Thursday:
-					requests = requests.Where(rr => rr.Schedule.CheckedThursday == true);
-					break;
-				case DayOfWeek.Friday:
-					requests = requests.Where(rr => rr.Schedule.CheckedFriday == true);
-					break;
-				case DayOfWeek.Saturday:
-					requests = requests.Where(rr => rr.Schedule.CheckedSaturday == true);
-					break;
-				default:
-					break;
-			}
+			//switch (currentTime.DayOfWeek)
+			//{
+			//	case DayOfWeek.Sunday:
+			//		requests = requests.Where(rr => rr.Schedule.CheckedSunday == true);
+			//		break;
+			//	case DayOfWeek.Monday:
+			//		requests = requests.Where(rr => rr.Schedule.CheckedMonday == true);
+			//		break;
+			//	case DayOfWeek.Tuesday:
+			//		requests = requests.Where(rr => rr.Schedule.CheckedTuesday == true);
+			//		break;
+			//	case DayOfWeek.Wednesday:
+			//		requests = requests.Where(rr => rr.Schedule.CheckedWednesday == true);
+			//		break;
+			//	case DayOfWeek.Thursday:
+			//		requests = requests.Where(rr => rr.Schedule.CheckedThursday == true);
+			//		break;
+			//	case DayOfWeek.Friday:
+			//		requests = requests.Where(rr => rr.Schedule.CheckedFriday == true);
+			//		break;
+			//	case DayOfWeek.Saturday:
+			//		requests = requests.Where(rr => rr.Schedule.CheckedSaturday == true);
+			//		break;
+			//	default:
+			//		break;
+			//}
 
 			// get requests to come, ignore passed ones
 			// order requests with earlier times first
@@ -202,7 +208,7 @@ namespace NMCDriveShare_v1.Controllers
 							// color depends on whether the user is a rider or driver
 							// red if driver and blue if rider
 							Color = (currentUser.IsDriver ?? false) ? "#ff5050" : "#0066ff",
-							Description = (currentUser.IsDriver ?? false) ? "Driver" : "Rider"
+							Description = ($"{currentUser.UserName} (" + ((currentUser.IsDriver ?? false) ? "Driver" : "Rider") + ")")
 						};
 
 						// add the geolocation to the database

@@ -5,9 +5,15 @@ using System.Web;
 
 namespace NMCDriveShare_v1.Models.ViewModels
 {
-	public class RiderSchedulesViewModel
+	public class UserSchedulesViewModel
 	{
-		public IEnumerable<RideRequest> RideRequests { get; set; }
-		public IEnumerable<Route> Routes { get; set; }
+		public string Username { get; set; }
+		public string Gender { get; set; }
+		public bool IsDriver { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+
+		public IEnumerable<RideRequestViewModel> RideRequests { get; set; }
+		public IEnumerable<RouteViewModel> Routes { get; set; }
 	}
 }

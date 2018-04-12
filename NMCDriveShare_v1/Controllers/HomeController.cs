@@ -9,7 +9,7 @@ namespace NMCDriveShare_v1.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-        public ActionResult Index()
+		public ActionResult Index()
         {
             return View();
         }
