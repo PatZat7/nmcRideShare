@@ -41,5 +41,7 @@ namespace NMCDriveShare_v1.Models.ViewModels
 		public int? DestinationId { get; set; }
 
 		public int? SourceId { get; set; }
+
+		public bool IsScheduled { get; set; }
 	}
 }

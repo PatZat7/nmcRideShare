@@ -145,37 +145,39 @@ textarea {
     box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
 }
 
-.ride {
+/* CHANGE: Apply same rules to rides and routes */
+.ride, .route {
     background: #878787;
     margin: 5px;
     min-height: 110px;
 }
 
-    .ride p {
-        display: inline-block;
-        margin-left: 10%;
-    }
+.ride p, .route p {
+    display: inline-block;
+    margin-left: 10%;
+}
 
-        .ride p input {
-            width: 100px;
-            display: inline-block;
-            height: 25px;
-            padding: 6px 12px;
-            font-size: 14px;
-            line-height: 1.428571429;
-            color: #555555;
-            vertical-align: middle;
+.ride p input, .route p input {
+    width: 100px;
+    display: inline-block;
+    height: 25px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    /*color: #555555;*/
+    vertical-align: middle;
+    /*background-color: #ffffff;
+    border: 1px solid #cccccc;*/
+    border-radius: 4px;
+    /*-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;*/
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
 
-
-            border-radius: 4px;
-
-            -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        }
-
-        .ride p .checkbox{
-            width:10px;
-        }
+.ride p .checkbox, .route p .checkbox {
+    width:10px;
+}
 
 .contactList {
     margin: 5px 5px;

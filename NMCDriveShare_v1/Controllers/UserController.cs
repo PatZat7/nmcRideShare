@@ -28,6 +28,7 @@ namespace NMCDriveShare_v1.Controllers
 			return View(generateIndexViewModel());
 		}
 
+		#region RIDE REQUESTS
 		[HttpPost]
 		public ActionResult AddRide(RideRequestViewModel viewModel)
 		{
@@ -373,26 +374,6 @@ namespace NMCDriveShare_v1.Controllers
 		}
 
 		[NonAction]
-		private UserSchedulesViewModel generateIndexViewModel()
-		{
-			string userId = User.Identity.GetUserId();
-			AspNetUser user = _dbContext.AspNetUsers
-				.FirstOrDefault(u => u.Id == userId);
-
-			return new UserSchedulesViewModel()
-			{
-				RideRequests = buildRideRequestViewModelList(user.RideRequests),
-				// TODO: create a function that will transform the routes into RouteViewModels
-				//Routes = user.RoutesDriving,
-				Username = user.UserName,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
-				Gender = user.Gender,
-				IsDriver = (user.IsDriver ?? false)
-			};
-		}
-
-		[NonAction]
 		private ICollection<RideRequestViewModel> buildRideRequestViewModelList(IEnumerable<RideRequest> rideRequests)
 		{
 			// get the current user
@@ -427,7 +408,8 @@ namespace NMCDriveShare_v1.Controllers
 					CheckedFriday = rr.Schedule.CheckedFriday ? "on" : null,
 					CheckedSaturday = rr.Schedule.CheckedSaturday ? "on" : null,
 					DestinationId = rr.DropoffLocationId,
-					SourceId = rr.PickupLocationId
+					SourceId = rr.PickupLocationId,
+					IsScheduled = rr.RequestStatusId > 0
 				};
 
 				// get drop off name from the lookup
@@ -454,13 +436,389 @@ namespace NMCDriveShare_v1.Controllers
 		{
 			return buildRideRequestViewModelList(new RideRequest[1] { rideRequest }).ElementAt(0);
 		}
+		#endregion
+
+		#region ROUTES
+		[HttpPost]
+		public ActionResult AddRoute(RouteViewModel viewModel)
+		{
+			// check request times
+			if (viewModel.DepartingTime.CompareTo(viewModel.ArrivalTime) > 0)
+			{
+				// return error if departing time is later than arrival time
+				ViewBag.AddRideErrorMessage = "Departing time cannot be later than arrival time.";
+				ViewBag.GeolocationPairs = buildGeolocationDictionary();
+				return View(nameof(Index), generateIndexViewModel());
+			}
+
+			// select user
+			string userId = User.Identity.GetUserId();
+			AspNetUser user = _dbContext.AspNetUsers.FirstOrDefault(u => u.Id == userId);
+
+			// select id for a new schedule
+			int scheduleId =
+				// select last schedule in table
+				(_dbContext.Schedules.OrderByDescending(s => s.ScheduleId).FirstOrDefault()
+				// otherwise, start with 0
+				?? new Schedule() { ScheduleId = 0 })
+				// increment id by one
+				.ScheduleId + 1;
+
+			// create a new schedule
+			Schedule rideSchedule = new Schedule()
+			{
+				ScheduleId = scheduleId,
+				CheckedSunday = viewModel.CheckedSunday == "on" ? true : false,
+				CheckedMonday = viewModel.CheckedMonday == "on" ? true : false,
+				CheckedTuesday = viewModel.CheckedTuesday == "on" ? true : false,
+				CheckedWednesday = viewModel.CheckedWednesday == "on" ? true : false,
+				CheckedThursday = viewModel.CheckedThursday == "on" ? true : false,
+				CheckedFriday = viewModel.CheckedFriday == "on" ? true : false,
+				CheckedSaturday = viewModel.CheckedSaturday == "on" ? true : false
+			};
+
+			// look for a dropoff location marker
+			Geolocation dropOffLocation = _dbContext.Geolocations.FirstOrDefault(g => g.Description == viewModel.DestinationName);
+			// if none exists, make one with the new dropoff location
+			if (dropOffLocation == null)
+			{
+				dropOffLocation = createDestinationGeolocation(viewModel.DestinationName);
+
+				// save changes
+				_dbContext.Geolocations.Add(dropOffLocation);
+
+				try
+				{
+					_dbContext.SaveChanges();
+				}
+				catch (DbEntityValidationException ex)
+				{
+					return View("Error");
+				}
+			}
+
+			// create a ride request
+			Route rideRequest = null;
+
+			//try
+			//{
+			rideRequest = new Route()
+			{
+				// parse arrival time and departing time as a time
+				ArriveTime = viewModel.ArrivalTime,
+				DepartTime = viewModel.DepartingTime,
+				DriverId = user.Id,
+				Driver = user,
+				ScheduleId = rideSchedule.ScheduleId,
+				Schedule = rideSchedule,
+				RouteNum = (_dbContext.Routes
+						.Where(rr => rr.DriverId == userId)
+						.OrderByDescending(rr => rr.RouteNum)
+						.FirstOrDefault()
+					?? new Route() { RouteNum = 0 })
+					.RouteNum + 1,
+				//RequestStatusId = _dbContext.RideRequestStatus
+				//	.FirstOrDefault(s => s.RequestStatusName == "None")
+				//	.RequestStatusId,
+				//RideRequestStatu = _dbContext.RideRequestStatus
+				//	.FirstOrDefault(s => s.RequestStatusName == "None"),
+				DestinationId = dropOffLocation.LocationId,
+				Geolocation = dropOffLocation,
+				MaxSeatCount = viewModel.MaxSeatCount
+			};
+			//}
+			//catch
+			//{
+			//	ViewBag.AddRideErrorMessage = "Could not parse provided time correctly.";
+			//	ViewBag.GeolocationPairs = buildGeolocationDictionary();
+			//	return View(nameof(Index), generateIndexViewModel());
+			//}
+
+			// add schedule to database first
+			_dbContext.Schedules.Add(rideSchedule);
+			_dbContext.SaveChanges();
+
+			_dbContext.Routes.Add(rideRequest);
+			_dbContext.SaveChanges();
+
+
+			return RedirectToAction(nameof(Index), "User");
+		}
+
+		[HttpPost]
+		public ActionResult EditRoute(int id, RouteViewModel routeView)
+		{
+			if (id != routeView.RequestNum)
+			{
+				return HttpNotFound();
+			}
+
+			// check request times
+			if (routeView.DepartingTime.CompareTo(routeView.ArrivalTime) > 0)
+			{
+				// return error if departing time is later than arrival time
+				ViewBag.AddRideErrorMessage = "Departing time cannot be later than arrival time.";
+				return RedirectToAction(nameof(Index), "User");
+			}
+
+			// select user
+			string userId = User.Identity.GetUserId();
+			AspNetUser user = _dbContext.AspNetUsers.FirstOrDefault(u => u.Id == userId);
+
+			// select id for a new schedule
+			int scheduleId =
+				// select last schedule in table
+				(_dbContext.Schedules.OrderByDescending(s => s.ScheduleId).FirstOrDefault()
+				// otherwise, start with 0
+				?? new Schedule() { ScheduleId = 0 })
+				// increment id by one
+				.ScheduleId + 1;
+
+			// look for a dropoff location marker
+			Geolocation dropOffLocation = _dbContext.Geolocations.FirstOrDefault(g => g.Description == routeView.DestinationName);
+			// if none exists, make one with the new dropoff location
+			if (dropOffLocation == null)
+			{
+				dropOffLocation = createDestinationGeolocation(routeView.DestinationName);
+
+				// save changes
+				_dbContext.Geolocations.Add(dropOffLocation);
+
+				try
+				{
+					_dbContext.SaveChanges();
+				}
+				catch (DbEntityValidationException ex)
+				{
+					return View("Error");
+				}
+			}
+
+			// get the existing ride request
+			Route route = _dbContext.Routes
+				.Include("Schedule")
+				.FirstOrDefault(r => r.RouteNum == routeView.RequestNum);
+			// get the schedule for the ride request
+			Schedule rideSchedule = route.Schedule;
+
+			// if none exists, make a new one
+			if (route == null)
+			{
+				route = new Route()
+				{
+					DriverId = userId,
+					Driver = user,
+					RouteNum = routeView.RequestNum,
+					ArriveTime = routeView.ArrivalTime,
+					DepartTime = routeView.DepartingTime,
+					MaxSeatCount = routeView.MaxSeatCount,
+					Geolocation = dropOffLocation
+				};
+
+				int nextScheduleId = 1;
+				Schedule lastSchedule = _dbContext.Schedules.OrderByDescending(s => s.ScheduleId).FirstOrDefault();
+				if (lastSchedule != null) nextScheduleId = lastSchedule.ScheduleId + 1;
+
+				rideSchedule = new Schedule
+				{
+					ScheduleId = nextScheduleId,
+					CheckedSunday = routeView.CheckedSunday == "on" ? true : false,
+					CheckedMonday = routeView.CheckedMonday == "on" ? true : false,
+					CheckedTuesday = routeView.CheckedTuesday == "on" ? true : false,
+					CheckedWednesday = routeView.CheckedWednesday == "on" ? true : false,
+					CheckedThursday = routeView.CheckedThursday == "on" ? true : false,
+					CheckedFriday = routeView.CheckedFriday == "on" ? true : false,
+					CheckedSaturday = routeView.CheckedSaturday == "on" ? true : false,
+				};
+
+				try
+				{
+					_dbContext.Schedules.Add(rideSchedule);
+					_dbContext.SaveChanges();
+
+					_dbContext.Routes.Add(route);
+					_dbContext.SaveChanges();
+				}
+				catch (DbEntityValidationException ex)
+				{
+					return View("Error");
+				}
+			}
+			// update the existing ride request
+			else
+			{
+				// if null schedule, make a new one
+				if (rideSchedule == null)
+				{
+					rideSchedule = new Schedule
+					{
+						ScheduleId = rideSchedule.ScheduleId
+					};
+
+					try
+					{
+						_dbContext.Schedules.Add(rideSchedule);
+						_dbContext.SaveChanges();
+					}
+					catch
+					{
+						return View("Error");
+					}
+				}
+
+				// update the schedule
+				rideSchedule.CheckedSunday = routeView.CheckedSunday == "on" ? true : false;
+				rideSchedule.CheckedMonday = routeView.CheckedMonday == "on" ? true : false;
+				rideSchedule.CheckedTuesday = routeView.CheckedTuesday == "on" ? true : false;
+				rideSchedule.CheckedWednesday = routeView.CheckedWednesday == "on" ? true : false;
+				rideSchedule.CheckedThursday = routeView.CheckedThursday == "on" ? true : false;
+				rideSchedule.CheckedFriday = routeView.CheckedFriday == "on" ? true : false;
+				rideSchedule.CheckedSaturday = routeView.CheckedSaturday == "on" ? true : false;
+				_dbContext.SaveChanges();
+			}
+
+			//try
+			//{
+
+			//
+			// update the ride request here
+			//
+			route.ArriveTime = routeView.ArrivalTime;
+			route.DepartTime = routeView.DepartingTime;
+			route.DestinationId = dropOffLocation.LocationId;
+			route.Geolocation = dropOffLocation;
+			route.ScheduleId = rideSchedule.ScheduleId;
+			route.Schedule = rideSchedule;
+			route.MaxSeatCount = routeView.MaxSeatCount;
+			_dbContext.SaveChanges();
+
+			//}
+			//catch
+			//{
+			//	ViewBag.AddRideErrorMessage = "Could not parse provided time correctly.";
+			//	return RedirectToAction(nameof(Index), "User");
+			//}
+
+			if (route == null)
+			{
+				ViewBag.AddRideErrorMessage = "Could not add the desired ride request. Please try again.";
+				return RedirectToAction(nameof(Index), "User");
+			}
+
+			return RedirectToAction(nameof(Index), "User");
+		}
+
+		[HttpPost]
+		public ActionResult RemoveRoute(int requestNum)
+		{
+			// select user
+			string userId = User.Identity.GetUserId();
+			AspNetUser user = _dbContext.AspNetUsers.FirstOrDefault(u => u.Id == userId);
+
+			// find the request in the db
+			Route selection = _dbContext.Routes.Where(rr => rr.DriverId == userId).FirstOrDefault(rr => rr.RouteNum == requestNum);
+
+			if (selection != null)
+			{
+				// remove selection's schedule
+				Schedule schedule = selection.Schedule;
+
+				// remove the selection if exists
+				_dbContext.Routes.Remove(selection);
+				_dbContext.SaveChanges();
+
+				_dbContext.Schedules.Remove(schedule);
+				_dbContext.SaveChanges();
+			}
+
+			// return to the rider home page
+			return RedirectToAction(nameof(Index));
+		}
+
+		[NonAction]
+		private ICollection<RouteViewModel> buildRouteViewModelList(IEnumerable<Route> routes)
+		{
+			// get the current user
+			string userId = User.Identity.GetUserId();
+			AspNetUser user = _dbContext.AspNetUsers
+				.FirstOrDefault(u => u.Id == userId);
+
+			if (user == null)
+			{
+				throw new Exception("Current user not found in database.");
+			}
+
+			// generate a lookup to use to select geolocation names
+			var geolocationLookup = _dbContext.Geolocations.ToDictionary(g => g.LocationId, g => g.Description);
+			IList<RouteViewModel> viewModels = new List<RouteViewModel>();
+
+			// for each ride request supplied,
+			foreach (Route rr in routes)
+			{
+				// create a view model
+				RouteViewModel model = new RouteViewModel
+				{
+					//RiderId = currentUser.Id,
+					RequestNum = rr.RouteNum,
+					ArrivalTime = rr.ArriveTime,
+					DepartingTime = rr.DepartTime,
+					CheckedSunday = rr.Schedule.CheckedSunday ? "on" : null,
+					CheckedMonday = rr.Schedule.CheckedMonday ? "on" : null,
+					CheckedTuesday = rr.Schedule.CheckedTuesday ? "on" : null,
+					CheckedWednesday = rr.Schedule.CheckedWednesday ? "on" : null,
+					CheckedThursday = rr.Schedule.CheckedTuesday ? "on" : null,
+					CheckedFriday = rr.Schedule.CheckedFriday ? "on" : null,
+					CheckedSaturday = rr.Schedule.CheckedSaturday ? "on" : null,
+					MaxSeatCount = rr.MaxSeatCount
+				};
+
+				// get drop off name from the lookup
+				if (rr.DestinationId != null)
+					model.DestinationName = geolocationLookup[rr.DestinationId.Value];
+				else
+					model.DestinationName = "";
+
+				// add it to the list
+				viewModels.Add(model);
+			}
+
+			return viewModels;
+		}
+
+		[NonAction]
+		private RouteViewModel buildRouteViewModel(Route route)
+		{
+			return buildRouteViewModelList(new Route[1] { route }).ElementAt(0);
+		}
+		#endregion
+
+		#region NONACTIONS
+		[NonAction]
+		private UserSchedulesViewModel generateIndexViewModel()
+		{
+			string userId = User.Identity.GetUserId();
+			AspNetUser user = _dbContext.AspNetUsers
+				.FirstOrDefault(u => u.Id == userId);
+
+			return new UserSchedulesViewModel()
+			{
+				RideRequests = buildRideRequestViewModelList(user.RideRequests),
+				Routes = buildRouteViewModelList(user.RoutesDriving),
+				Username = user.UserName,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Gender = user.Gender,
+				IsDriver = (user.IsDriver ?? false)
+			};
+		}
 
 		[NonAction]
 		private Dictionary<int, string> buildGeolocationDictionary()
 		{
-			IEnumerable<Geolocation> geolocations = _dbContext.Geolocations
-				.Where(g => !g.Description.Contains("@"))
-				.ToArray();
+			IEnumerable<Geolocation> geolocations = _dbContext.Routes
+				.Include("Geolocation")
+				.Select(r => r.Geolocation);
+
 			Dictionary<int, string> geolocationPairs = new Dictionary<int, string>();
 
 			foreach (var g in geolocations)
@@ -470,6 +828,33 @@ namespace NMCDriveShare_v1.Controllers
 
 			return geolocationPairs;
 		}
+
+		//[NonAction]
+		//private void removeUnusedGeolocations()
+		//{
+		//	IEnumerable<int> routeGeolocationIds = _dbContext.Routes
+		//		.Where(r => r.DestinationId != null)
+		//		.Select(r => r.DestinationId.Value);
+
+		//	IEnumerable<int> dropoffGeolocationIds = _dbContext.RideRequests
+		//		.Where(rr => rr.DropoffLocationId != null)
+		//		.Select(rr => rr.DropoffLocationId.Value);
+
+		//	IEnumerable<int> pickupGeolocationIds = _dbContext.RideRequests
+		//		.Where(rr => rr.PickupLocationId != null)
+		//		.Select(rr => rr.PickupLocationId.Value);
+
+		//	List<int> usedGeolocationIds = new List<int>();
+
+		//	foreach (int id in routeGeolocationIds) usedGeolocationIds.Add(id);
+		//	foreach (int id in dropoffGeolocationIds) usedGeolocationIds.Add(id);
+		//	foreach (int id in pickupGeolocationIds) usedGeolocationIds.Add(id);
+
+		//	// delete the geolocations not in this list
+		//	// ignore ones with the @ symbol
+
+		//	_dbContext.Geolocations.
+		//}
 
 		[NonAction]
 		private Geolocation createDestinationGeolocation(string name, decimal? longitude = null, decimal? latitude = null)
@@ -487,5 +872,6 @@ namespace NMCDriveShare_v1.Controllers
 				Longitude = longitude
 			};
 		}
+		#endregion
 	}
 }

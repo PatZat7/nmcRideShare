@@ -221,14 +221,168 @@
         }
     </div>
 
+	<div id="routeList" class="userRouteList row">
 
+		<div class="route row">
+			@if (!string.IsNullOrEmpty(ViewBag.AddRideErrorMessage))
+			{
+				<p class="text-danger">@ViewBag.AddRideErrorMessage</p>
+			}
+			@using (Html.BeginForm("AddRoute", "User", FormMethod.Post))
+			{
+				<div>
+					@* Source commented out due to lack of a source field in database *@
+					@* TODO: Update database to include this missing field *@
+					@*<p>Departing From: <input type="text" name="SourceName" list="geolocation-names" /></p>*@
+					<p>At: <input type="time" name="DepartingTime" /></p>
+				</div>
+				<div>
+					<p>Destination: <input type="text" name="DestinationName" list="geolocation-names" /></p>
+					<p>Until: <input type="time" name="ArrivalTime" /></p>
+				</div>
+				<div>
+					<p>
+						Days:
+						Su <input class="checkbox" type="checkbox" name="CheckedSunday" />
+						M <input class="checkbox" type="checkbox" name="CheckedMonday" />
+						Tu <input class="checkbox" type="checkbox" name="CheckedTuesday" />
+						W <input class="checkbox" type="checkbox" name="CheckedWednesday" />
+						Th <input class="checkbox" type="checkbox" name="CheckedThursday" />
+						F <input class="checkbox" type="checkbox" name="CheckedFriday" />
+						Sa<input class="checkbox" type="checkbox" name="CheckedSaturday" />
+					</p>
+					@*<p>Scheduled: <input class="checkbox" type="checkbox" /></p>*@
+				</div>
+				<div>
+					<p>Seats: <input type="number" name="MaxSeatCount" value="3" min="0" max="50" /></p>
+				</div>
+				<div><input type="submit" value="Submit" /></div>
+			}
+		</div>
 
+		@foreach (RouteViewModel rv in Model.Routes)
+		{
+			<div class="route row routeWidget">
+				<div class="normal-view">
+					<div>
+						@*<p>Departing From: @rv.SourceName</p>*@
+						<p>At: @rv.DepartingTime</p>
+					</div>
+					<div>
+						<p>Destination: @rv.DestinationName</p>
+						<p>Until: @rv.ArrivalTime</p>
+					</div>
+					<div>
+						<p>
+							Days:
 
+							@{count += 1;
+								string countText = "dayBox" + count.ToString();}
+							<input class="allDayButtons @countText-Btn " type="button" value="Su" />
+							<input class="hidden checkbox @countText-Check" type="checkbox" @(rv.CheckedSunday == "on" ? " checked" : "") disabled />
+							<script>renderGreenBox('@countText')</script>
 
+							@{count += 1;
+								countText = "dayBox" + count.ToString();}
+							<input class="allDayButtons @countText-Btn " type="button" value="M" />
+							<input class="hidden checkbox @countText-Check" type="checkbox" @(rv.CheckedMonday == "on" ? " checked" : "") disabled />
+							<script>renderGreenBox('@countText')</script>
 
+							@{count += 1;
+								countText = "dayBox" + count.ToString();}
+							<input class="allDayButtons @countText-Btn " type="button" value="Tu" />
+							<input class="hidden checkbox @countText-Check" type="checkbox" @(rv.CheckedTuesday == "on" ? " checked" : "") disabled />
+							<script>renderGreenBox('@countText')</script>
 
+							@{count += 1;
+								countText = "dayBox" + count.ToString();}
+							<input class="allDayButtons @countText-Btn " type="button" value="W" />
+							<input class="hidden checkbox @countText-Check" type="checkbox" @(rv.CheckedWednesday == "on" ? " checked" : "") disabled />
+							<script>renderGreenBox('@countText')</script>
 
-    <div id="routeList" class="userRouteList row">
+							@{count += 1;
+								countText = "dayBox" + count.ToString();}
+							<input class="allDayButtons @countText-Btn " type="button" value="Th" />
+							<input class="hidden checkbox @countText-Check" type="checkbox" @(rv.CheckedThursday == "on" ? " checked" : "") disabled />
+							<script>renderGreenBox('@countText')</script>
+
+							@{count += 1;
+								countText = "dayBox" + count.ToString();}
+							<input class="allDayButtons @countText-Btn " type="button" value="F" />
+							<input class="hidden checkbox @countText-Check" type="checkbox" @(rv.CheckedFriday == "on" ? " checked" : "") disabled />
+							<script>renderGreenBox('@countText')</script>
+
+							@{count += 1;
+								countText = "dayBox" + count.ToString();}
+							<input class="allDayButtons @countText-Btn " type="button" value="Sa" onload="greenBox('@countText')" />
+							<input class="hidden checkbox @countText-Check" type="checkbox" @(rv.CheckedSaturday == "on" ? " checked" : "") disabled />
+							<script>renderGreenBox('@countText')</script>
+						</p>
+						<p>Scheduled: <input class="checkbox" type="checkbox" /></p>
+					</div>
+					<div>
+						<p>Seats: @rv.MaxSeatCount</p>
+					</div>
+					<div>
+						@using (Html.BeginForm("RemoveRoute", "User", FormMethod.Post))
+						{
+							<input type="hidden" name="requestNum" value="@rv.RequestNum" />
+							<input type="submit" value="Delete" class="btn-danger" />
+							<input type="button" value="Edit" class="btn-default"
+								   onclick="toggleRouteEditState(event)" />
+						}
+					</div>
+				</div>
+				<div class="edit-view">
+					@using (Html.BeginForm("EditRoute", "User", FormMethod.Post))
+					{
+						<input type="hidden" name="id" value="@rv.RequestNum" />
+						<input type="hidden" name="RequestNum" value="@rv.RequestNum" />
+						<div>
+							@*TODO: Turn ride requests into ride request view models with departing from and destination fields.*@
+							@*<p>Departing From: <input type="text" name="SourceName" value="@rv.SourceName" list="geolocation-names" /></p>*@
+							<p>At: <input type="time" name="DepartingTime" value="@rv.DepartingTime.ToString()" /></p>
+						</div>
+						<div>
+							<p>Destination: <input type="text" name="DestinationName" value="@rv.DestinationName" list="geolocation-names" /></p>
+							<p>Until: <input type="time" name="ArrivalTime" value="@rv.ArrivalTime.ToString()" /></p>
+						</div>
+						<div>
+							<p>
+								Days:
+								Su
+								<input class="checkbox" type="checkbox" name="CheckedSunday" @(rv.CheckedSunday == "on" ? " checked" : "") />
+								M
+								<input class="checkbox" type="checkbox" name="CheckedMonday" @(rv.CheckedMonday == "on" ? " checked" : "") />
+								Tu
+								<input class="checkbox" type="checkbox" name="CheckedTuesday" @(rv.CheckedTuesday == "on" ? " checked" : "") />
+								W
+								<input class="checkbox" type="checkbox" name="CheckedWednesday" @(rv.CheckedWednesday == "on" ? " checked" : "") />
+								Th
+								<input class="checkbox" type="checkbox" name="CheckedThursday" @(rv.CheckedThursday == "on" ? " checked" : "") />
+								F
+								<input class="checkbox" type="checkbox" name="CheckedFriday" @(rv.CheckedFriday == "on" ? " checked" : "") />
+								Sa
+								<input class="checkbox" type="checkbox" name="CheckedSaturday" @(rv.CheckedSaturday == "on" ? " checked" : "") />
+							</p>
+							@*<p>Scheduled: <input class="checkbox" type="checkbox" /></p>*@
+						</div>
+						<div>
+							<p>Seats: <input type="number" name="MaxSeatCount" value="@rv.MaxSeatCount" min="0" max="50" /></p>
+						</div>
+						<div>
+							<input type="submit" value="Save" />
+							<input type="button" value="Cancel"
+								   onclick="toggleRouteEditState(event)" />
+						</div>
+					}
+				</div>
+			</div>
+								}
+
+	</div>
+
+    @*<div id="routeList" class="userRouteList row">
         @for (int i = 0; i < 3; i++)
         {
             <div class="ride row">
@@ -265,7 +419,7 @@
 
 
 
-    </div>
+    </div>*@
     @*<div class="contactList row">
             @for (int i = 0; i < 10; i++)
             {
@@ -330,6 +484,61 @@
         }
     }
 
+	function toggleRouteEditState(event) {
+		// get coordinates
+		var x = event.clientX; var y = event.clientY;
+
+		// find the element that was clicked on
+		var rideBoxes = document.getElementsByClassName("routeWidget");
+		var target = null;
+
+		// get screen coordinates (Source: https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/)
+		var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+		var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+		for (var i = 0; i < rideBoxes.length; i++) {
+			var box = rideBoxes[i];
+			var rect = box.getBoundingClientRect();
+
+			// check if the click was inside the box
+			if (((x >= rect.left + scrollLeft) && (x <= rect.right + scrollLeft))
+				&& ((y >= rect.top + scrollTop) && (y <= rect.bottom + scrollTop))) {
+				target = rideBoxes[i];
+				break;
+			}
+		}
+
+		if (target == null) {
+			console.error("Faulty click event. No ride object found.");
+			return;
+		}
+
+		// if ride is in edit mode, exit out of edit mode
+		if (target.classList.contains("active")) {
+			// remove active class and show normal view
+			target.classList.remove("active");
+			target.getElementsByClassName("normal-view")[0].style.display = "block";
+			target.getElementsByClassName("edit-view")[0].style.display = "none";
+		}
+		else {
+			// add active class and show edit view
+			target.classList.add("active");
+			target.getElementsByClassName("normal-view")[0].style.display = "none";
+			target.getElementsByClassName("edit-view")[0].style.display = "block";
+		}
+	}
+
+	// put each route object in "normal mode"
+	var rideWidgets = document.getElementsByClassName("routeWidget");
+	for (var j = 0; j < rideWidgets.length; j++) {
+		var box = rideWidgets[j];
+		if (box.classList.contains("active")) box.classList.remove("active");
+
+		box.getElementsByClassName("normal-view")[0].style.display = "block";
+		box.getElementsByClassName("edit-view")[0].style.display = "none";
+	}
+
+
     // put each ride object in "normal mode"
     var rideWidgets = document.getElementsByClassName("rideWidget");
     for (var j = 0; j < rideWidgets.length; j++) {
@@ -357,6 +566,8 @@
 
 		@*location.href = "@Url.Action("Index", "Driver")";*@
 	}
+
+	hideFunction();
 </script>
 
 
