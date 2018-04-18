@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: white;
     height: 100%;
 }
 
@@ -21,27 +22,34 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 190px;
 }
 
-#logText {
-    margin-top: 35px;
-}
+/*------------------------------ 
+BOOTSTRAP OVERRIDES GO HERE
+------------------------------*/
 
-#heroLogin {
-    width: 100%;
-}
-
-#login1 {
-    width: 60%;
-    margin: 0 auto;
-    padding-top: 3%;
+.btn-default, .btn-danger {
+    border-radius: 15px;
 }
 
 .navbar-fixed-top {
     background-color: #00784D;
+}
+
+.navbar-inverse .navbar-brand {
     color: white;
 }
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+/*------------------------------ 
+BOOTSTRAP OVERRIDES END HERE
+------------------------------*/
+
+
 
 
 .line {
@@ -129,138 +137,61 @@ textarea {
         opacity: 1.0;
     }
 
-
-
-.userRideList {
-    margin: 5px 5px;
-    /*border: 2px solid black;*/
-    height: 200px;
-    overflow: scroll;
+.rideRouteList {
+    margin: 5px -10px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    min-height: 200px;
     background: #C4C4C4;
     border: 0.75px solid #000000;
     box-sizing: border-box;
     box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
 }
 
-.userRouteList {
-    margin: 5px 5px;
-    /*border: 2px solid black;*/
-    height: 200px;
-    overflow: scroll;
+#routeList {
+    /*hidden by default, until toggled*/
     display: none;
-    background: #C4C4C4;
-    border: 0.75px solid #000000;
-    box-sizing: border-box;
-    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
 }
 
-.ride {
+
+
+.ride, .route {
     background: #878787;
     margin: 5px;
-    min-height: 110px;
 }
 
-    .ride p {
-        display: inline-block;
-        margin-left: 10%;
-    }
-
-        .ride p input {
-            display: inline-block;
-            height: 25px;
-            padding: 6px 12px;
-            font-size: 14px;
-            line-height: 1.428571429;
-            color: #555555;
-            vertical-align: middle;
-            border-radius: 4px;
-            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-        }
-
-        .ride p .checkbox {
-            width: 10px;
-        }
-
-.contactList {
-    margin: 5px 5px;
-    /*border: 2px solid black;*/
-    height: 200px;
-    background: #C4C4C4;
-    border: 0.75px solid #000000;
-    box-sizing: border-box;
-    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
-    overflow: scroll;
-}
-
-    .contactList .contactControls {
-        display: inline-block;
-        border: 1px solid black;
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-
-    .contactList p {
-        border: 1px solid black;
-        display: inline-block;
-        min-width: 330px;
-        margin-top: 5px;
-        margin-bottom: 0px;
-    }
-
-        .contactList p .btn-default {
-            margin-left: 5%;
-            border-radius: 5px;
-        }
-
-    .contactList .contactIcon {
-        border: 1px solid black;
-        width: 32px;
-        height: 32px;
-        display: inline-block;
+    .ride p, .route p {
         margin-left: 5%;
     }
 
 
-.chat {
-    margin: 5px 5px;
-    /*border: 2px solid black;*/
-    height: 110px;
-    background-color: white;
-}
 
-#name {
-    font-weight: bold;
-    margin: 0;
-    font-size: 1.25em;
-    margin-bottom: 5px;
-}
 
-/*#title-name {
-
-}*/
-
-#rating {
-    margin: 5px;
-    /*border: 2px solid black;*/
-    background-color: #969D99;
-    width: 200px;
-}
-
-#comment {
-    /*border: 2px solid black;*/
-    background-color: #969D99;
-    margin: 5px;
-}
 
 .user-info {
-    margin: 5px 5px;
-    /*border: 2px solid black;*/
+    margin: auto;
+    margin-top: 15px;
+    max-width: 375px;
     background: #319866;
     color: white;
-    border-radius: 10px;
-    box-sizing: border-box;
     padding: 1% 2%;
+    border-radius: 10px;
+    font-size: 130%;
 }
+
+.infoCell {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px;
+}
+
+@media (max-width: 768px) {
+    .infoCell {
+        justify-content: space-evenly;
+    }
+}
+
+
 
 .right-side {
     margin: auto;
@@ -273,42 +204,57 @@ textarea {
         margin: 0 auto;
     }
 
-.left-side {
-    border: 1px dotted green;
-    margin: 5px;
-    height: 100px;
-}
-
 footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     background-color: #00784D;
-    box-shadow: 0px -10px 40px rgba(0, 0, 0, 0.5), inset 0px -25px 50px rgba(0, 0, 0, 0.7);
     color: white;
     text-align: center;
 }
 
-/*//////////////////////////////////////////////////////*/
-/* Google Maps Rules */
+
+
+
+
+/*------------------------------ 
+GOOGLE MAP RULES HERE
+------------------------------*/
+.mapColumn {
+    padding: 0px;
+}
+
 #map {
-    height: 800px;
-    width: 1000px;
+    margin-top: 20px;
+    height: 700px;
+    width: 100%;
     margin-left: 0;
+    border: 10px green groove;
 }
 
 @media screen and (min-width: 1200px) {
     #map {
-        height: 800px;
-        width: 1400px;
+        height: 700px;
     }
 
     .container {
         max-width: 1920px;
     }
 }
+/*------------------------------ 
+GOOGLE MAP RULES END HERE
+------------------------------*/
 
+
+
+
+
+
+
+/*------------------------------ 
+CUSTOM TOGGLES GO HERE
+------------------------------*/
 #viewType {
     display: none;
 }
@@ -326,13 +272,61 @@ footer {
     background-position: right center;
 }
 
-
 .allDayButtons {
     background-color: transparent;
     border: none;
-    width: auto;
+    width: 30px;
+    border-radius: 10px;
+    box-shadow: inset -1px -1px 5px white;
 }
 
 .greenBox {
     background-color: green;
+    border-radius: 10px;
+    box-shadow: inset -1px -1px 5px white;
 }
+/*------------------------------ 
+CUSTOM TOGGLES END HERE
+------------------------------*/
+
+
+
+
+
+
+
+
+#heroLogin {
+    width: 100%;
+}
+
+#login1 {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 3%;
+}
+
+
+
+
+
+/*#name {
+    font-weight: bold;
+
+    margin: 0;
+}
+
+
+#rating {
+    margin: 5px;
+    border: 2px solid black;
+    background-color: dimgrey;
+    width: 200px;
+}
+
+#comment {
+    border: 2px solid black;
+    background-color: dimgrey;
+    color: black;
+    margin: 5px;
+}*/

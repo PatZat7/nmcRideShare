@@ -7,56 +7,52 @@
 }
 <body>
     @Scripts.Render("~/bundles/jquery")
-    <script>
-        function greenBox(buttonClass) {
-            var x = buttonClass;
-            var y = document.getElementsByClassName(x + "-Check")[0];
-            var z = document.getElementsByClassName(x + "-Btn")[0];
+    <script src="~/Scripts/UserPageScripts.js"></script>
 
-            if (y.getAttribute("checked") == "") {
-                y.removeAttribute("checked");
-                $(z).removeClass("greenBox");
-            }
-            else {
-                y.setAttribute("checked", "");
-                $(z).addClass("greenBox");
-            }
-
-        }
-
-        function renderGreenBox(buttonClass) {
-            var x = buttonClass;
-            var y = document.getElementsByClassName(x + "-Check")[0];
-            var z = document.getElementsByClassName(x + "-Btn")[0];
-            if (y.getAttribute("checked") == "") {
-                $(z).addClass("greenBox");
-            }
-        }
-    </script>
-
-    @*<div class="col-md-12">*@
+    @*Currently nothing from the database to populate these*@
+    @*<p>@Model.Username</p>*@
+    @*<p>@Model.LastName, @Model.FirstName</p>*@
+    @*<p>Gender: @Model.Gender</p>*@
     <div class="user-info row">
-        <div class="left-side col-md-4">
-        </div>
-        <div class="right-side col-md-8">
-            <p>@Model.Username</p>
-            <p>@Model.LastName, @Model.FirstName</p>
-            <p>Gender: @Model.Gender</p>
-            <p>
-                Rider
-                <input id="viewType" type="checkbox" onclick="hideFunction()" @(Model.IsDriver ? " checked" : "") />
-                <label for="viewType" class="checker"></label>
-                Driver
-            </p>
+        <div class="right-side col-sm-12">
+            <div class="row">
+                <div class="col-sm-6 infoCell">
+                    Smith, John
+                </div>
+                <div class="col-sm-6 infoCell">
+                    Gender: Male
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 infoCell">
+                    jsmith@gmail.com
+                </div>
+                <div class="col-sm-6 infoCell">
+                    Rider
+                    <input id="viewType" type="checkbox" onclick="hideFunction()" @(Model.IsDriver ? " checked" : "") />
+                    <label for="viewType" class="checker"></label>
+                    Driver
+                </div>
+            </div>
+
         </div>
     </div>
+
+
+
     <datalist id="geolocation-names">
         @foreach (var item in (IDictionary<int, string>)ViewBag.GeolocationPairs)
         {
             <option value="@item.Value">@item.Value</option>
         }
     </datalist>
-    <div id="rideList" class="userRideList row">
+
+
+
+    @*---------------------------------------------*@
+    @*RIDE LIST HTML*@
+    @*---------------------------------------------*@
+    <div id="rideList" class="rideRouteList row">
         <div class="ride row">
             @if (!string.IsNullOrEmpty(ViewBag.AddRideErrorMessage))
             {
@@ -65,12 +61,12 @@
             @using (Html.BeginForm("AddRide", "User", FormMethod.Post))
             {
                 <div>
-                    <p>Departing From: <input type="text" name="SourceName" list="geolocation-names" /></p>
-                    <p>At: <input type="time" name="DepartingTime" /></p>
+                    <p>Departing From: <input type="text" class="form-control" name="SourceName" list="geolocation-names" /></p>
+                    <p>At: <input type="time" class="form-control" name="DepartingTime" /></p>
                 </div>
                 <div>
-                    <p>Destination: <input type="text" name="DestinationName" list="geolocation-names" /></p>
-                    <p>Until: <input type="time" name="ArrivalTime" /></p>
+                    <p>Destination: <input type="text" class="form-control" name="DestinationName" list="geolocation-names" /></p>
+                    <p>Until: <input type="time" class="form-control" name="ArrivalTime" /></p>
                 </div>
                 <div>
                     <p>
@@ -92,7 +88,7 @@
                     </p>
                     @*<p>Scheduled: <input class="checkbox" type="checkbox" /></p>*@
                 </div>
-                <div><input type="submit" value="Submit" /></div>
+                <div><input type="submit" value="Submit" class="btn-default" /></div>
             }
         </div>
         @{ int count = 1;}
@@ -168,12 +164,12 @@
                         <input type="hidden" name="RequestNum" value="@rr.RequestNum" />
                         <div>
                             @*TODO: Turn ride requests into ride request view models with departing from and destination fields.*@
-                            <p>Departing From: <input type="text" name="SourceName" value="@rr.SourceName" list="geolocation-names" /></p>
-                            <p>At: <input type="time" name="DepartingTime" value="@rr.DepartingTime.ToString()" /></p>
+                            <p>Departing From: <input type="text" class="form-control" name="SourceName" value="@rr.SourceName" list="geolocation-names" /></p>
+                            <p>At: <input type="time" class="form-control" name="DepartingTime" value="@rr.DepartingTime.ToString()" /></p>
                         </div>
                         <div>
-                            <p>Destination: <input type="text" name="DestinationName" value="@rr.DestinationName" list="geolocation-names" /></p>
-                            <p>Until: <input type="time" name="ArrivalTime" value="@rr.ArrivalTime.ToString()" /></p>
+                            <p>Destination: <input type="text" class="form-control" name="DestinationName" value="@rr.DestinationName" list="geolocation-names" /></p>
+                            <p>Until: <input type="time" class="form-control" name="ArrivalTime" value="@rr.ArrivalTime.ToString()" /></p>
                         </div>
                         <div>
                             <p>
@@ -210,8 +206,8 @@
                             @*<p>Scheduled: <input class="checkbox" type="checkbox" /></p>*@
                         </div>
                         <div>
-                            <input type="submit" value="Save" />
-                            <input type="button" value="Cancel"
+                            <input type="submit" value="Save" class="btn-default" />
+                            <input type="button" value="Cancel " class="btn-default"
                                    onclick="toggleRideEditState(event)" />
                         </div>
                     }
@@ -220,28 +216,10 @@
         }
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div id="routeList" class="userRouteList row">
+    @*---------------------------------------------*@
+    @*ROUTE LIST HTML*@
+    @*---------------------------------------------*@
+    <div id="routeList" class="rideRouteList row">
         <div class="route row">
             @if (!string.IsNullOrEmpty(ViewBag.AddRideErrorMessage))
             {
@@ -253,11 +231,11 @@
                     @* Source commented out due to lack of a source field in database *@
                     @* TODO: Update database to include this missing field *@
                     @*<p>Departing From: <input type="text" name="SourceName" list="geolocation-names" /></p>*@
-                    <p>At: <input type="time" name="DepartingTime" /></p>
+                    <p>At: <input type="time" class="form-control" name="DepartingTime" /></p>
                 </div>
                 <div>
-                    <p>Destination: <input type="text" name="DestinationName" list="geolocation-names" /></p>
-                    <p>Until: <input type="time" name="ArrivalTime" /></p>
+                    <p>Destination: <input type="text" class="form-control" name="DestinationName" list="geolocation-names" /></p>
+                    <p>Until: <input type="time" class="form-control" name="ArrivalTime" /></p>
                 </div>
                 <div>
                     <p>
@@ -282,7 +260,7 @@
                 <div>
                     <p>Seats: <input type="number" name="MaxSeatCount" value="3" min="0" max="50" /></p>
                 </div>
-                <div><input type="submit" value="Submit" /></div>
+                <div><input type="submit" value="Submit" class="btn-default" /></div>
             }
         </div>
         @{ int countB = 1;}
@@ -362,11 +340,11 @@
                         <div>
                             @*TODO: Turn ride requests into ride request view models with departing from and destination fields.*@
                             @*<p>Departing From: <input type="text" name="SourceName" value="@rv.SourceName" list="geolocation-names" /></p>*@
-                            <p>At: <input type="time" name="DepartingTime" value="@rv.DepartingTime.ToString()" /></p>
+                            <p>At: <input type="time" class="form-control" name="DepartingTime" value="@rv.DepartingTime.ToString()" /></p>
                         </div>
                         <div>
-                            <p>Destination: <input type="text" name="DestinationName" value="@rv.DestinationName" list="geolocation-names" /></p>
-                            <p>Until: <input type="time" name="ArrivalTime" value="@rv.ArrivalTime.ToString()" /></p>
+                            <p>Destination: <input type="text" class="form-control" name="DestinationName" value="@rv.DestinationName" list="geolocation-names" /></p>
+                            <p>Until: <input type="time" class="form-control" name="ArrivalTime" value="@rv.ArrivalTime.ToString()" /></p>
                         </div>
                         <div>
                             <p>
@@ -406,8 +384,8 @@
                             <p>Seats: <input type="number" name="MaxSeatCount" value="@rv.MaxSeatCount" min="0" max="50" /></p>
                         </div>
                         <div>
-                            <input type="submit" value="Save" />
-                            <input type="button" value="Cancel"
+                            <input type="submit" value="Save" class="btn-default" />
+                            <input type="button" value="Cancel" class="btn-default"
                                    onclick="toggleRouteEditState(event)" />
                         </div>
                     }
@@ -415,237 +393,9 @@
             </div>
         }
     </div>
-    @*<div id="routeList" class="userRouteList row">
-            @for (int i = 0; i < 3; i++)
-            {
-                <div class="ride row">
-                    <div>
-                        <p>Departing From: Location here</p>
-                        <p>At: Time Here</p>
-                    </div>
-                    <div>
-                        <p>Destination: Location here</p>
-                        <p>Until: Time Here</p>
-                    </div>
-                    <div>
-                        <p>Days: Su M Tu W Th F Sa</p>
-                        <p>Seats: <input type="text" /></p>
-                    </div>
-                </div>
-            }
-
-            <div class="ride row">
-                <div>
-                    <p>Departing From: <input type="text" /></p>
-                    <p>At: <input type="text" /></p>
-                </div>
-                <div>
-                    <p>Destination: <input type="text" /></p>
-                    <p>Until: <input type="text" /></p>
-                </div>
-                <div>
-                    <p>Days: Su M Tu W Th F Sa</p>
-                    <p>Seats: <input type="text" /></p>
-                </div>
-                <div><input type="button" value="Submit" /></div>
-            </div>
-
-
-
-        </div>*@
-    @*<div class="contactList row">
-            @for (int i = 0; i < 10; i++)
-            {
-                <div>
-                    <div class="contactIcon">
-                        <img width="32" height="32" alt="Icon" />
-                    </div>
-                    <div class="contactControls">
-                        <p> Username <input class="btn-default" type="button" value="Chat" /> <input class="btn-default" type="button" value="To Map" /> <input class="btn-default" type="button" value="Remove" /></p>
-                    </div>
-                </div>
-            }
-
-        </div>
-        <div class="chat row">
-        </div>*@
-    @*</div>*@
 </body>
 
 
 
 
-
-
-
-
-
-
-
-<script>
-    function toggleRideEditState(event) {
-        // get coordinates
-        var x = event.clientX; var y = event.clientY;
-
-        // find the element that was clicked on
-        var rideBoxes = document.getElementsByClassName("rideWidget");
-        var target = null;
-
-        // get screen coordinates (Source: https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/)
-        var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        for (var i = 0; i < rideBoxes.length; i++) {
-            var box = rideBoxes[i];
-            var rect = box.getBoundingClientRect();
-
-            // check if the click was inside the box
-            if (((x >= rect.left + scrollLeft) && (x <= rect.right + scrollLeft))
-                && ((y >= rect.top + scrollTop) && (y <= rect.bottom + scrollTop))) {
-                target = rideBoxes[i];
-                break;
-            }
-        }
-
-        if (target == null) {
-            console.error("Faulty click event. No ride object found.");
-            return;
-        }
-
-        // if ride is in edit mode, exit out of edit mode
-        if (target.classList.contains("active")) {
-            // remove active class and show normal view
-            target.classList.remove("active");
-            target.getElementsByClassName("normal-view")[0].style.display = "block";
-            target.getElementsByClassName("edit-view")[0].style.display = "none";
-        }
-        else {
-            // add active class and show edit view
-            target.classList.add("active");
-            target.getElementsByClassName("normal-view")[0].style.display = "none";
-            target.getElementsByClassName("edit-view")[0].style.display = "block";
-        }
-    }
-
-    function toggleRouteEditState(event) {
-        // get coordinates
-        var x = event.clientX; var y = event.clientY;
-
-        // find the element that was clicked on
-        var rideBoxes = document.getElementsByClassName("routeWidget");
-        var target = null;
-
-        // get screen coordinates (Source: https://plainjs.com/javascript/styles/get-the-position-of-an-element-relative-to-the-document-24/)
-        var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        for (var i = 0; i < rideBoxes.length; i++) {
-            var box = rideBoxes[i];
-            var rect = box.getBoundingClientRect();
-
-            // check if the click was inside the box
-            if (((x >= rect.left + scrollLeft) && (x <= rect.right + scrollLeft))
-                && ((y >= rect.top + scrollTop) && (y <= rect.bottom + scrollTop))) {
-                target = rideBoxes[i];
-                break;
-            }
-        }
-
-        if (target == null) {
-            console.error("Faulty click event. No ride object found.");
-            return;
-        }
-
-        // if ride is in edit mode, exit out of edit mode
-        if (target.classList.contains("active")) {
-            // remove active class and show normal view
-            target.classList.remove("active");
-            target.getElementsByClassName("normal-view")[0].style.display = "block";
-            target.getElementsByClassName("edit-view")[0].style.display = "none";
-        }
-        else {
-            // add active class and show edit view
-            target.classList.add("active");
-            target.getElementsByClassName("normal-view")[0].style.display = "none";
-            target.getElementsByClassName("edit-view")[0].style.display = "block";
-        }
-    }
-
-    // put each route object in "normal mode"
-    var rideWidgets = document.getElementsByClassName("routeWidget");
-    for (var j = 0; j < rideWidgets.length; j++) {
-        var box = rideWidgets[j];
-        if (box.classList.contains("active")) box.classList.remove("active");
-
-        box.getElementsByClassName("normal-view")[0].style.display = "block";
-        box.getElementsByClassName("edit-view")[0].style.display = "none";
-    }
-
-
-    // put each ride object in "normal mode"
-    var rideWidgets = document.getElementsByClassName("rideWidget");
-    for (var j = 0; j < rideWidgets.length; j++) {
-        var box = rideWidgets[j];
-        if (box.classList.contains("active")) box.classList.remove("active");
-
-        box.getElementsByClassName("normal-view")[0].style.display = "block";
-        box.getElementsByClassName("edit-view")[0].style.display = "none";
-    }
-</script>
-<script>
-	@*Toggles between the ride and route list.*@
-	function hideFunction() {
-		@* Change user rider/driver status *@
-
-		var x = document.getElementById('rideList');
-		var y = document.getElementById('routeList');
-
-		if (document.getElementById('viewType').checked) {
-			x.style.display = "none";
-			y.style.display = "block";
-
-			$.ajax({
-				type: "POST",
-				url: "ChangeUserDriverStatus",
-				data: "{ 'isDriving': 'true' }",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				success: function (result) {
-					console.log(result);
-				}
-			});
-		}
-		else {
-			x.style.display = "block";
-			y.style.display = "none";
-
-			$.ajax({
-				type: "POST",
-				url: "ChangeUserDriverStatus",
-				data: "{ 'isDriving': 'false' }",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				success: function (result) {
-					console.log(result);
-				}
-			});
-		}
-
-		@*location.href = "@Url.Action("Index", "Driver")";*@
-	}
-
-	(function () {
-		var x = document.getElementById('rideList');
-		var y = document.getElementById('routeList');
-
-		if (document.getElementById('viewType').checked) {
-			x.style.display = "none";
-			y.style.display = "block";
-		}
-		else {
-			x.style.display = "block";
-			y.style.display = "none";
-		}
-	})();
-</script>
-
+<script src="~/Scripts/UserPageScripts.js"></script>
