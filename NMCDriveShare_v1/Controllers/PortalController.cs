@@ -126,9 +126,11 @@ namespace NMCDriveShare_v1.Controllers
 			ViewBag.markers = markers;
 
 			// get currently active ride requests
-			DateTime currentTime = DateTime.Now;
-			IEnumerable<RideRequest> requests = _dbContext.RideRequests.Where(rr => rr.RiderId != userId).ToList();
-			IEnumerable<Route> routes = _dbContext.Routes.Where(rr => rr.DriverId != userId).ToList();
+			//DateTime currentTime = DateTime.Now;
+			IEnumerable<RideRequest> requests = _dbContext.RideRequests.Where(rr => rr.RiderId != userId).Include("Rider").ToList();
+			IEnumerable<Route> routes = _dbContext.Routes.Where(rr => rr.DriverId != userId).Include("Driver").ToList();
+			//IEnumerable<RideRequest> requests;
+			//IEnumerable<Route> routes;
 
 			// get daily active requests
 			//switch (currentTime.DayOfWeek)
@@ -165,7 +167,11 @@ namespace NMCDriveShare_v1.Controllers
 
 			ViewBag.ActiveRideRequests = requests;
 			ViewBag.ActiveRoutes = routes;
-			ViewBag.IsDriver = currentUser.IsDriver;
+
+			if (currentUser != null)
+				ViewBag.IsDriver = currentUser.IsDriver;
+			else
+				ViewBag.IsDriver = false;
 
 			return View();
 		}
@@ -193,6 +199,11 @@ namespace NMCDriveShare_v1.Controllers
 				//	RideRequests = currentUser.RideRequests, RoutesDriving = currentUser.RoutesDriving, RoutesRiding = currentUser.RoutesRiding,
 				//	SecurityStamp = currentUser.SecurityStamp, TwoFactorEnabled = currentUser.TwoFactorEnabled, UserName = currentUser.UserName
 				//};
+
+				if (currentUser != null)
+				{
+					return Json(new { result = $"Failed: User not found." }, JsonRequestBehavior.AllowGet);
+				}
 
 				string statusString = "";
 

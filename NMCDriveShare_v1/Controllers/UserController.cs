@@ -947,9 +947,9 @@ namespace NMCDriveShare_v1.Controllers
 				RideRequests = buildRideRequestViewModelList(user.RideRequests),
 				Routes = buildRouteViewModelList(user.RoutesDriving),
 				Username = user.UserName,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
-				Gender = user.Gender,
+				FirstName = (string.IsNullOrEmpty(user.FirstName) ? "John" : user.FirstName),
+				LastName = (string.IsNullOrEmpty(user.LastName) ? "Smith" : user.LastName),
+				Gender = (string.IsNullOrEmpty(user.Gender) ? "None" : user.Gender.Trim()),
 				IsDriver = (user.IsDriver ?? false)
 			};
 		}
@@ -1014,6 +1014,24 @@ namespace NMCDriveShare_v1.Controllers
 				Latitude = latitude,
 				Longitude = longitude
 			};
+		}
+
+		[NonAction]
+		private string getUserFullName()
+		{
+			string userId = User.Identity.GetUserId();
+			AspNetUser currentUser = _dbContext.AspNetUsers.FirstOrDefault(u => u.Id == userId);
+			
+			string firstName = "";
+			string lastName = "";
+
+			if (currentUser != null) firstName = currentUser.FirstName;
+			else firstName = "Justin";
+
+			if (currentUser != null) lastName = currentUser.LastName;
+			else lastName = "Smith";
+
+			return string.Format("{0}, {1}", lastName, firstName);
 		}
 		#endregion
 	}

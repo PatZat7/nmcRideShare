@@ -17,16 +17,19 @@
         <div class="right-side col-sm-12">
             <div class="row">
                 <div class="col-sm-6 infoCell">
-                    Smith, John
+                    @Model.LastName, @Model.FirstName
                 </div>
                 <div class="col-sm-6 infoCell">
-                    Gender: Male
+                    Gender: @Model.Gender
                 </div>
             </div>
+			<div class="row">
+				<div class="col-sm-12 infoCell">
+					@Model.Username
+				</div>
+			</div>
             <div class="row">
-                <div class="col-sm-6 infoCell">
-                    jsmith@gmail.com
-                </div>
+				<div class="col-sm-6 infoCell"></div>
                 <div class="col-sm-6 infoCell">
                     Rider
                     <input id="viewType" type="checkbox" onclick="hideFunction()" @(Model.IsDriver ? " checked" : "") />

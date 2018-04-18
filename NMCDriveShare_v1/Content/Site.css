@@ -183,6 +183,7 @@ BOOTSTRAP OVERRIDES END HERE
     display: flex;
     justify-content: space-between;
     padding: 0px;
+	overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
