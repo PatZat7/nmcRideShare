@@ -291,6 +291,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\checkboxes1.png" />
+    <Content Include="Images\hero.png" />
+    <Content Include="Images\signin.png" />
     <Content Include="Models\RegisteredUserModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RegisteredUserModel.edmx</DependentUpon>

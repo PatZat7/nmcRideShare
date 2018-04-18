@@ -28,6 +28,10 @@ namespace NMCDriveShare_v1.Controllers
 		// Users display portal
 		public ActionResult Index()
 		{
+			string userId = User.Identity.GetUserId();
+			AspNetUser currentUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == userId);
+
+			/*
 			//// Connects to database through SqlClient
 			//// TODO: Replace SqlClient code with Entity Frameword code
 
@@ -82,6 +86,7 @@ namespace NMCDriveShare_v1.Controllers
 
 			//// send JSON off to the View
 			//ViewBag.markers = markers;
+			*/
 
 			//
 			// store markers in a JSON array
@@ -122,7 +127,8 @@ namespace NMCDriveShare_v1.Controllers
 
 			// get currently active ride requests
 			DateTime currentTime = DateTime.Now;
-			IEnumerable<RideRequest> requests = _dbContext.RideRequests.ToList();
+			IEnumerable<RideRequest> requests = _dbContext.RideRequests.Where(rr => rr.RiderId != userId).ToList();
+			IEnumerable<Route> routes = _dbContext.Routes.Where(rr => rr.DriverId != userId).ToList();
 
 			// get daily active requests
 			//switch (currentTime.DayOfWeek)
@@ -157,7 +163,9 @@ namespace NMCDriveShare_v1.Controllers
 			//requests = requests.Where(rr => rr.DepartingTime.CompareTo(currentTime.TimeOfDay) > 0)
 			//	.OrderBy(rr => rr.DepartingTime);
 
-			ViewBag.activeRideRequests = requests;
+			ViewBag.ActiveRideRequests = requests;
+			ViewBag.ActiveRoutes = routes;
+			ViewBag.IsDriver = currentUser.IsDriver;
 
 			return View();
 		}

@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using NMCDriveShare_v1.Models.ViewModels;
 using NMCDriveShare_v1.Utilities;
 using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
 
 namespace NMCDriveShare_v1.Controllers
 {
@@ -27,6 +28,147 @@ namespace NMCDriveShare_v1.Controllers
 			ViewBag.GeolocationPairs = buildGeolocationDictionary();
 			return View(generateIndexViewModel());
 		}
+
+		#region JSON ACTIONS
+		[HttpPost]
+		public ActionResult ChangeUserDriverStatus(string isDriving)
+		{
+			string message = "";
+			bool status;
+
+			if (isDriving == "true")
+			{
+				status = true;
+			}
+			else
+			{
+				status = false;
+			}
+
+			// get current user
+			string userId = User.Identity.GetUserId();
+			AspNetUser currentUser = _dbContext.AspNetUsers.FirstOrDefault(u => u.Id == userId);
+
+			// send error if current user is not in db
+			if (currentUser == null)
+			{
+				message = "Failed: User not found.";
+			}
+
+			try
+			{
+				// attempt to change his/her status
+				currentUser.IsDriver = status;
+				_dbContext.SaveChanges();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				// send error if concurrency exception occurs
+				message = "Failed: Error occurred while making changes.";
+			}
+
+			// if successful, send back confirmation message
+			message = "User status changed.";
+
+			// send back a Json object with a message
+			return Json(new { result = message });
+		}
+
+		[HttpPost]
+		public ActionResult ChangeRideScheduledStatus(int rideNum, bool isScheduled)
+		{
+			string message;
+
+			// get current user
+			string userId = User.Identity.GetUserId();
+			AspNetUser currentUser = _dbContext.AspNetUsers.FirstOrDefault(u => u.Id == userId);
+
+			if (currentUser == null)
+			{
+				message = "Failed: User not found.";
+			}
+
+			// get targeted ride request
+			RideRequest selectedRideRequest = _dbContext.RideRequests.FirstOrDefault(rr => rr.RiderId == userId && rr.RequestNum == rideNum);
+
+			if (selectedRideRequest == null)
+			{
+				message = "Failed: Ride request not found.";
+			}
+
+			// attempt to update the ride request
+			try
+			{
+				// load in the ride request status objects
+				RideRequestStatu rideStatusNone = _dbContext.RideRequestStatus
+					.AsNoTracking()
+					.FirstOrDefault(rs => rs.RequestStatusName == "None");
+				RideRequestStatu rideStatusPending = _dbContext.RideRequestStatus
+					.AsNoTracking()
+					.FirstOrDefault(rs => rs.RequestStatusName == "Pending");
+
+				if (isScheduled)
+				{
+					// set ride request status to "Pending", or "scheduled"
+					selectedRideRequest.RideRequestStatu = rideStatusPending;
+					selectedRideRequest.RequestStatusId = rideStatusPending.RequestStatusId;
+				}
+				else
+				{
+					// set ride request status to "None", or "canceled"
+					selectedRideRequest.RideRequestStatu = rideStatusNone;
+					selectedRideRequest.RequestStatusId = rideStatusNone.RequestStatusId;
+				}
+
+				// try to save changes
+				_dbContext.SaveChanges();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				message = "Failed: Error occurred while making changes.";
+			}
+
+			// if successful, send back confirmation message
+			message = "Ride request status changed.";
+
+			// return JSON object with message
+			return Json(new { result = message });
+		}
+
+		[HttpPost]
+		public ActionResult ChangeUserVisibility(bool active)
+		{
+			string message = "";
+
+			// get current user
+			string userId = User.Identity.GetUserId();
+			AspNetUser currentUser = _dbContext.AspNetUsers.FirstOrDefault(u => u.Id == userId);
+
+			// send error if current user is not in db
+			if (currentUser == null)
+			{
+				message = "Failed: User not found.";
+			}
+
+			try
+			{
+				// attempt to change his/her status
+				currentUser.IsActive = active;
+				_dbContext.SaveChanges();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				// send error if concurrency exception occurs
+				message = "Failed: Error occurred while making changes.";
+			}
+
+			// if successful, send back confirmation message
+			message = "User visibility status changed.";
+
+			// send back a Json object with a message
+			return Json(new { result = message });
+		}
+		#endregion
 
 		#region RIDE REQUESTS
 		[HttpPost]
@@ -823,8 +965,9 @@ namespace NMCDriveShare_v1.Controllers
 
 			foreach (var g in geolocations)
 			{
-				geolocationPairs.Add(g.LocationId, g.Description);
-			}
+				if (!geolocationPairs.ContainsKey(g.LocationId))
+                geolocationPairs.Add(g.LocationId, g.Description);
+            }
 
 			return geolocationPairs;
 		}

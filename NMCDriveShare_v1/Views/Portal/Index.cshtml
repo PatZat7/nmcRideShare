@@ -7,35 +7,70 @@
 
 <div class="row">
 	<div class="col-md-3">
-		<h2>User Database</h2>
-		<hr class="line" />
-		<div>
-			@foreach (RideRequest rr in (IEnumerable<RideRequest>)ViewBag.activeRideRequests)
-			{
-				<div class="user-info">
-					<p id="name">@rr.Rider.UserName</p>
-					<p id="title-name">@string.Format("To {0}", rr.DropoffLocation != null ? rr.DropoffLocation.Description : "<No location specified>")</p>
-					<div>
-						<p>At: @rr.DepartingTime</p>
+		@if ((bool)ViewBag.IsDriver)
+		{
+			<h2>Rides</h2>
+			<hr class="line" />
+			<div>
+				@foreach (RideRequest rr in (IEnumerable<RideRequest>)ViewBag.ActiveRideRequests)
+				{
+					<div class="user-info">
+						<p id="name">@rr.Rider.UserName</p>
+						<p id="title-name">@string.Format("To {0}", rr.DropoffLocation != null ? rr.DropoffLocation.Description : "<No location specified>")</p>
+						<div>
+							<p>At: @rr.DepartingTime</p>
+						</div>
+						<div>
+							<p>Until: @rr.ArrivalTime</p>
+						</div>
 					</div>
-					<div>
-						<p>Until: @rr.ArrivalTime</p>
-					</div>
-				</div>
 
-				@*<div class="user-info">
-					<div class="left-side">
-						<p id="name">First Last</p>
-						<p id="title-name">Rider/Driver</p>
-						<div id="rating"><p>rating</p></div>
-						<div id="comment"><p>Comment</p></div>
+					@*<div class="user-info">
+						<div class="left-side">
+							<p id="name">First Last</p>
+							<p id="title-name">Rider/Driver</p>
+							<div id="rating"><p>rating</p></div>
+							<div id="comment"><p>Comment</p></div>
+						</div>
+						<div class="right-side">
+							TODO: User photographs to be stored in database and displayed here
+						</div>
+					</div>*@
+				}
+			</div>
+		}
+		else
+		{
+			<h2>Routes</h2>
+			<hr class="line" />
+			<div>
+				@foreach (NMCDriveShare_v1.Models.Route rr in (IEnumerable<NMCDriveShare_v1.Models.Route>)ViewBag.ActiveRoutes)
+				{
+					<div class="user-info">
+						<p id="name">@rr.Driver.UserName</p>
+						<p id="title-name">@string.Format("To {0}", rr.Geolocation != null ? rr.Geolocation.Description : "<No location specified>")</p>
+						<div>
+							<p>At: @rr.DepartTime</p>
+						</div>
+						<div>
+							<p>Until: @rr.ArriveTime</p>
+						</div>
 					</div>
-					<div class="right-side">
-						TODO: User photographs to be stored in database and displayed here
-					</div>
-				</div>*@
-			}
-		</div>
+
+					@*<div class="user-info">
+							<div class="left-side">
+								<p id="name">First Last</p>
+								<p id="title-name">Rider/Driver</p>
+								<div id="rating"><p>rating</p></div>
+								<div id="comment"><p>Comment</p></div>
+							</div>
+							<div class="right-side">
+								TODO: User photographs to be stored in database and displayed here
+							</div>
+						</div>*@
+				}
+			</div>
+		}
 	</div>
 
 	<div class="col-md-9">
