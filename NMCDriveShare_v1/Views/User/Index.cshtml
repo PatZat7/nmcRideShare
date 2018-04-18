@@ -552,6 +552,46 @@
 <script>
 	@*Toggles between the ride and route list.*@
 	function hideFunction() {
+		@* Change user rider/driver status *@
+
+		var x = document.getElementById('rideList');
+		var y = document.getElementById('routeList');
+
+		if (document.getElementById('viewType').checked) {
+			x.style.display = "none";
+			y.style.display = "block";
+
+			$.ajax({
+				type: "POST",
+				url: "ChangeUserDriverStatus",
+				data: "{ 'isDriving': 'true' }",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (result) {
+					console.log(result);
+				}
+			});
+		}
+		else {
+			x.style.display = "block";
+			y.style.display = "none";
+
+			$.ajax({
+				type: "POST",
+				url: "ChangeUserDriverStatus",
+				data: "{ 'isDriving': 'false' }",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (result) {
+					console.log(result);
+				}
+			});
+		}
+
+		@*location.href = "@Url.Action("Index", "Driver")";*@
+	}
+
+	(function () {
 		var x = document.getElementById('rideList');
 		var y = document.getElementById('routeList');
 
@@ -563,11 +603,7 @@
 			x.style.display = "block";
 			y.style.display = "none";
 		}
-
-		@*location.href = "@Url.Action("Index", "Driver")";*@
-	}
-
-	hideFunction();
+	})();
 </script>
 
 
