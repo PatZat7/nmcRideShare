@@ -165,12 +165,34 @@
 								console.log(result);
 							}
 						});
+					},
+					function (error) {
+						switch (error.code)
+						{
+							case error.PERMISSION_DENIED:
+							case error.POSITION_UNAVAILABLE:
+							case error.TIMEOUT:
+							case error.UNKNOWN_ERROR:
+								$.ajax({
+									type: "POST",
+									url: "UpdateUserLocation",
+									data: "{ 'latitude': null, 'longitude': null }",
+									contentType: "application/json; charset=utf-8",
+									dataType: "json",
+									success: function (result) {
+										alert("Location removed.");
+										console.log('Data received: ');
+										console.log(result);
+									}
+								});
+								break;
+						}
 					});
 				} else {
 					$.ajax({
 						type: "POST",
 						url: "UpdateUserLocation",
-						data: { latitude: null, longitude: null },
+						data: "{ 'latitude': null, 'longitude': null }",
 						contentType: "application/json; charset=utf-8",
 						dataType: "json",
 						success: function (result) {
@@ -180,7 +202,7 @@
 						}
 					});
 
-					alert('Geo Location feature is not supported in this browser.');
+					alert('Geolocation feature is not supported in this browser.');
 				}
 
 
@@ -189,8 +211,8 @@
 				var data = @Html.Raw(ViewBag.markers);
 
 				for (var i = 0; i < data.length; i++) {
-					var item = data[i];
-					var marker = new google.maps.Marker({
+					let item = data[i];
+					let marker = new google.maps.Marker({
 						'position': new google.maps.LatLng(item.lat, item.lng),
 						'map': map,
 						'title': item.title
@@ -202,13 +224,27 @@
 					marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 
 					// put in some information about each json object - in this case, the opening hours.
-					var infowindow = new google.maps.InfoWindow({
+					let infowindow = new google.maps.InfoWindow({
 						content: "<div class='infoDiv'><h2>" + item.title + "</h2></div>"
 					});
 
 					// finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
-					google.maps.event.addListener(marker, 'click', function () {
-						infowindow.open(map, marker);
+					//google.maps.event.addListener(marker, 'click', function () {
+					//	infowindow.open(map, marker);
+					//});
+
+					marker.addListener('click', function () {
+						let myMarker = marker;
+
+						map.setCenter(myMarker.getPosition());
+						infowindow.open(map, myMarker);
+					});
+
+					marker.addListener('touchstart', function () {
+						let myMarker = marker;
+
+						map.setCenter(myMarker.getPosition());
+						infowindow.open(map, myMarker);
 					});
 				}
 			}

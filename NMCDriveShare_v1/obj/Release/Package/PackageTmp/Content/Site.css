@@ -1,0 +1,333 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background: white;
+    height: 100%;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 190px;
+}
+
+/*------------------------------ 
+BOOTSTRAP OVERRIDES GO HERE
+------------------------------*/
+
+.btn-default, .btn-danger {
+    border-radius: 15px;
+}
+
+.navbar-fixed-top {
+    background-color: #00784D;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+/*------------------------------ 
+BOOTSTRAP OVERRIDES END HERE
+------------------------------*/
+
+
+
+
+.line {
+    border-color: black;
+    border-width: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.buttons {
+    font-weight: bold;
+    color: white;
+    border-width: 7px;
+    font-family: Georgia;
+    background-color: gray;
+    padding: 15px 95px 15px 95px;
+    border-radius: 24px;
+    border-color: white;
+    border-style: solid;
+}
+
+    .buttons:hover {
+        background-color: forestgreen;
+        text-decoration: underline;
+    }
+
+    .buttons:active {
+        background-color: darkgreen;
+    }
+
+.headers {
+    font-family: Georgia;
+}
+
+.landingHeader {
+    font-family: Georgia;
+    text-decoration: underline;
+    font-size: 30px;
+    margin-left: 40%;
+}
+
+.labelClass {
+    margin-bottom: 0px;
+    font-size: 28px;
+    font-family: Georgia;
+    color: white;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.noteClass {
+    font-size: 14px;
+    font-family: Georgia;
+    color: darkgreen;
+    font-weight: bold;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+
+.radioClass {
+    transform: scale(2.5);
+}
+
+.textBoxClass {
+    width: 250px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: forestgreen;
+    color: white;
+    font-weight: bold;
+    opacity: 0.55;
+    border-color: white;
+    border: solid;
+}
+
+    .textBoxClass:focus {
+        width: 250px;
+        height: 40px;
+        border-radius: 20px;
+        background-color: forestgreen;
+        color: white;
+        font-weight: bold;
+        opacity: 1.0;
+    }
+
+.rideRouteList {
+    margin: 5px -10px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    min-height: 200px;
+    background: #C4C4C4;
+    border: 0.75px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.75);
+}
+
+#routeList {
+    /*hidden by default, until toggled*/
+    display: none;
+}
+
+
+
+.ride, .route {
+    background: #878787;
+    margin: 5px;
+}
+
+    .ride p, .route p {
+        margin-left: 5%;
+    }
+
+
+
+
+
+.user-info {
+    margin: auto;
+    margin-top: 15px;
+    max-width: 375px;
+    background: #319866;
+    color: white;
+    padding: 1% 2%;
+    border-radius: 10px;
+    font-size: 130%;
+}
+
+.infoCell {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px;
+	overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    .infoCell {
+        justify-content: space-evenly;
+    }
+}
+
+
+
+.right-side {
+    margin: auto;
+    width: initial;
+    margin-top: 10px;
+    overflow: visible;
+}
+
+    .right-side p {
+        margin: 0 auto;
+    }
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #00784D;
+    color: white;
+    text-align: center;
+}
+
+
+
+
+
+/*------------------------------ 
+GOOGLE MAP RULES HERE
+------------------------------*/
+.mapColumn {
+    padding: 0px;
+}
+
+#map {
+    margin-top: 20px;
+    height: 700px;
+    width: 100%;
+    margin-left: 0;
+    border: 10px green groove;
+}
+
+@media screen and (min-width: 1200px) {
+    #map {
+        height: 700px;
+    }
+
+    .container {
+        max-width: 1920px;
+    }
+}
+/*------------------------------ 
+GOOGLE MAP RULES END HERE
+------------------------------*/
+
+
+
+
+
+
+
+/*------------------------------ 
+CUSTOM TOGGLES GO HERE
+------------------------------*/
+#viewType {
+    display: none;
+}
+
+.checker {
+    background-image: url(../Images/checkboxes1.png);
+    background-position: left center;
+    background-size: auto 100%;
+    width: 64.5px;
+    height: 20px;
+    background-repeat: no-repeat;
+}
+
+#viewType:checked + .checker {
+    background-position: right center;
+}
+
+.allDayButtons {
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    border-radius: 10px;
+    box-shadow: inset -1px -1px 5px white;
+}
+
+.greenBox {
+    background-color: green;
+    border-radius: 10px;
+    box-shadow: inset -1px -1px 5px white;
+}
+/*------------------------------ 
+CUSTOM TOGGLES END HERE
+------------------------------*/
+
+
+
+
+
+
+
+
+#heroLogin {
+    width: 100%;
+}
+
+#login1 {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 3%;
+}
+
+
+
+
+
+/*#name {
+    font-weight: bold;
+
+    margin: 0;
+}
+
+
+#rating {
+    margin: 5px;
+    border: 2px solid black;
+    background-color: dimgrey;
+    width: 200px;
+}
+
+#comment {
+    border: 2px solid black;
+    background-color: dimgrey;
+    color: black;
+    margin: 5px;
+}*/

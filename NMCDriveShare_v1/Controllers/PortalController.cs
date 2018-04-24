@@ -200,7 +200,7 @@ namespace NMCDriveShare_v1.Controllers
 				//	SecurityStamp = currentUser.SecurityStamp, TwoFactorEnabled = currentUser.TwoFactorEnabled, UserName = currentUser.UserName
 				//};
 
-				if (currentUser != null)
+				if (currentUser == null)
 				{
 					return Json(new { result = $"Failed: User not found." }, JsonRequestBehavior.AllowGet);
 				}
@@ -250,8 +250,7 @@ namespace NMCDriveShare_v1.Controllers
 
 						userLocation = _dbContext.Geolocations.FirstOrDefault(g => g.LocationId == currentUser.LocationId);
 
-						statusString = $"Added location for user \"{currentUser.UserName}\"." +
-							$"Location is ({userLocation.Latitude}, {userLocation.Longitude}).";
+						statusString = $"Added location successfully!";
 					}
 					else
 					{
@@ -296,10 +295,10 @@ namespace NMCDriveShare_v1.Controllers
 
 						Geolocation userLocation = _dbContext.Geolocations.FirstOrDefault(g => g.LocationId == currentUser.LocationId);
 
-						statusString = $"Updated location for user \"{currentUser.UserName}\". Location is ({userLocation.Latitude}, {userLocation.Longitude}).";
+						statusString = $"Updated location succesfully!";
 
 					}
-					// else, if geolocation fails, remove it
+					// else, if geolocation fails and user has existing location, remove it
 					else
 					{
 						// find the existing Geolocation object
@@ -321,7 +320,7 @@ namespace NMCDriveShare_v1.Controllers
 						_dbContext.Geolocations.Remove(currentLocation);
 						_dbContext.SaveChanges();
 
-						statusString = $"Removed location for user \"{currentUser.UserName}\".";
+						statusString = $"Removed location successfully.";
 					}
 				}
 
