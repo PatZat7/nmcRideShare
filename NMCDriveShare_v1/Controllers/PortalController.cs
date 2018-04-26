@@ -31,6 +31,12 @@ namespace NMCDriveShare_v1.Controllers
 			string userId = User.Identity.GetUserId();
 			AspNetUser currentUser = _dbContext.AspNetUsers.FirstOrDefault(au => au.Id == userId);
 
+			if (currentUser == null)
+			{
+				ViewBag.ErrorMessage = "Could not find current user in the database.";
+				return View("Error");
+			}
+
 			/*
 			//// Connects to database through SqlClient
 			//// TODO: Replace SqlClient code with Entity Frameword code
@@ -127,8 +133,8 @@ namespace NMCDriveShare_v1.Controllers
 
 			// get currently active ride requests
 			//DateTime currentTime = DateTime.Now;
-			IEnumerable<RideRequest> requests = _dbContext.RideRequests.Where(rr => rr.RiderId != userId).Include("Rider").ToList();
-			IEnumerable<Route> routes = _dbContext.Routes.Where(rr => rr.DriverId != userId).Include("Driver").ToList();
+			IEnumerable<RideRequest> requests = _dbContext.RideRequests.Where(rr => rr.RiderId != userId).Include("Rider").Include("Schedule").ToList();
+			IEnumerable<Route> routes = _dbContext.Routes.Where(rr => rr.DriverId != userId).Include("Driver").Include("Schedule").ToList();
 			//IEnumerable<RideRequest> requests;
 			//IEnumerable<Route> routes;
 

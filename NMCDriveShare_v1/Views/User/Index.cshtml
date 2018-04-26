@@ -1,6 +1,8 @@
 ﻿
 @using NMCDriveShare_v1.Models;
 @using NMCDriveShare_v1.Models.ViewModels;
+@using NMCDriveShare_v1.Utilities;
+
 @model NMCDriveShare_v1.Models.ViewModels.UserSchedulesViewModel
 @{
     ViewBag.Title = "Index";
@@ -44,7 +46,7 @@
 
 
     <datalist id="geolocation-names">
-        @foreach (var item in (IDictionary<int, string>)ViewBag.GeolocationPairs)
+        @foreach (var item in (IDictionary<int, string>)(ViewBag.GeolocationPairs ?? new Dictionary<int, string>()))
         {
             <option value="@item.Value">@item.Value</option>
         }
@@ -96,17 +98,17 @@
         </div>
         @{ int count = 1;}
         @{ int countD = 1;}
-        @foreach (RideRequestViewModel rr in Model.RideRequests)
+        @foreach (RideRequestViewModel rr in (IEnumerable<RideRequestViewModel>)(Model.RideRequests ?? new RideRequestViewModel[0]))
         {
             <div class="ride row rideWidget">
                 <div class="normal-view">
                     <div>
                         <p>Departing From: @rr.SourceName</p>
-                        <p>At: @rr.DepartingTime</p>
+                        <p>At: @ScheduleFormatter.FormatDateTime(rr.DepartingTime)</p>
                     </div>
                     <div>
                         <p>Destination: @rr.DestinationName</p>
-                        <p>Until: @rr.ArrivalTime</p>
+                        <p>Until: @ScheduleFormatter.FormatDateTime(rr.ArrivalTime)</p>
                     </div>
                     <div>
                         <p>
@@ -268,17 +270,17 @@
         </div>
         @{ int countB = 1;}
         @{ int countC = 1;}
-        @foreach (RouteViewModel rv in Model.Routes)
+        @foreach (RouteViewModel rv in (IEnumerable<RouteViewModel>)(Model.Routes ?? new RouteViewModel[0]))
         {
             <div class="route row routeWidget">
                 <div class="normal-view">
                     <div>
                         @*<p>Departing From: @rv.SourceName</p>*@
-                        <p>At: @rv.DepartingTime</p>
+                        <p>At: @ScheduleFormatter.FormatDateTime(rv.DepartingTime)</p>
                     </div>
                     <div>
                         <p>Destination: @rv.DestinationName</p>
-                        <p>Until: @rv.ArrivalTime</p>
+                        <p>Until: @ScheduleFormatter.FormatDateTime(rv.ArrivalTime)</p>
                     </div>
                     <div>
                         <p>

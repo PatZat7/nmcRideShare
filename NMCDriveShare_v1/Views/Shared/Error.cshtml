@@ -7,3 +7,9 @@
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
+<p class="alert alert-danger">@Model.Exception.Message</p>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+<p class="alert alert-danger">@ViewBag.ErrorMessage</p>	
+}

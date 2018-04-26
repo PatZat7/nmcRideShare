@@ -51,6 +51,7 @@ namespace NMCDriveShare_v1.Models
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
+		[RegularExpression("^([a-zA-Z0-9\\-\\.]+)(@)((nmc\\.edu)|(mail\\.nmc\\.edu)|(ferris\\.edu)|(gvsu\\.edu)|(davenport\\.edu)|(cmu\\.edu)|(wmich\\.edu))$")]
         public string Email { get; set; }
 
         [Required]

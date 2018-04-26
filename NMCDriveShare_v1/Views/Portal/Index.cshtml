@@ -1,4 +1,4 @@
-﻿
+﻿@using NMCDriveShare_v1.Utilities
 @using NMCDriveShare_v1.Models
 
 @{
@@ -12,17 +12,21 @@
 			<h2>Rides</h2>
 			<hr class="line" />
 			<div>
-				@foreach (RideRequest rr in (IEnumerable<RideRequest>)ViewBag.ActiveRideRequests)
+				@foreach (RideRequest rr in (IEnumerable<RideRequest>)(ViewBag.ActiveRideRequests ?? new RideRequest[0]))
 				{
 					<div class="user-info">
 						<p id="name">@rr.Rider.UserName</p>
 						<p id="title-name">@string.Format("To {0}", rr.DropoffLocation != null ? rr.DropoffLocation.Description : "<No location specified>")</p>
+						<p>
+							@string.Format("From {0}", rr.PickupLocation != null ? rr.PickupLocation.Description : "<No location specified>")
+						</p>
 						<div>
-							<p>At: @rr.DepartingTime</p>
+							<p>At: @(ScheduleFormatter.FormatDateTime(rr.DepartingTime))</p>
 						</div>
 						<div>
-							<p>Until: @rr.ArrivalTime</p>
+							<p>Until: @(ScheduleFormatter.FormatDateTime(rr.ArrivalTime))</p>
 						</div>
+						<p>Days: @(ScheduleFormatter.DisplayDaysOfWeekString(rr.Schedule))</p>
 					</div>
 
 					@*<div class="user-info">
@@ -44,17 +48,18 @@
 			<h2>Routes</h2>
 			<hr class="line" />
 			<div>
-				@foreach (NMCDriveShare_v1.Models.Route rr in (IEnumerable<NMCDriveShare_v1.Models.Route>)ViewBag.ActiveRoutes)
+				@foreach (NMCDriveShare_v1.Models.Route rr in ((IEnumerable<NMCDriveShare_v1.Models.Route>)(ViewBag.ActiveRoutes ?? new NMCDriveShare_v1.Models.Route[0])))
 				{
 					<div class="user-info">
 						<p id="name">@rr.Driver.UserName</p>
 						<p id="title-name">@string.Format("To {0}", rr.Geolocation != null ? rr.Geolocation.Description : "<No location specified>")</p>
 						<div>
-							<p>At: @rr.DepartTime</p>
+							<p>At: @ScheduleFormatter.FormatDateTime(rr.DepartTime)</p>
 						</div>
 						<div>
-							<p>Until: @rr.ArriveTime</p>
+							<p>Until: @ScheduleFormatter.FormatDateTime(rr.ArriveTime)</p>
 						</div>
+						<p>Days: @(ScheduleFormatter.DisplayDaysOfWeekString(rr.Schedule))</p>
 					</div>
 
 					@*<div class="user-info">
@@ -160,7 +165,7 @@
 							contentType: "application/json; charset=utf-8",
 							dataType: "json",
 							success: function (result) {
-								alert("Location added successfully.");
+								alert("Location updated successfully.");
 								console.log('Data received: ');
 								console.log(result);
 							}
