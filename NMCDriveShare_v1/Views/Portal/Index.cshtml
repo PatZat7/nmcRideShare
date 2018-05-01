@@ -7,7 +7,7 @@
 
 <div class="row">
 	<div class="col-md-3">
-		@if ((bool)ViewBag.IsDriver)
+		@if ((bool?)ViewBag.IsDriver ?? false)
 		{
 			<h2>Rides</h2>
 			<hr class="line" />
